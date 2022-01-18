@@ -10,12 +10,15 @@ import java.util.Map;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
@@ -24,12 +27,18 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class Drivetrain extends SubsystemBase {
   /** Creates a new Drivetrain. */
+
+  // Create Talons
+  private final WPI_TalonSRX leftTalon;
+  private final WPI_TalonSRX rightTalon;
+
+  // Create Spark Maxes
   public final com.revrobotics.CANSparkMax leftMotor;
   //public final com.revrobotics.CANSparkMax leftMotor2;
-
   public final com.revrobotics.CANSparkMax rightMotor;
   //public final com.revrobotics.CANSparkMax rightMotor2;
 
+  //Encoders
   private final RelativeEncoder m_leftEncoder;
   private final RelativeEncoder m_rightEncoder;
 
@@ -37,6 +46,7 @@ public class Drivetrain extends SubsystemBase {
 
   private final DifferentialDrive m_drive;
 
+  // Shuffleboards
   private final ShuffleboardTab m_drivetrainTab;
   private final ShuffleboardLayout m_drivetrainStatus;
 
@@ -44,6 +54,7 @@ public class Drivetrain extends SubsystemBase {
 
   public Drivetrain() {
 
+    // Spark Maxes
     leftMotor = new com.revrobotics.CANSparkMax(Constants.LEFT_MOTOR_ID, MotorType.kBrushless);
     //leftMotor2 = new com.revrobotics.CANSparkMax(Constants.LEFT_MOTOR2_ID, MotorType.kBrushless);
     rightMotor = new com.revrobotics.CANSparkMax(Constants.RIGHT_MOTOR_ID, MotorType.kBrushless);
@@ -53,7 +64,6 @@ public class Drivetrain extends SubsystemBase {
     //motorInit(leftMotor2, Constants.kLeftReversedDefault);
     motorInit(rightMotor, Constants.kRightReversedDefault);
     //motorInit(rightMotor2, Constants.kRightReversedDefault);
-
 
     leftMotor.setSmartCurrentLimit(Constants.STALL_LIMIT);
     rightMotor.setSmartCurrentLimit(Constants.STALL_LIMIT);
@@ -74,8 +84,16 @@ public class Drivetrain extends SubsystemBase {
    // m_imu = new ADIS16470_IMU();
    // m_imu.reset();
 
-    m_drive = new DifferentialDrive(leftMotor, rightMotor);
+    // Talons
+    leftTalon = new WPI_TalonSRX(Constants.kLeftTalonPort);
+    rightTalon = new WPI_TalonSRX(Constants.kRightTalonPort);
+    
+    leftTalon.configFactoryDefault();
+    rightTalon.configFactoryDefault();
 
+
+
+    m_drive = new DifferentialDrive(leftMotor, rightMotor);
 
     m_drivetrainTab = Shuffleboard.getTab(Constants.kShuffleboardTab);
     m_drivetrainStatus = m_drivetrainTab.getLayout("Status", BuiltInLayouts.kList)
