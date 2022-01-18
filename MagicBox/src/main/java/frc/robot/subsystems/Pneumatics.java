@@ -29,7 +29,6 @@ public class Pneumatics extends CommandBase {
       solPunch = new DoubleSolenoid(Constants.PneumaticType, Constants.SOL_PUNCH_PORT, Constants.SOL_PUNCH_PORT + 1);  // What are the forward and reverse channel ports?
       solHab = new DoubleSolenoid(Constants.PneumaticType, Constants.SOL_HAB_PORT, Constants.SOL_HAB_PORT + 1); // Check if this works or not
       solArm = new DoubleSolenoid(Constants.PneumaticType, Constants.SOL_ARM_PORT, Constants.SOL_ARM_PORT + 1);
-
   }
 
   public void pickupHatch(boolean out) {

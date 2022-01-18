@@ -24,10 +24,8 @@ public final class Constants {
     public static final int kCurrentLimit = 60;
 
     // Spark Maxes
-    public static final int LEFT_MOTOR_ID = 0;
-    public static final int RIGHT_MOTOR_ID = 0;
-    public static final int LEFT_MOTOR2_ID = 0; // Not in use
-    public static final int RIGHT_MOTOR2_ID = 0; // Not in use
+    public static final int LEFT_SPARK_ID = 0;
+    public static final int RIGHT_SPARK_ID = 0;
 
     // Talons
     public static final int kLeftTalonPort = 0;

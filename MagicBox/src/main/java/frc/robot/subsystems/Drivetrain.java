@@ -18,6 +18,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -33,9 +34,9 @@ public class Drivetrain extends SubsystemBase {
   private final WPI_TalonSRX rightTalon;
 
   // Create Spark Maxes
-  public final com.revrobotics.CANSparkMax leftMotor;
+  public final com.revrobotics.CANSparkMax leftSpark;
   //public final com.revrobotics.CANSparkMax leftMotor2;
-  public final com.revrobotics.CANSparkMax rightMotor;
+  public final com.revrobotics.CANSparkMax rightSpark;
   //public final com.revrobotics.CANSparkMax rightMotor2;
 
   //Encoders
@@ -55,31 +56,20 @@ public class Drivetrain extends SubsystemBase {
   public Drivetrain() {
 
     // Spark Maxes
-    leftMotor = new com.revrobotics.CANSparkMax(Constants.LEFT_MOTOR_ID, MotorType.kBrushless);
-    //leftMotor2 = new com.revrobotics.CANSparkMax(Constants.LEFT_MOTOR2_ID, MotorType.kBrushless);
-    rightMotor = new com.revrobotics.CANSparkMax(Constants.RIGHT_MOTOR_ID, MotorType.kBrushless);
-    //rightMotor2 = new com.revrobotics.CANSparkMax(Constants.RIGHT_MOTOR2_ID, MotorType.kBrushless);
+    leftSpark = new com.revrobotics.CANSparkMax(Constants.LEFT_SPARK_ID, MotorType.kBrushless);
+    rightSpark = new com.revrobotics.CANSparkMax(Constants.RIGHT_SPARK_ID, MotorType.kBrushless);
 
-    motorInit(leftMotor, Constants.kLeftReversedDefault);
-    //motorInit(leftMotor2, Constants.kLeftReversedDefault);
-    motorInit(rightMotor, Constants.kRightReversedDefault);
-    //motorInit(rightMotor2, Constants.kRightReversedDefault);
+    motorInit(leftSpark, Constants.kLeftReversedDefault);
+    motorInit(rightSpark, Constants.kRightReversedDefault);
 
-    leftMotor.setSmartCurrentLimit(Constants.STALL_LIMIT);
-    rightMotor.setSmartCurrentLimit(Constants.STALL_LIMIT);
-   // leftMotor2.setSmartCurrentLimit(Constants.STALL_LIMIT);
-    //rightMotor2.setSmartCurrentLimit(Constants.STALL_LIMIT);
+    leftSpark.setSmartCurrentLimit(Constants.STALL_LIMIT);
+    rightSpark.setSmartCurrentLimit(Constants.STALL_LIMIT);
 
-    leftMotor.setIdleMode(IdleMode.kBrake);
-    //leftMotor2.setIdleMode(IdleMode.kBrake);
-    rightMotor.setIdleMode(IdleMode.kBrake);
-    //rightMotor2.setIdleMode(IdleMode.kBrake);
+    leftSpark.setIdleMode(IdleMode.kBrake);
+    rightSpark.setIdleMode(IdleMode.kBrake);
 
-    //leftMotor2.follow(leftMotor);
-    //rightMotor2.follow(rightMotor);
-
-    m_leftEncoder = leftMotor.getEncoder();
-    m_rightEncoder = rightMotor.getEncoder();
+    m_leftEncoder = leftSpark.getEncoder();
+    m_rightEncoder = rightSpark.getEncoder();
 
    // m_imu = new ADIS16470_IMU();
    // m_imu.reset();
@@ -91,9 +81,10 @@ public class Drivetrain extends SubsystemBase {
     leftTalon.configFactoryDefault();
     rightTalon.configFactoryDefault();
 
+    MotorControllerGroup Talons = new MotorControllerGroup(leftTalon, rightTalon);
+    MotorControllerGroup Sparks = new MotorControllerGroup(leftSpark, rightSpark);
 
-
-    m_drive = new DifferentialDrive(leftMotor, rightMotor);
+    m_drive = new DifferentialDrive(Talons, Sparks);
 
     m_drivetrainTab = Shuffleboard.getTab(Constants.kShuffleboardTab);
     m_drivetrainStatus = m_drivetrainTab.getLayout("Status", BuiltInLayouts.kList)
