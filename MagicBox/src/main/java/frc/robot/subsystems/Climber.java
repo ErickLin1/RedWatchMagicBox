@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -17,7 +18,9 @@ public class Climber extends SubsystemBase {
   private DoubleSolenoid solMotor;
   
   public Climber() {
-    airCompressor = new Compressor(0, Constants.PneumaticType);  //Digtial I/O,Relay
+    airCompressor = new Compressor(0, PneumaticsModuleType.CTREPCM);  //Digtial I/O,Relay
+    //airCompressor = new Compressor(0, PneumaticsModuleType.REVPH);
+
     airCompressor.enableDigital();    
     
     solMotor = new DoubleSolenoid(Constants.PneumaticType, Constants.solMotorPort, Constants.solMotorPort + 1);
