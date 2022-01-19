@@ -20,7 +20,7 @@ public class Climber extends SubsystemBase {
     airCompressor = new Compressor(Constants.PneumaticType);  //Digtial I/O,Relay
     airCompressor.enableDigital();    
     
-    solMotor = new DoubleSolenoid(Constants.PneumaticType, Constants.SOL_PICKUP_PORT, Constants.SOL_PICKUP_PORT + 1);
+    solMotor = new DoubleSolenoid(Constants.PneumaticType, Constants.solMotorPort, Constants.solMotorPort + 1);
   }
 
   public void toggleSolenoid() {
