@@ -8,8 +8,11 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.differentialDrive;
+import frc.robot.commands.toggleSolenoid;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Pneumatics;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -25,16 +28,18 @@ public class RobotContainer {
 
   private final Drivetrain m_drivetrain;
   private final XboxController m_driver = new XboxController(Constants.kDriverControllerPort);
+  private final Climber m_climber;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     m_drivetrain = new Drivetrain();
-    
     m_drivetrain.setDefaultCommand(
       new differentialDrive(() -> m_driver.getRightTriggerAxis(), () -> m_driver.getLeftTriggerAxis(), 
       () -> m_driver.getLeftY(), () -> m_driver.getRightY(), m_drivetrain));
-      
-    // Configure the button bindings
+    
+    m_climber = new Climber();
+    m_climber.setDefaultCommand(new toggleSolenoid(m_climber, m_driver.getYButtonPressed()));
+    
     configureButtonBindings();
   }
 

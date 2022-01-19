@@ -22,12 +22,12 @@ public class Pneumatics extends CommandBase {
   private Compressor airCompressor;
 
   public Pneumatics() {
-      airCompressor = new Compressor(PneumaticsModuleType.CTREPCM);  //Digtial I/O,Relay
+      airCompressor = new Compressor(Constants.PneumaticType);  //Digtial I/O,Relay
       airCompressor.enableDigital();                        // Start the air compressor
 
       solPickUp = new DoubleSolenoid(Constants.PneumaticType, Constants.SOL_PICKUP_PORT, Constants.SOL_PICKUP_PORT + 1); // Solenoid ports
       solPunch = new DoubleSolenoid(Constants.PneumaticType, Constants.SOL_PUNCH_PORT, Constants.SOL_PUNCH_PORT + 1);  // What are the forward and reverse channel ports?
-      solHab = new DoubleSolenoid(Constants.PneumaticType, Constants.SOL_HAB_PORT, Constants.SOL_HAB_PORT + 1); // Check if this works or not
+      solHab = new DoubleSolenoid(Constants.PneumaticType, Constants.SOL_HAB_PORT, Constants.SOL_HAB_PORT + 1); // Check if this works or not, updated for 2022
       solArm = new DoubleSolenoid(Constants.PneumaticType, Constants.SOL_ARM_PORT, Constants.SOL_ARM_PORT + 1);
   }
 
