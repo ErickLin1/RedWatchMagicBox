@@ -29,11 +29,11 @@ public final class Constants {
 
     // Spark Maxes
     public static final int LEFT_SPARK_ID = 0;
-    public static final int RIGHT_SPARK_ID = 0;
+    public static final int RIGHT_SPARK_ID = 1;
 
     // Talons
     public static final int kLeftTalonPort = 0;
-    public static final int kRightTalonPort = 0;
+    public static final int kRightTalonPort = 1;
 
     // Pneumatics
     public static final PneumaticsModuleType PneumaticType = PneumaticsModuleType.CTREPCM;
