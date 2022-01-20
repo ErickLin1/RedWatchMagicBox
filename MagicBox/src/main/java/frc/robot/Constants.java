@@ -16,7 +16,11 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
  */
 public final class Constants {
 
-    public static final int kDriverControllerPort = 1;
+    // Controller Ports
+    public static final int kDriverControllerPort = 0;
+    public static final int kDriverControllerPortSparks = 1;
+    public static final int kDriverControllerPortTalons = 2;
+
     public static final boolean kLeftReversedDefault = true;
     public static final boolean kRightReversedDefault = !kLeftReversedDefault;
     public static final int STALL_LIMIT = 45;

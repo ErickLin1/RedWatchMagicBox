@@ -10,32 +10,24 @@ import java.util.Map;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 
-public class Drivetrain extends SubsystemBase {
+public class DrivetrainSparks extends SubsystemBase {
   /** Creates a new Drivetrain. */
-
-  // Create Talons
-  private final WPI_TalonSRX leftTalon;
-  private final WPI_TalonSRX rightTalon;
 
   // Create Spark Maxes
   public final com.revrobotics.CANSparkMax leftSpark;
-  //public final com.revrobotics.CANSparkMax leftMotor2;
   public final com.revrobotics.CANSparkMax rightSpark;
-  //public final com.revrobotics.CANSparkMax rightMotor2;
 
   //Encoders
   private final RelativeEncoder m_leftEncoder;
@@ -51,7 +43,7 @@ public class Drivetrain extends SubsystemBase {
 
   public boolean m_reverseDrive = false;
 
-  public Drivetrain() {
+  public DrivetrainSparks() {
 
     // Spark Maxes
     leftSpark = new com.revrobotics.CANSparkMax(Constants.LEFT_SPARK_ID, MotorType.kBrushless);
@@ -69,20 +61,7 @@ public class Drivetrain extends SubsystemBase {
     m_leftEncoder = leftSpark.getEncoder();
     m_rightEncoder = rightSpark.getEncoder();
 
-   // m_imu = new ADIS16470_IMU();
-   // m_imu.reset();
-
-    // Talons
-    leftTalon = new WPI_TalonSRX(Constants.kLeftTalonPort);
-    rightTalon = new WPI_TalonSRX(Constants.kRightTalonPort);
-    
-    leftTalon.configFactoryDefault();
-    rightTalon.configFactoryDefault();
-
-    MotorControllerGroup Talons = new MotorControllerGroup(leftTalon, rightTalon);
-    MotorControllerGroup Sparks = new MotorControllerGroup(leftSpark, rightSpark);
-
-    m_drive = new DifferentialDrive(Talons, Sparks);
+    m_drive = new DifferentialDrive(leftSpark, rightSpark);
 
     m_drivetrainTab = Shuffleboard.getTab(Constants.kShuffleboardTab);
     m_drivetrainStatus = m_drivetrainTab.getLayout("Status", BuiltInLayouts.kList)
@@ -128,7 +107,7 @@ public class Drivetrain extends SubsystemBase {
     //return m_imu.getAngle();
  // }
 
-  private void shuffleboardInit() { // Only returns values for Spark motors
+  private void shuffleboardInit() {
     m_drivetrainStatus.addNumber("Left Speed", () -> getLeftSpeed());
     m_drivetrainStatus.addNumber("Right Speed", () -> getRightSpeed());
     m_drivetrainStatus.addNumber("Left Position", () -> getLeftDistance());
@@ -146,9 +125,9 @@ public class Drivetrain extends SubsystemBase {
     }
   }
 
-    public void stopDrive() {
-      m_drive.tankDrive(0, 0);
-    }
+  public void stopDrive() {
+    m_drive.tankDrive(0, 0);
+  }
 
   @Override
   public void periodic() {
