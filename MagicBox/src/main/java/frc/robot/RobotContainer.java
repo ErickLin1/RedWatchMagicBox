@@ -37,7 +37,7 @@ public class RobotContainer {
       () -> m_driver.getLeftY(), () -> m_driver.getRightY(), m_drivetrain));
     
     m_climber = new Climber();
-    m_climber.setDefaultCommand(new toggleSolenoid(m_climber, m_driver.getYButtonPressed()));
+    m_climber.setDefaultCommand(new toggleSolenoid(m_climber, m_driver));
     
     configureButtonBindings();
   }
