@@ -34,9 +34,4 @@ public final class Constants {
     // Pneumatics
     public static final PneumaticsModuleType PneumaticType = PneumaticsModuleType.CTREPCM;
     public static final int solMotorPort = 4;
-
-    public static final int SOL_PICKUP_PORT = 0;
-    public static final int SOL_PUNCH_PORT = 0;
-    public static final int SOL_HAB_PORT = 0;
-    public static final int SOL_ARM_PORT = 0;
 }
