@@ -30,8 +30,8 @@ public final class Constants {
     public static final int RIGHT_SPARK_ID = 1;
 
     // Talons
-    public static final int kLeftTalonPort = 0;
-    public static final int kRightTalonPort = 1;
+    public static final int kLeftTalonPort = 3;
+    public static final int kRightTalonPort = 4;
 
     // Pneumatics
     public static final PneumaticsModuleType PneumaticType = PneumaticsModuleType.CTREPCM;
