@@ -39,10 +39,9 @@ public class DrivetrainTalons extends SubsystemBase {
     leftTalon.configFactoryDefault();
     rightTalon.configFactoryDefault();
 
-    leftTalon.getSelectedSensorVelocity();
-
     m_drive = new DifferentialDrive(leftTalon, rightTalon);
 
+    // Initialize Shuffleboard
     m_drivetrainTab = Shuffleboard.getTab(Constants.kShuffleboardTabTalon);
     m_drivetrainStatus = m_drivetrainTab.getLayout("Status", BuiltInLayouts.kList)
       .withProperties(Map.of("Label position", "TOP"));

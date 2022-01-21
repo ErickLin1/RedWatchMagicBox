@@ -58,11 +58,13 @@ public class DrivetrainSparks extends SubsystemBase {
     leftSpark.setIdleMode(IdleMode.kBrake);
     rightSpark.setIdleMode(IdleMode.kBrake);
 
+    // Encoders
     m_leftEncoder = leftSpark.getEncoder();
     m_rightEncoder = rightSpark.getEncoder();
 
     m_drive = new DifferentialDrive(leftSpark, rightSpark);
 
+    // Initialize Shuffleboard
     m_drivetrainTab = Shuffleboard.getTab(Constants.kShuffleboardTabSpark);
     m_drivetrainStatus = m_drivetrainTab.getLayout("Status", BuiltInLayouts.kList)
       .withProperties(Map.of("Label position", "TOP"));

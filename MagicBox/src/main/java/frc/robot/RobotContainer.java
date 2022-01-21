@@ -65,6 +65,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    // Add button for each controller to toggle solenoid
     JoystickButton solenoidToggle2 = new JoystickButton(m_sparkdriver, 4); // Button Y
     JoystickButton solenoidToggle3 = new JoystickButton(m_talondriver, 4); // Button Y
 
