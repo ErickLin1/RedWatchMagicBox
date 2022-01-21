@@ -7,16 +7,15 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.differentialDrive;
 import frc.robot.commands.differentialDriveSparks;
 import frc.robot.commands.differentialDriveTalons;
 import frc.robot.commands.toggleSolenoid;
 import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.DrivetrainSparks;
 import frc.robot.subsystems.DrivetrainTalons;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -29,40 +28,32 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
-  private Drivetrain m_drivetrain;
-  private DrivetrainSparks m_drivetrainSparks;
-  private DrivetrainTalons m_drivetrainTalons;
+  private final DrivetrainSparks m_drivetrainSparks;
+  private final DrivetrainTalons m_drivetrainTalons;
 
-  private final XboxController m_driver = new XboxController(Constants.kDriverControllerPort);
+  private final XboxController m_sparkdriver = new XboxController(Constants.kSparkControllerPort);
+  private final XboxController m_talondriver = new XboxController(Constants.kTalonControllerPort);
 
   private final Climber m_climber;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // Comment out the code to enable/disable certain motors
-    // Only one drivetrain subsystem can be active at a time
-
-    // Set up Drivetrian (SPARKS AND TALONS)
-    m_drivetrain = new Drivetrain();
-    m_drivetrain.setDefaultCommand(
-      new differentialDrive(() -> m_driver.getRightTriggerAxis(), () -> m_driver.getLeftTriggerAxis(), 
-      () -> m_driver.getLeftY(), () -> m_driver.getRightY(), m_drivetrain));
     
-    // Drivetrain for Sparks ONLY
-    // m_drivetrainSparks = new DrivetrainSparks();
-    // m_drivetrainSparks.setDefaultCommand(
-    //   new differentialDriveSparks(() -> m_driver.getRightTriggerAxis(), () -> m_driver.getLeftTriggerAxis(), 
-    //   () -> m_driver.getLeftY(), () -> m_driver.getRightY(), m_drivetrainSparks));
+    // Drivetrain for Sparks
+    m_drivetrainSparks = new DrivetrainSparks();
+    m_drivetrainSparks.setDefaultCommand(
+      new differentialDriveSparks(() -> m_sparkdriver.getRightTriggerAxis(), () -> m_sparkdriver.getLeftTriggerAxis(), 
+      () -> m_sparkdriver.getLeftY(), () -> m_sparkdriver.getRightY(), m_drivetrainSparks));
 
-    // // Drivetrain for Talons ONLY
-    // m_drivetrainTalons = new DrivetrainTalons();
-    // m_drivetrainTalons.setDefaultCommand(
-    //   new differentialDriveTalons(() -> m_driver.getRightTriggerAxis(), () -> m_driver.getLeftTriggerAxis(), 
-    //   () -> m_driver.getLeftY(), () -> m_driver.getRightY(), m_drivetrainTalons));
+    // // Drivetrain for Talons
+    m_drivetrainTalons = new DrivetrainTalons();
+    m_drivetrainTalons.setDefaultCommand(
+      new differentialDriveTalons(() -> m_talondriver.getRightTriggerAxis(), () -> m_talondriver.getLeftTriggerAxis(), 
+      () -> m_talondriver.getLeftY(), () -> m_talondriver.getRightY(), m_drivetrainTalons));
 
     // Set up pneumatics and solenoids
     m_climber = new Climber();
-    m_climber.setDefaultCommand(new toggleSolenoid(m_climber, m_driver));
+    m_climber.setDefaultCommand(new toggleSolenoid(m_climber));
     
     configureButtonBindings();
   }
@@ -73,7 +64,13 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    JoystickButton solenoidToggle2 = new JoystickButton(m_sparkdriver, 4); // Button Y
+    JoystickButton solenoidToggle3 = new JoystickButton(m_talondriver, 4); // Button Y
+
+    solenoidToggle2.whenPressed(new toggleSolenoid(m_climber));
+    solenoidToggle3.whenPressed(new toggleSolenoid(m_climber));
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

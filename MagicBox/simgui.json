@@ -4,16 +4,23 @@
       "/FMSInfo": "FMSInfo",
       "/LiveWindow/Climber": "Subsystem",
       "/LiveWindow/Drivetrain": "Subsystem",
+      "/LiveWindow/DrivetrainSparks": "Subsystem",
+      "/LiveWindow/DrivetrainTalons": "Subsystem",
       "/LiveWindow/ExampleSubsystem": "Subsystem",
       "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
+      "/LiveWindow/Ungrouped/DifferentialDrive[2]": "DifferentialDrive",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler"
-    },
-    "windows": {
-      "/LiveWindow/Ungrouped/DifferentialDrive[1]": {
-        "window": {
-          "visible": true
-        }
-      }
+    }
+  },
+  "NetworkTables": {
+    "Shuffleboard": {
+      "Testing": {
+        "Status": {
+          "open": true
+        },
+        "open": true
+      },
+      "open": true
     }
   }
 }
