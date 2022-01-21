@@ -29,9 +29,9 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
-  private final Drivetrain m_drivetrain;
-  // private final DrivetrainSparks m_drivetrainSparks;
-  // private final DrivetrainTalons m_drivetrainTalons;
+  private Drivetrain m_drivetrain;
+  private DrivetrainSparks m_drivetrainSparks;
+  private DrivetrainTalons m_drivetrainTalons;
 
   private final XboxController m_driver = new XboxController(Constants.kDriverControllerPort);
 
@@ -39,7 +39,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // Comment out the code or remove it to enable/disable certain Drivetrains
+    // Comment out the code to enable/disable certain motors
     // Only one drivetrain subsystem can be active at a time
 
     // Set up Drivetrian (SPARKS AND TALONS)
