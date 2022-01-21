@@ -19,7 +19,6 @@ public final class Constants {
     // Controller Ports
     public static final int kSparkControllerPort = 0;
     public static final int kTalonControllerPort = 1;
-    public static final int kDriverControllerPort = 1;
 
     public static final boolean kLeftReversedDefault = true;
     public static final boolean kRightReversedDefault = !kLeftReversedDefault;
