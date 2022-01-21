@@ -18,8 +18,6 @@ public final class Constants {
 
     // Controller Ports
     public static final int kDriverControllerPort = 0;
-    public static final int kDriverControllerPortSparks = 1;
-    public static final int kDriverControllerPortTalons = 2;
 
     public static final boolean kLeftReversedDefault = true;
     public static final boolean kRightReversedDefault = !kLeftReversedDefault;
@@ -28,7 +26,7 @@ public final class Constants {
     public static final int kCurrentLimit = 60;
 
     // Spark Maxes
-    public static final int LEFT_SPARK_ID = 0;
+    public static final int LEFT_SPARK_ID = 2;
     public static final int RIGHT_SPARK_ID = 1;
 
     // Talons

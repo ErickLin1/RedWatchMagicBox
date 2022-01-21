@@ -57,6 +57,7 @@ public class Drivetrain extends SubsystemBase {
     leftSpark = new com.revrobotics.CANSparkMax(Constants.LEFT_SPARK_ID, MotorType.kBrushless);
     rightSpark = new com.revrobotics.CANSparkMax(Constants.RIGHT_SPARK_ID, MotorType.kBrushless);
 
+
     motorInit(leftSpark, Constants.kLeftReversedDefault);
     motorInit(rightSpark, Constants.kRightReversedDefault);
 
@@ -79,9 +80,11 @@ public class Drivetrain extends SubsystemBase {
     leftTalon.configFactoryDefault();
     rightTalon.configFactoryDefault();
 
+    // Combine Talons and Sparks into Motor groups
     MotorControllerGroup Talons = new MotorControllerGroup(leftTalon, rightTalon);
     MotorControllerGroup Sparks = new MotorControllerGroup(leftSpark, rightSpark);
 
+    // Set up DifferentialDrive
     m_drive = new DifferentialDrive(Talons, Sparks);
 
     m_drivetrainTab = Shuffleboard.getTab(Constants.kShuffleboardTab);
@@ -137,6 +140,7 @@ public class Drivetrain extends SubsystemBase {
     m_drivetrainStatus.addBoolean("Reversed?", () -> m_reverseDrive);
   }
 
+  // Set up tankDrive
   public void tankDrive(double leftPower, double rightPower, boolean squareInputs) {
     if (m_reverseDrive) {
       m_drive.tankDrive(rightPower/2, leftPower/2, squareInputs);

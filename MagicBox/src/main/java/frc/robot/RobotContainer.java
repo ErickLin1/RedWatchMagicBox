@@ -34,28 +34,33 @@ public class RobotContainer {
   // private final DrivetrainTalons m_drivetrainTalons;
 
   private final XboxController m_driver = new XboxController(Constants.kDriverControllerPort);
-  private final XboxController m_driverSparks = new XboxController(Constants.kDriverControllerPortSparks);
-  private final XboxController m_driverTalons = new XboxController(Constants.kDriverControllerPortTalons);
 
   private final Climber m_climber;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    // Comment out the code or remove it to enable/disable certain Drivetrains
+    // Only one drivetrain subsystem can be active at a time
+
+    // Set up Drivetrian (SPARKS AND TALONS)
     m_drivetrain = new Drivetrain();
     m_drivetrain.setDefaultCommand(
       new differentialDrive(() -> m_driver.getRightTriggerAxis(), () -> m_driver.getLeftTriggerAxis(), 
       () -> m_driver.getLeftY(), () -> m_driver.getRightY(), m_drivetrain));
     
+    // Drivetrain for Sparks ONLY
     // m_drivetrainSparks = new DrivetrainSparks();
     // m_drivetrainSparks.setDefaultCommand(
-    //   new differentialDriveSparks(() -> m_driverSparks.getRightTriggerAxis(), () -> m_driverSparks.getLeftTriggerAxis(), 
-    //   () -> m_driverSparks.getLeftY(), () -> m_driverSparks.getRightY(), m_drivetrainSparks));
+    //   new differentialDriveSparks(() -> m_driver.getRightTriggerAxis(), () -> m_driver.getLeftTriggerAxis(), 
+    //   () -> m_driver.getLeftY(), () -> m_driver.getRightY(), m_drivetrainSparks));
 
+    // // Drivetrain for Talons ONLY
     // m_drivetrainTalons = new DrivetrainTalons();
     // m_drivetrainTalons.setDefaultCommand(
-    //   new differentialDriveTalons(() -> m_driverTalons.getRightTriggerAxis(), () -> m_driverTalons.getLeftTriggerAxis(), 
-    //   () -> m_driverTalons.getLeftY(), () -> m_driverTalons.getRightY(), m_drivetrainTalons));
+    //   new differentialDriveTalons(() -> m_driver.getRightTriggerAxis(), () -> m_driver.getLeftTriggerAxis(), 
+    //   () -> m_driver.getLeftY(), () -> m_driver.getRightY(), m_drivetrainTalons));
 
+    // Set up pneumatics and solenoids
     m_climber = new Climber();
     m_climber.setDefaultCommand(new toggleSolenoid(m_climber, m_driver));
     
