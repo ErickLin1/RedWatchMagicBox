@@ -39,6 +39,9 @@ public class DrivetrainTalons extends SubsystemBase {
     leftTalon.configFactoryDefault();
     rightTalon.configFactoryDefault();
 
+    // leftTalon.setInverted(true);
+    // rightTalon.setInverted(true);
+
     m_drive = new DifferentialDrive(leftTalon, rightTalon);
 
     // Initialize Shuffleboard
@@ -49,13 +52,11 @@ public class DrivetrainTalons extends SubsystemBase {
   }
 
   private double getLeftSpeed() {
-    System.out.println(leftTalon.getActiveTrajectoryVelocity());
-    return leftTalon.getActiveTrajectoryVelocity();
+    return leftTalon.getSelectedSensorVelocity();
   }
 
   private double getRightSpeed() {
-    System.out.println(rightTalon.getActiveTrajectoryVelocity());
-    return rightTalon.getActiveTrajectoryVelocity();
+    return rightTalon.getSelectedSensorVelocity();
   }
 
   public void shuffleboardInit() {
