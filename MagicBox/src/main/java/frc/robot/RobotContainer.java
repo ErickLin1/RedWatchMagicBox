@@ -42,14 +42,12 @@ public class RobotContainer {
     // Drivetrain for Sparks
     m_drivetrainSparks = new DrivetrainSparks();
     m_drivetrainSparks.setDefaultCommand(
-      new differentialDriveSparks(() -> m_sparkdriver.getRightTriggerAxis(), () -> m_sparkdriver.getLeftTriggerAxis(), 
-      () -> -m_sparkdriver.getLeftY(), () -> -m_sparkdriver.getRightY(), m_drivetrainSparks));
+      new differentialDriveSparks(() -> -m_sparkdriver.getLeftY(), () -> -m_sparkdriver.getRightY(), m_drivetrainSparks));
 
     // // Drivetrain for Talons
     m_drivetrainTalons = new DrivetrainTalons();
     m_drivetrainTalons.setDefaultCommand(
-      new differentialDriveTalons(() -> m_talondriver.getRightTriggerAxis(), () -> m_talondriver.getLeftTriggerAxis(), 
-      () -> -m_talondriver.getLeftY(), () -> -m_talondriver.getRightY(), m_drivetrainTalons));
+      new differentialDriveTalons(() -> -m_talondriver.getLeftY(), () -> -m_talondriver.getRightY(), m_drivetrainTalons));
 
     // Set up pneumatics and solenoids
     m_climber = new Climber();

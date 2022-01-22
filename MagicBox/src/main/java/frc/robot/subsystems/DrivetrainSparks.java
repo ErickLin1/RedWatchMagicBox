@@ -42,8 +42,8 @@ public class DrivetrainSparks extends SubsystemBase {
 
   public boolean m_reverseDrive = false;
 
-  private double leftSparkSpeed = -999.0;
-  private double rightSparkSpeed = -999.0;
+  private double leftSparkSpeed;
+  private double rightSparkSpeed;
   
   public DrivetrainSparks() {
     // Spark Maxes
@@ -90,13 +90,13 @@ public class DrivetrainSparks extends SubsystemBase {
     encoder.setPosition(0);
   }
 
-  private double getLeftDistance() {
-    return -m_leftEncoder.getPosition();
-  }
+  // private double getLeftDistance() {
+  //   return -m_leftEncoder.getPosition();
+  // }
 
-  private double getRightDistance() {
-    return -m_rightEncoder.getPosition();
-  }
+  // private double getRightDistance() {
+  //   return -m_rightEncoder.getPosition();
+  // }
 
   // private double getLeftSpeed() {
   //   return -m_leftEncoder.getVelocity();
@@ -113,8 +113,8 @@ public class DrivetrainSparks extends SubsystemBase {
   private void shuffleboardInit() {
     m_drivetrainStatus.addNumber("Left Speed", () -> leftSparkSpeed);
     m_drivetrainStatus.addNumber("Right Speed", () -> rightSparkSpeed);
-    m_drivetrainStatus.addNumber("Left Output", () -> leftSpark.get());
-    m_drivetrainStatus.addNumber("Right Output", () -> rightSpark.get());
+    // m_drivetrainStatus.addNumber("Left Output", () -> leftSpark.get());
+    // m_drivetrainStatus.addNumber("Right Output", () -> rightSpark.get());
     //m_drivetrainStatus.addNumber("Left Position", () -> getLeftDistance());
     //m_drivetrainStatus.addNumber("Right Position", () -> getRightDistance());
     // m_drivetrainStatus.addNumber("Angle", () -> getRobotAngle());
@@ -123,10 +123,10 @@ public class DrivetrainSparks extends SubsystemBase {
   
   public void tankDrive(double leftPower, double rightPower, boolean squareInputs) {
     if (m_reverseDrive) {
-      m_drive.tankDrive(rightPower/2, leftPower/2, squareInputs);
+      m_drive.tankDrive(rightPower, leftPower, squareInputs);
     }
     else {
-      m_drive.tankDrive(leftPower/2, rightPower/2, squareInputs); 
+      m_drive.tankDrive(leftPower, rightPower, squareInputs); 
     }
   }
 
