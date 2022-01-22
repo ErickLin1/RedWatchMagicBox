@@ -49,14 +49,16 @@ public class DrivetrainTalons extends SubsystemBase {
   }
 
   private double getLeftSpeed() {
-    return leftTalon.getSelectedSensorVelocity();
+    System.out.println(leftTalon.getActiveTrajectoryVelocity());
+    return leftTalon.getActiveTrajectoryVelocity();
   }
 
   private double getRightSpeed() {
-    return rightTalon.getSelectedSensorVelocity();
+    System.out.println(rightTalon.getActiveTrajectoryVelocity());
+    return rightTalon.getActiveTrajectoryVelocity();
   }
 
-  private void shuffleboardInit() {
+  public void shuffleboardInit() {
     m_drivetrainStatus.addNumber("Left Speed", () -> getLeftSpeed());
     m_drivetrainStatus.addNumber("Right Speed", () -> getRightSpeed());
     // m_drivetrainStatus.addNumber("Left Position", () -> getLeftDistance());

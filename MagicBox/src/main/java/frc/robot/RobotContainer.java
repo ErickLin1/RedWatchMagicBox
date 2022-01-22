@@ -53,7 +53,6 @@ public class RobotContainer {
 
     // Set up pneumatics and solenoids
     m_climber = new Climber();
-    m_climber.setDefaultCommand(new toggleSolenoid(m_climber));
     
     configureButtonBindings();
   }
@@ -69,8 +68,8 @@ public class RobotContainer {
     JoystickButton solenoidToggle2 = new JoystickButton(m_sparkdriver, 4); // Button Y
     JoystickButton solenoidToggle3 = new JoystickButton(m_talondriver, 4); // Button Y
 
-    solenoidToggle2.whenPressed(new toggleSolenoid(m_climber));
-    solenoidToggle3.whenPressed(new toggleSolenoid(m_climber));
+    solenoidToggle2.whenPressed(new toggleSolenoid(m_climber, m_sparkdriver));
+    solenoidToggle3.whenPressed(new toggleSolenoid(m_climber, m_talondriver));
   }
 
   /**

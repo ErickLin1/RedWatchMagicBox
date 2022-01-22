@@ -57,7 +57,6 @@ public class Drivetrain extends SubsystemBase {
     leftSpark = new com.revrobotics.CANSparkMax(Constants.LEFT_SPARK_ID, MotorType.kBrushless);
     rightSpark = new com.revrobotics.CANSparkMax(Constants.RIGHT_SPARK_ID, MotorType.kBrushless);
 
-
     motorInit(leftSpark, Constants.kLeftReversedDefault);
     motorInit(rightSpark, Constants.kRightReversedDefault);
 

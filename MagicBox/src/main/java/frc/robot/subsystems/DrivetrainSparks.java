@@ -21,7 +21,6 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
-
 public class DrivetrainSparks extends SubsystemBase {
   /** Creates a new Drivetrain. */
 
@@ -44,7 +43,6 @@ public class DrivetrainSparks extends SubsystemBase {
   public boolean m_reverseDrive = false;
 
   public DrivetrainSparks() {
-
     // Spark Maxes
     leftSpark = new com.revrobotics.CANSparkMax(Constants.LEFT_SPARK_ID, MotorType.kBrushless);
     rightSpark = new com.revrobotics.CANSparkMax(Constants.RIGHT_SPARK_ID, MotorType.kBrushless);
@@ -69,7 +67,6 @@ public class DrivetrainSparks extends SubsystemBase {
     m_drivetrainStatus = m_drivetrainTab.getLayout("Status", BuiltInLayouts.kList)
       .withProperties(Map.of("Label position", "TOP"));
     shuffleboardInit();
-    
   }
 
   private void motorInit(CANSparkMax motor, boolean invert) {
@@ -109,7 +106,7 @@ public class DrivetrainSparks extends SubsystemBase {
     //return m_imu.getAngle();
  // }
 
-  private void shuffleboardInit() {
+  public void shuffleboardInit() {
     m_drivetrainStatus.addNumber("Left Speed", () -> getLeftSpeed());
     m_drivetrainStatus.addNumber("Right Speed", () -> getRightSpeed());
     m_drivetrainStatus.addNumber("Left Position", () -> getLeftDistance());
