@@ -122,12 +122,7 @@ public class DrivetrainSparks extends SubsystemBase {
   }
   
   public void tankDrive(double leftPower, double rightPower, boolean squareInputs) {
-    if (m_reverseDrive) {
-      m_drive.tankDrive(rightPower/2, leftPower/2, squareInputs);
-    }
-    else {
-      m_drive.tankDrive(leftPower/2, rightPower/2, squareInputs); 
-    }
+      m_drive.tankDrive(leftPower, rightPower, squareInputs); 
   }
 
   public void stopDrive() {
