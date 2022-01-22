@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.differentialDriveSparks;
 import frc.robot.commands.differentialDriveTalons;
@@ -63,8 +64,8 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // Add button for each controller to toggle solenoid
-    JoystickButton solenoidToggle2 = new JoystickButton(m_sparkdriver, 4); // Button Y
-    JoystickButton solenoidToggle3 = new JoystickButton(m_talondriver, 4); // Button Y
+    JoystickButton solenoidToggle2 = new JoystickButton(m_sparkdriver, Button.kY.value); // Button Y
+    JoystickButton solenoidToggle3 = new JoystickButton(m_talondriver, Button.kY.value); // Button Y
 
     solenoidToggle2.whenPressed(new toggleSolenoid(m_climber, m_sparkdriver));
     solenoidToggle3.whenPressed(new toggleSolenoid(m_climber, m_talondriver));

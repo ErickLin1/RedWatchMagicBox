@@ -32,7 +32,7 @@ public class toggleSolenoid extends CommandBase {
   @Override
   public void execute() {
     if (m_driver.getYButtonPressed()) {
-    m_climber.toggleSolenoid();
+      m_climber.toggleSolenoid();
     }
   }
 
