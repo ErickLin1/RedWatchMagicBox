@@ -10,10 +10,34 @@
       "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
       "/LiveWindow/Ungrouped/DifferentialDrive[2]": "DifferentialDrive",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler"
+    },
+    "windows": {
+      "/LiveWindow/Ungrouped/DifferentialDrive[1]": {
+        "window": {
+          "visible": true
+        }
+      },
+      "/LiveWindow/Ungrouped/DifferentialDrive[2]": {
+        "window": {
+          "visible": true
+        }
+      }
     }
   },
   "NetworkTables": {
     "Shuffleboard": {
+      "Spark Maxes": {
+        "Status": {
+          "open": true
+        },
+        "open": true
+      },
+      "Talons": {
+        "Status": {
+          "open": true
+        },
+        "open": true
+      },
       "Testing": {
         "Status": {
           "open": true
