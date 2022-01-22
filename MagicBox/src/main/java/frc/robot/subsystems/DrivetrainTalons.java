@@ -47,6 +47,7 @@ public class DrivetrainTalons extends SubsystemBase {
     // Initialize Shuffleboard
     m_drivetrainTab = Shuffleboard.getTab(Constants.kShuffleboardTabTalon);
     m_drivetrainStatus = m_drivetrainTab.getLayout("Status", BuiltInLayouts.kList)
+      .withSize(3,3)
       .withProperties(Map.of("Label position", "TOP"));
     shuffleboardInit();
   }
@@ -59,13 +60,15 @@ public class DrivetrainTalons extends SubsystemBase {
     return rightTalon.getSelectedSensorVelocity();
   }
 
-  public void shuffleboardInit() {
+  private void shuffleboardInit() {
     m_drivetrainStatus.addNumber("Left Speed", () -> getLeftSpeed());
     m_drivetrainStatus.addNumber("Right Speed", () -> getRightSpeed());
+    m_drivetrainStatus.addNumber("Left Output", () -> leftTalon.get());
+    m_drivetrainStatus.addNumber("Right Output", () -> rightTalon.get());
     // m_drivetrainStatus.addNumber("Left Position", () -> getLeftDistance());
     // m_drivetrainStatus.addNumber("Right Position", () -> getRightDistance());
-   // m_drivetrainStatus.addNumber("Angle", () -> getRobotAngle());
-    m_drivetrainStatus.addBoolean("Reversed?", () -> m_reverseDrive);
+    // m_drivetrainStatus.addNumber("Angle", () -> getRobotAngle());
+    //m_drivetrainStatus.addBoolean("Reversed?", () -> m_reverseDrive);
   }
 
   public void tankDrive(double leftPower, double rightPower, boolean squareInputs) {

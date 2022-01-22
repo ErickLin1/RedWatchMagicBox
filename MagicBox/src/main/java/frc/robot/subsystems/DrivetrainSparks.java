@@ -46,7 +46,7 @@ public class DrivetrainSparks extends SubsystemBase {
     // Spark Maxes
     leftSpark = new com.revrobotics.CANSparkMax(Constants.LEFT_SPARK_ID, MotorType.kBrushless);
     rightSpark = new com.revrobotics.CANSparkMax(Constants.RIGHT_SPARK_ID, MotorType.kBrushless);
-
+    
     motorInit(leftSpark, Constants.kLeftReversedDefault);
     motorInit(rightSpark, Constants.kRightReversedDefault);
 
@@ -61,10 +61,11 @@ public class DrivetrainSparks extends SubsystemBase {
     m_rightEncoder = rightSpark.getEncoder();
 
     m_drive = new DifferentialDrive(leftSpark, rightSpark);
-
+    
     // Initialize Shuffleboard
     m_drivetrainTab = Shuffleboard.getTab(Constants.kShuffleboardTabSpark);
     m_drivetrainStatus = m_drivetrainTab.getLayout("Status", BuiltInLayouts.kList)
+      .withSize(3,3)
       .withProperties(Map.of("Label position", "TOP"));
     shuffleboardInit();
   }
@@ -106,15 +107,17 @@ public class DrivetrainSparks extends SubsystemBase {
     //return m_imu.getAngle();
  // }
 
-  public void shuffleboardInit() {
+  private void shuffleboardInit() {
     m_drivetrainStatus.addNumber("Left Speed", () -> getLeftSpeed());
     m_drivetrainStatus.addNumber("Right Speed", () -> getRightSpeed());
-    m_drivetrainStatus.addNumber("Left Position", () -> getLeftDistance());
-    m_drivetrainStatus.addNumber("Right Position", () -> getRightDistance());
-   // m_drivetrainStatus.addNumber("Angle", () -> getRobotAngle());
-    m_drivetrainStatus.addBoolean("Reversed?", () -> m_reverseDrive);
+    m_drivetrainStatus.addNumber("Left Output", () -> leftSpark.get());
+    m_drivetrainStatus.addNumber("Right Output", () -> rightSpark.get());
+    //m_drivetrainStatus.addNumber("Left Position", () -> getLeftDistance());
+    //m_drivetrainStatus.addNumber("Right Position", () -> getRightDistance());
+    // m_drivetrainStatus.addNumber("Angle", () -> getRobotAngle());
+     // m_drivetrainStatus.addBoolean("Reversed?", () -> m_reverseDrive);
   }
-
+  
   public void tankDrive(double leftPower, double rightPower, boolean squareInputs) {
     if (m_reverseDrive) {
       m_drive.tankDrive(rightPower/2, leftPower/2, squareInputs);
