@@ -42,6 +42,9 @@ public class DrivetrainSparks extends SubsystemBase {
 
   public boolean m_reverseDrive = false;
 
+  private double leftSparkSpeed = -999.0;
+  private double rightSparkSpeed = -999.0;
+  
   public DrivetrainSparks() {
     // Spark Maxes
     leftSpark = new com.revrobotics.CANSparkMax(Constants.LEFT_SPARK_ID, MotorType.kBrushless);
@@ -95,21 +98,21 @@ public class DrivetrainSparks extends SubsystemBase {
     return -m_rightEncoder.getPosition();
   }
 
-  private double getLeftSpeed() {
-    return -m_leftEncoder.getVelocity();
-  }
+  // private double getLeftSpeed() {
+  //   return -m_leftEncoder.getVelocity();
+  // }
 
-  private double getRightSpeed() {
-    return -m_rightEncoder.getVelocity();
-  }
+  // private double getRightSpeed() {
+  //   return -m_rightEncoder.getVelocity();
+  // }
 
   //public double getRobotAngle() {
     //return m_imu.getAngle();
  // }
 
   private void shuffleboardInit() {
-    m_drivetrainStatus.addNumber("Left Speed", () -> getLeftSpeed());
-    m_drivetrainStatus.addNumber("Right Speed", () -> getRightSpeed());
+    m_drivetrainStatus.addNumber("Left Speed", () -> leftSparkSpeed);
+    m_drivetrainStatus.addNumber("Right Speed", () -> rightSparkSpeed);
     m_drivetrainStatus.addNumber("Left Output", () -> leftSpark.get());
     m_drivetrainStatus.addNumber("Right Output", () -> rightSpark.get());
     //m_drivetrainStatus.addNumber("Left Position", () -> getLeftDistance());
@@ -134,5 +137,7 @@ public class DrivetrainSparks extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    leftSparkSpeed = -m_leftEncoder.getVelocity();
+    rightSparkSpeed = -m_rightEncoder.getVelocity();
   }
 }
