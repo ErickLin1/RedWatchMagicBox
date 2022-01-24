@@ -64,11 +64,8 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // Add button for each controller to toggle solenoid
-    JoystickButton solenoidToggle2 = new JoystickButton(m_sparkdriver, Button.kY.value); // Button Y
-    JoystickButton solenoidToggle3 = new JoystickButton(m_talondriver, Button.kY.value); // Button Y
-
-    solenoidToggle2.whenPressed(new toggleSolenoid(m_climber, m_sparkdriver));
-    solenoidToggle3.whenPressed(new toggleSolenoid(m_climber, m_talondriver));
+    new JoystickButton(m_sparkdriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber, m_sparkdriver));
+    new JoystickButton(m_talondriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber, m_talondriver));
   }
 
   /**
