@@ -40,8 +40,6 @@ public class DrivetrainSparks extends SubsystemBase {
   private final ShuffleboardTab m_drivetrainTab;
   private final ShuffleboardLayout m_drivetrainStatus;
 
-  public boolean m_reverseDrive = false;
-
   private double leftSparkSpeed;
   private double rightSparkSpeed;
   
@@ -118,16 +116,10 @@ public class DrivetrainSparks extends SubsystemBase {
     //m_drivetrainStatus.addNumber("Left Position", () -> getLeftDistance());
     //m_drivetrainStatus.addNumber("Right Position", () -> getRightDistance());
     // m_drivetrainStatus.addNumber("Angle", () -> getRobotAngle());
-     // m_drivetrainStatus.addBoolean("Reversed?", () -> m_reverseDrive);
   }
   
   public void tankDrive(double leftPower, double rightPower, boolean squareInputs) {
-    if (m_reverseDrive) {
-      m_drive.tankDrive(rightPower, leftPower, squareInputs);
-    }
-    else {
-      m_drive.tankDrive(leftPower, rightPower, squareInputs); 
-    }
+    m_drive.tankDrive(leftPower, rightPower, squareInputs);
   }
 
   public void stopDrive() {

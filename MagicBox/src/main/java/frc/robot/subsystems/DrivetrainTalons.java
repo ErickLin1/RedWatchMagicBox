@@ -29,8 +29,6 @@ public class DrivetrainTalons extends SubsystemBase {
   private final ShuffleboardTab m_drivetrainTab;
   private final ShuffleboardLayout m_drivetrainStatus;
 
-  public boolean m_reverseDrive = false;
-
   public DrivetrainTalons() {
     // Talons
     leftTalon = new WPI_TalonSRX(Constants.kLeftTalonPort);
@@ -68,16 +66,10 @@ public class DrivetrainTalons extends SubsystemBase {
     // m_drivetrainStatus.addNumber("Left Position", () -> getLeftDistance());
     // m_drivetrainStatus.addNumber("Right Position", () -> getRightDistance());
     // m_drivetrainStatus.addNumber("Angle", () -> getRobotAngle());
-    //m_drivetrainStatus.addBoolean("Reversed?", () -> m_reverseDrive);
   }
 
   public void tankDrive(double leftPower, double rightPower, boolean squareInputs) {
-    if (m_reverseDrive) {
-      m_drive.tankDrive(rightPower/2, leftPower/2, squareInputs);
-    }
-    else {
-      m_drive.tankDrive(leftPower/2, rightPower/2, squareInputs); 
-    }
+    m_drive.tankDrive(leftPower/2, rightPower/2, squareInputs);
   }
 
   public void stopDrive() {
