@@ -4,22 +4,15 @@
 
 package frc.robot;
 
-import java.util.Map;
-
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.differentialDriveSparks;
 import frc.robot.commands.differentialDriveTalons;
 import frc.robot.commands.toggleSolenoid;
 import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DrivetrainSparks;
 import frc.robot.subsystems.DrivetrainTalons;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -44,19 +37,7 @@ public class RobotContainer {
   private final XboxController m_talondriver = new XboxController(Constants.kTalonControllerPort);
 
   private final Climber m_climber;
-
-  private final ShuffleboardTab m_ShuffleboardTab = Shuffleboard.getTab(Constants.kShuffleboardTab);
-  private final ShuffleboardLayout m_ShuffleboardLayout = m_ShuffleboardTab.getLayout("Motor Controls", BuiltInLayouts.kList)
-  .withPosition(3, 0)
-  .withSize(3, 3);
-  private NetworkTableEntry LeftMotorSpeed = m_ShuffleboardLayout.add("Left Motor Speed", 0)
-    .withWidget(BuiltInWidgets.kNumberSlider)
-    .withProperties(Map.of("min", -1, "max", 1))
-    .getEntry();
-  private NetworkTableEntry RightMotorSpeed = m_ShuffleboardLayout.add("Right Motor Speed", 0)
-    .withWidget(BuiltInWidgets.kNumberSlider)
-    .withProperties(Map.of("min", -1, "max", 1))
-    .getEntry();
+  private final ControlPanel m_controlPanel;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -71,8 +52,11 @@ public class RobotContainer {
     m_drivetrainTalons.setDefaultCommand(
       new differentialDriveTalons(() -> -m_talondriver.getLeftY(), () -> -m_talondriver.getRightY(), m_drivetrainTalons));
 
-    // Set up pneumatics and solenoids
+    // Sets up pneumatics and solenoids
     m_climber = new Climber();
+
+    // Sets up the control panel
+    m_controlPanel = new ControlPanel(m_climber, m_drivetrainSparks, m_drivetrainTalons);
 
     configureButtonBindings();
   }
@@ -87,15 +71,6 @@ public class RobotContainer {
     // Add button for each controller to toggle solenoid
     new JoystickButton(m_sparkdriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
     new JoystickButton(m_talondriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
-
-    // Shuffleboard buttons
-
-    // Enables or disables the solenoid
-    m_ShuffleboardTab.add("Toggle Solenoid", new toggleSolenoid(m_climber))
-      .withPosition(3, 3)
-      .withSize(3, 1);
-    // Turns on the motors and reads the shuffleboard's motor speed values
-    m_ShuffleboardLayout.add("Run Motors", new differentialDriveSparks(() -> LeftMotorSpeed.getDouble(0), () -> RightMotorSpeed.getDouble(0), m_drivetrainSparks));
   }
 
   /**
