@@ -4,9 +4,13 @@
 
 package frc.robot;
 
+import java.util.Map;
+
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import frc.robot.commands.ExampleCommand;
@@ -40,6 +44,14 @@ public class RobotContainer {
   private final Climber m_climber;
 
   private final ShuffleboardTab m_ShuffleboardTab = Shuffleboard.getTab(Constants.kShuffleboardTab);
+  private NetworkTableEntry LeftMotorSpeed = m_ShuffleboardTab.add("Left Motor Speed", 0)
+    .withWidget(BuiltInWidgets.kNumberSlider)
+    .withProperties(Map.of("min", -1, "max", 1))
+    .getEntry();
+  private NetworkTableEntry RightMotorSpeed = m_ShuffleboardTab.add("Right Motor Speed", 0)
+    .withWidget(BuiltInWidgets.kNumberSlider)
+    .withProperties(Map.of("min", -1, "max", 1))
+    .getEntry();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -71,8 +83,12 @@ public class RobotContainer {
     new JoystickButton(m_sparkdriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
     new JoystickButton(m_talondriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
 
-    // Add button in shuffleboard to toggle solenoid
+    // Shuffleboard buttons
+
+    // Enables or disables the solenoid
     m_ShuffleboardTab.add("Toggle Solenoid", new toggleSolenoid(m_climber));
+    // Turns on the motors and reads the shuffleboard's motor speed values
+    m_ShuffleboardTab.add("Run Motors", new differentialDriveSparks(() -> LeftMotorSpeed.getDouble(0), () -> RightMotorSpeed.getDouble(0), m_drivetrainSparks));
   }
 
   /**

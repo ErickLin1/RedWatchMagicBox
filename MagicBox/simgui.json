@@ -19,6 +19,8 @@
       "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
       "/LiveWindow/Ungrouped/DifferentialDrive[2]": "DifferentialDrive",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
+      "/Shuffleboard/Commands/Run Motors": "Command",
+      "/Shuffleboard/Commands/Toggle Solenoid": "Command",
       "/Shuffleboard/Testing/Toggle Solenoid": "Command"
     },
     "windows": {
