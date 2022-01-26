@@ -22,19 +22,19 @@ public final class Constants {
 
     public static final boolean kLeftReversedDefault = true;
     public static final boolean kRightReversedDefault = !kLeftReversedDefault;
-    public static final String kShuffleboardTab = "Commands";
+    public static final String kShuffleboardTab = "Control Panel";
     public static final int STALL_LIMIT = 45;
     public static final int kCurrentLimit = 60;
 
     // Spark Maxes
     public static final int LEFT_SPARK_ID = 2;
     public static final int RIGHT_SPARK_ID = 1;
-    public static final String kShuffleboardTabSpark = "Spark Maxes";
+    // public static final String kShuffleboardTabSpark = "Spark Maxes";
 
     // Talons
     public static final int kLeftTalonPort = 3;
     public static final int kRightTalonPort = 4;
-    public static final String kShuffleboardTabTalon = "Talons";
+    // public static final String kShuffleboardTabTalon = "Talons";
 
     // Pneumatics
     public static final PneumaticsModuleType PneumaticType = PneumaticsModuleType.CTREPCM;

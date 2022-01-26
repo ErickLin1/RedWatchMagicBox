@@ -64,9 +64,10 @@ public class DrivetrainSparks extends SubsystemBase {
     m_drive = new DifferentialDrive(leftSpark, rightSpark);
     
     // Initialize Shuffleboard
-    m_drivetrainTab = Shuffleboard.getTab(Constants.kShuffleboardTabSpark);
-    m_drivetrainStatus = m_drivetrainTab.getLayout("Status", BuiltInLayouts.kList)
-      .withSize(3,3)
+    m_drivetrainTab = Shuffleboard.getTab(Constants.kShuffleboardTab);
+    m_drivetrainStatus = m_drivetrainTab.getLayout("Spark Status", BuiltInLayouts.kList)
+      .withSize(2,2)
+      .withPosition(6,0)
       .withProperties(Map.of("Label position", "TOP"));
     shuffleboardInit();
   }

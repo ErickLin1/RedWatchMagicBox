@@ -10,8 +10,10 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.differentialDriveSparks;
@@ -44,12 +46,17 @@ public class RobotContainer {
   private final Climber m_climber;
 
   private final ShuffleboardTab m_ShuffleboardTab = Shuffleboard.getTab(Constants.kShuffleboardTab);
-  private NetworkTableEntry LeftMotorSpeed = m_ShuffleboardTab.add("Left Motor Speed", 0)
+  private final ShuffleboardLayout m_ShuffleboardLayout = m_ShuffleboardTab.getLayout("Motor Controls", BuiltInLayouts.kList)
+  .withPosition(3, 0)
+  .withSize(3, 3);
+  private NetworkTableEntry LeftMotorSpeed = m_ShuffleboardLayout.add("Left Motor Speed", 0)
     .withWidget(BuiltInWidgets.kNumberSlider)
+    .withPosition(1, 1)
     .withProperties(Map.of("min", -1, "max", 1))
     .getEntry();
-  private NetworkTableEntry RightMotorSpeed = m_ShuffleboardTab.add("Right Motor Speed", 0)
+  private NetworkTableEntry RightMotorSpeed = m_ShuffleboardLayout.add("Right Motor Speed", 0)
     .withWidget(BuiltInWidgets.kNumberSlider)
+    .withPosition(1, 2)
     .withProperties(Map.of("min", -1, "max", 1))
     .getEntry();
 
@@ -86,9 +93,12 @@ public class RobotContainer {
     // Shuffleboard buttons
 
     // Enables or disables the solenoid
-    m_ShuffleboardTab.add("Toggle Solenoid", new toggleSolenoid(m_climber));
+    m_ShuffleboardTab.add("Toggle Solenoid", new toggleSolenoid(m_climber))
+      .withPosition(3, 3)
+      .withSize(3, 1);
     // Turns on the motors and reads the shuffleboard's motor speed values
-    m_ShuffleboardTab.add("Run Motors", new differentialDriveSparks(() -> LeftMotorSpeed.getDouble(0), () -> RightMotorSpeed.getDouble(0), m_drivetrainSparks));
+    m_ShuffleboardLayout.add("Run Motors", new differentialDriveSparks(() -> LeftMotorSpeed.getDouble(0), () -> RightMotorSpeed.getDouble(0), m_drivetrainSparks))
+    .withPosition(1, 3);
   }
 
   /**

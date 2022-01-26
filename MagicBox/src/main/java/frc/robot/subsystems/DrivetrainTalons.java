@@ -43,9 +43,10 @@ public class DrivetrainTalons extends SubsystemBase {
     m_drive = new DifferentialDrive(leftTalon, rightTalon);
 
     // Initialize Shuffleboard
-    m_drivetrainTab = Shuffleboard.getTab(Constants.kShuffleboardTabTalon);
-    m_drivetrainStatus = m_drivetrainTab.getLayout("Status", BuiltInLayouts.kList)
-      .withSize(3,3)
+    m_drivetrainTab = Shuffleboard.getTab(Constants.kShuffleboardTab);
+    m_drivetrainStatus = m_drivetrainTab.getLayout("Talon Status", BuiltInLayouts.kList)
+      .withSize(2,3)
+      .withPosition(6,2)
       .withProperties(Map.of("Label position", "TOP"));
     shuffleboardInit();
   }
