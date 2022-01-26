@@ -4,11 +4,20 @@
 
 package frc.robot;
 
+import javax.print.DocFlavor.INPUT_STREAM;
+
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.LoadBall;
+import frc.robot.commands.ShootCargo;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.Indexer;
+import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -18,12 +27,16 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+  private final Shooter m_shooter;
+  private final Indexer m_indexer;
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-
+  private final XboxController m_driver = new XboxController(Constants.kDriverControllerPort);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    m_indexer = new Indexer();
+    m_shooter = new Shooter();
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -34,7 +47,11 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    new JoystickButton(m_driver, Button.kA.value).whenPressed(new LoadBall(m_indexer));
+    new JoystickButton(m_driver, Button.kB.value).whenPressed(new ShootCargo(1, m_shooter));
+  
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
