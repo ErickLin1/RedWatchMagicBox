@@ -7,6 +7,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.differentialDriveSparks;
 import frc.robot.commands.differentialDriveTalons;
@@ -37,6 +39,8 @@ public class RobotContainer {
 
   private final Climber m_climber;
 
+  private final ShuffleboardTab m_ShuffleboardTab = Shuffleboard.getTab(Constants.kShuffleboardTab);
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     
@@ -53,6 +57,8 @@ public class RobotContainer {
     // Set up pneumatics and solenoids
     m_climber = new Climber();
     
+    m_ShuffleboardTab.add("Toggle Solenoid", new toggleSolenoid(m_climber));
+
     configureButtonBindings();
   }
 
@@ -64,8 +70,8 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // Add button for each controller to toggle solenoid
-    new JoystickButton(m_sparkdriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber, m_sparkdriver));
-    new JoystickButton(m_talondriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber, m_talondriver));
+    new JoystickButton(m_sparkdriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
+    new JoystickButton(m_talondriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
   }
 
   /**

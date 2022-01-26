@@ -18,7 +18,8 @@
       "/LiveWindow/ExampleSubsystem": "Subsystem",
       "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
       "/LiveWindow/Ungrouped/DifferentialDrive[2]": "DifferentialDrive",
-      "/LiveWindow/Ungrouped/Scheduler": "Scheduler"
+      "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
+      "/Shuffleboard/Testing/Toggle Solenoid": "Command"
     },
     "windows": {
       "/LiveWindow/Ungrouped/DifferentialDrive[1]": {
@@ -49,6 +50,9 @@
       },
       "Testing": {
         "Status": {
+          "open": true
+        },
+        "Toggle Solenoid": {
           "open": true
         },
         "open": true
