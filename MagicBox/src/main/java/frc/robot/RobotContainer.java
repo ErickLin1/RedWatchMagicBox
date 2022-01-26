@@ -51,12 +51,10 @@ public class RobotContainer {
   .withSize(3, 3);
   private NetworkTableEntry LeftMotorSpeed = m_ShuffleboardLayout.add("Left Motor Speed", 0)
     .withWidget(BuiltInWidgets.kNumberSlider)
-    .withPosition(1, 1)
     .withProperties(Map.of("min", -1, "max", 1))
     .getEntry();
   private NetworkTableEntry RightMotorSpeed = m_ShuffleboardLayout.add("Right Motor Speed", 0)
     .withWidget(BuiltInWidgets.kNumberSlider)
-    .withPosition(1, 2)
     .withProperties(Map.of("min", -1, "max", 1))
     .getEntry();
 
@@ -97,8 +95,7 @@ public class RobotContainer {
       .withPosition(3, 3)
       .withSize(3, 1);
     // Turns on the motors and reads the shuffleboard's motor speed values
-    m_ShuffleboardLayout.add("Run Motors", new differentialDriveSparks(() -> LeftMotorSpeed.getDouble(0), () -> RightMotorSpeed.getDouble(0), m_drivetrainSparks))
-    .withPosition(1, 3);
+    m_ShuffleboardLayout.add("Run Motors", new differentialDriveSparks(() -> LeftMotorSpeed.getDouble(0), () -> RightMotorSpeed.getDouble(0), m_drivetrainSparks));
   }
 
   /**
