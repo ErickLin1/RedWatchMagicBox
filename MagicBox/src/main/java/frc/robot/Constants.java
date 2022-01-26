@@ -22,7 +22,7 @@ public final class Constants {
 
     public static final boolean kLeftReversedDefault = true;
     public static final boolean kRightReversedDefault = !kLeftReversedDefault;
-    public static final String kShuffleboardTab = "Testing";
+    public static final String kShuffleboardTab = "Commands";
     public static final int STALL_LIMIT = 45;
     public static final int kCurrentLimit = 60;
 

@@ -56,8 +56,6 @@ public class RobotContainer {
 
     // Set up pneumatics and solenoids
     m_climber = new Climber();
-    
-    m_ShuffleboardTab.add("Toggle Solenoid", new toggleSolenoid(m_climber));
 
     configureButtonBindings();
   }
@@ -72,6 +70,9 @@ public class RobotContainer {
     // Add button for each controller to toggle solenoid
     new JoystickButton(m_sparkdriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
     new JoystickButton(m_talondriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
+
+    // Add button in shuffleboard to toggle solenoid
+    m_ShuffleboardTab.add("Toggle Solenoid", new toggleSolenoid(m_climber));
   }
 
   /**
