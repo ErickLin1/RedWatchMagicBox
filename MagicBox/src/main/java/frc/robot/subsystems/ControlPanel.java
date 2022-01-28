@@ -63,8 +63,8 @@ public class ControlPanel extends SubsystemBase {
     m_SparkStatus.addNumber("Right Speed", () -> m_drivetrainSparks.rightSparkSpeed);
 
     // Set up Talon Status
-    m_TalonStatus.addNumber("Left Speed", () -> m_drivetrainTalons.getLeftSpeed());
-    m_TalonStatus.addNumber("Right Speed", () -> m_drivetrainTalons.getRightSpeed());
+    m_TalonStatus.addNumber("Left Speed (not working)", () -> m_drivetrainTalons.getLeftSpeed());
+    m_TalonStatus.addNumber("Right Speed (not working)", () -> m_drivetrainTalons.getRightSpeed());
     m_TalonStatus.addNumber("Left Output", () -> m_drivetrainTalons.getLeftOutput());
     m_TalonStatus.addNumber("Right Output", () -> m_drivetrainTalons.getRightOutput());
 
