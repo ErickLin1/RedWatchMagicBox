@@ -23,6 +23,8 @@
       "/Shuffleboard/Commands/Run Motors": "Command",
       "/Shuffleboard/Commands/Toggle Solenoid": "Command",
       "/Shuffleboard/Control Panel/Motor Controls/Run Motors": "Command",
+      "/Shuffleboard/Control Panel/Spark Motor Controls/Run Motors": "Command",
+      "/Shuffleboard/Control Panel/Talon Motor Controls/Run Motors": "Command",
       "/Shuffleboard/Control Panel/Toggle Solenoid": "Command",
       "/Shuffleboard/Testing/Toggle Solenoid": "Command"
     },
