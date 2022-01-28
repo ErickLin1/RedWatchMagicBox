@@ -49,12 +49,15 @@ public class ShootCargo extends CommandBase {
   }
 
   // Returns true when the command should end.
+  // Shooter will run while B button is held
   @Override
   public boolean isFinished() {
     //ends command if topencoder is over desired value
+    /*
     if (m_shooter.getTopDistance(m_shooter.m_topEncoder) > 100){ 
       return true;
-    } 
+    }
+    */ 
     return false;
   }
 }
