@@ -30,8 +30,10 @@ public class ControlPanel extends SubsystemBase {
   private final NetworkTableEntry RightMotorSpeed;
 
   public ControlPanel(Climber m_climber, DrivetrainSparks m_drivetrainSparks, DrivetrainTalons m_drivetrainTalons) {
-    // TODO: ADD COMMENTS
+    // Initialize Control Panel Shuffleboard
     m_ShuffleboardTab = Shuffleboard.getTab(Constants.kShuffleboardTab);
+
+    // Set up layouts
     m_ShuffleboardLayout = m_ShuffleboardTab.getLayout("Motor Controls", BuiltInLayouts.kList)
     .withPosition(3, 0)
     .withSize(3, 3);
@@ -44,6 +46,7 @@ public class ControlPanel extends SubsystemBase {
     .withPosition(6,2)
     .withProperties(Map.of("Label position", "TOP"));
 
+    // Set up motor controls
     LeftMotorSpeed = m_ShuffleboardLayout.add("Left Motor Speed", 0)
     .withWidget(BuiltInWidgets.kNumberSlider)
     .withProperties(Map.of("min", -1, "max", 1))
@@ -52,23 +55,23 @@ public class ControlPanel extends SubsystemBase {
     .withWidget(BuiltInWidgets.kNumberSlider)
     .withProperties(Map.of("min", -1, "max", 1))
     .getEntry();
+    // Turns on the motors and reads the shuffleboard's motor speed values
+    m_ShuffleboardLayout.add("Run Motors", new differentialDriveSparks(() -> LeftMotorSpeed.getDouble(0), () -> RightMotorSpeed.getDouble(0), m_drivetrainSparks));
 
+    // Set up Spark Status
     m_SparkStatus.addNumber("Left Speed", () -> m_drivetrainSparks.leftSparkSpeed);
     m_SparkStatus.addNumber("Right Speed", () -> m_drivetrainSparks.rightSparkSpeed);
 
+    // Set up Talon Status
     m_TalonStatus.addNumber("Left Speed", () -> m_drivetrainTalons.getLeftSpeed());
     m_TalonStatus.addNumber("Right Speed", () -> m_drivetrainTalons.getRightSpeed());
     m_TalonStatus.addNumber("Left Output", () -> m_drivetrainTalons.getLeftOutput());
     m_TalonStatus.addNumber("Right Output", () -> m_drivetrainTalons.getRightOutput());
 
-    // Shuffleboard buttons
     // Enables or disables the solenoid
     m_ShuffleboardTab.add("Toggle Solenoid", new toggleSolenoid(m_climber))
       .withPosition(3, 3)
       .withSize(3, 1);
-    // Turns on the motors and reads the shuffleboard's motor speed values
-    m_ShuffleboardLayout.add("Run Motors", new differentialDriveSparks(() -> LeftMotorSpeed.getDouble(0), () -> RightMotorSpeed.getDouble(0), m_drivetrainSparks));
-
   }
 
   @Override

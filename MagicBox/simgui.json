@@ -12,6 +12,7 @@
     "types": {
       "/FMSInfo": "FMSInfo",
       "/LiveWindow/Climber": "Subsystem",
+      "/LiveWindow/ControlPanel": "Subsystem",
       "/LiveWindow/Drivetrain": "Subsystem",
       "/LiveWindow/DrivetrainSparks": "Subsystem",
       "/LiveWindow/DrivetrainTalons": "Subsystem",
@@ -21,6 +22,8 @@
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
       "/Shuffleboard/Commands/Run Motors": "Command",
       "/Shuffleboard/Commands/Toggle Solenoid": "Command",
+      "/Shuffleboard/Control Panel/Motor Controls/Run Motors": "Command",
+      "/Shuffleboard/Control Panel/Toggle Solenoid": "Command",
       "/Shuffleboard/Testing/Toggle Solenoid": "Command"
     },
     "windows": {
