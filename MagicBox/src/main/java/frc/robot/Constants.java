@@ -28,6 +28,8 @@ public final class Constants {
     public static final int kCurrentLimit = 60;
     public static final boolean kTopReversedDefault = false;
     public static final int STALL_LIMIT = 45;
+    public static final double kHighShootSpeed = 1.0;
+    public static final double kLowShootSpeed = 0.5;
     
     public static double kIndexerSpeed = 0.5;
 

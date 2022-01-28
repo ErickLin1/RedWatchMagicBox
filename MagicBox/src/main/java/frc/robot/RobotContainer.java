@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import frc.robot.commands.EjectBall;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.LoadBall;
 import frc.robot.commands.ShootCargo;
@@ -49,7 +50,12 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     new JoystickButton(m_driver, Button.kA.value).whenPressed(new LoadBall(m_indexer));
-    new JoystickButton(m_driver, Button.kB.value).whenPressed(new ShootCargo(1, m_shooter));
+    new JoystickButton(m_driver, Button.kX.value).whileHeld(new EjectBall(m_indexer));
+
+    // shoot high
+    new JoystickButton(m_driver, Button.kB.value).whileHeld(new ShootCargo(Constants.kHighShootSpeed, m_shooter));
+    //shoot low
+    new JoystickButton(m_driver, Button.kY.value).whileHeld(new ShootCargo(Constants.kLowShootSpeed, m_shooter));
   
   }
 
