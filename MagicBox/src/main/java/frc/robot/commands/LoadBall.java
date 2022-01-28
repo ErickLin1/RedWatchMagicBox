@@ -28,6 +28,7 @@ public class LoadBall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // Run the motor continuously
     m_indexer.load(Constants.kIndexerSpeed);
   }
 
@@ -41,6 +42,7 @@ public class LoadBall extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    // stop when beam break is broken
     if (m_indexer.isBallPresent()){
       return true;
     }

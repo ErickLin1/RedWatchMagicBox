@@ -5,24 +5,39 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+import frc.robot.subsystems.Indexer;
 
 public class EjectBall extends CommandBase {
   /** Creates a new EjectBall. */
-  public EjectBall() {
+  private final Indexer m_indexer;
+  public EjectBall(Indexer indexer) {
+    m_indexer = indexer;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_indexer.encoderReset(m_indexer.m_bottomEncoder);
+    m_indexer.bottomMotor.set(0.0);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
+  
+  // Run the indexer motor in reverse while button is held to push out ball
   @Override
-  public void execute() {}
+  public void execute() {
+    m_indexer.bottomMotor.set(-Constants.kIndexerSpeed);
+    
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_indexer.encoderReset(m_indexer.m_bottomEncoder);
+    m_indexer.bottomMotor.set(0.0);
+  }
 
   // Returns true when the command should end.
   @Override
