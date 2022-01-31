@@ -120,7 +120,7 @@ public class DrivetrainSparks extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    leftSparkSpeed = -m_leftEncoder.getVelocity();
-    rightSparkSpeed = -m_rightEncoder.getVelocity();
+    leftSparkSpeed = m_leftEncoder.getVelocity();
+    rightSparkSpeed = m_rightEncoder.getVelocity();
   }
 }
