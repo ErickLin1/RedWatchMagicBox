@@ -31,7 +31,7 @@ public class ColorDetection extends SubsystemBase {
     // Creates new color sensor and shufffleboard
     m_colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
     m_controlPanelTab = Shuffleboard.getTab(Constants.kShuffleboardTab);
-    m_controlPanelStatus = m_controlPanelTab.getLayout("Status", BuiltInLayouts.kList)
+    m_controlPanelStatus = m_controlPanelTab.getLayout("Color Status", BuiltInLayouts.kList)
       .withSize(3, 4)
       .withProperties(Map.of("Label position", "TOP"));
 
