@@ -44,6 +44,7 @@ public class ColorDetection extends SubsystemBase {
     // Displays color detected as a color box
     m_controlPanelStatus.addBoolean("Red", () -> m_detectedColor.red > m_detectedColor.blue && m_detectedColor.red >= 0.3);
     m_controlPanelStatus.addBoolean("Blue", () -> m_detectedColor.blue > m_detectedColor.red && m_detectedColor.blue >= 0.3);
+    m_controlPanelStatus.addBoolean("Green", () -> m_detectedColor.green >= 0.5);
 
     // Shows color values (RGB)
     m_controlPanelStatus.addNumber("R", () -> m_detectedColor.red);

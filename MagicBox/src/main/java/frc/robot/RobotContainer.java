@@ -11,6 +11,7 @@ import frc.robot.commands.differentialDriveSparks;
 import frc.robot.commands.differentialDriveTalons;
 import frc.robot.commands.toggleSolenoid;
 import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.ColorDetection;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DrivetrainSparks;
 import frc.robot.subsystems.DrivetrainTalons;
@@ -49,6 +50,8 @@ public class RobotContainer {
 
     // Sets up the control panel
     new ControlPanel(m_climber, m_drivetrainSparks, m_drivetrainTalons);
+
+    new ColorDetection();
 
     configureButtonBindings();
   }
