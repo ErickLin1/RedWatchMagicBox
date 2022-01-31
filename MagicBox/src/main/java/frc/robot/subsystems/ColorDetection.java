@@ -4,13 +4,13 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 import com.revrobotics.ColorSensorV3;
 
 import java.util.Map;
 
 import edu.wpi.first.wpilibj.util.Color;
+import frc.robot.Constants;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
@@ -28,19 +28,16 @@ public class ColorDetection extends SubsystemBase {
 
   /** Creates a new Color. */
   public ColorDetection() {
-
     // Creates new color sensor and shufffleboard
     m_colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
-    m_controlPanelTab = Shuffleboard.getTab("TESTING");
+    m_controlPanelTab = Shuffleboard.getTab(Constants.kShuffleboardTab);
     m_controlPanelStatus = m_controlPanelTab.getLayout("Status", BuiltInLayouts.kList)
       .withProperties(Map.of("Label position", "TOP"));
 
       shuffleboardInit();
-      
   }
 
   private void shuffleboardInit() {
-
     // Displays color detected as a color box
     m_controlPanelStatus.addBoolean("Red", () -> m_detectedColor.red > m_detectedColor.blue && m_detectedColor.red >= 0.3);
     m_controlPanelStatus.addBoolean("Blue", () -> m_detectedColor.blue > m_detectedColor.red && m_detectedColor.blue >= 0.3);
@@ -53,7 +50,6 @@ public class ColorDetection extends SubsystemBase {
 
     // Proximity to ball
     m_controlPanelStatus.addNumber("Ball Proximity", () -> proximity);
-
   }
 
   @Override
@@ -61,6 +57,5 @@ public class ColorDetection extends SubsystemBase {
     // Collects color data and proximity on repeat
     m_detectedColor = m_colorSensor.getColor();
     proximity = m_colorSensor.getProximity();
-
   }
 }

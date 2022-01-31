@@ -51,6 +51,7 @@ public class RobotContainer {
     // Sets up the control panel
     new ControlPanel(m_climber, m_drivetrainSparks, m_drivetrainTalons);
 
+    // Sets up Color Sensor
     new ColorDetection();
 
     configureButtonBindings();
