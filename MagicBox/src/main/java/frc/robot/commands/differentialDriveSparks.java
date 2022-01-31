@@ -14,19 +14,13 @@ public class differentialDriveSparks extends CommandBase {
   private final DrivetrainSparks m_drivetrain;
   private final DoubleSupplier m_leftSpeed;
   private final DoubleSupplier m_rightSpeed;
-  private final DoubleSupplier m_forwardSpeed;
-  private final DoubleSupplier m_reverseSpeed;
-  private double m_currentSpeed = 0;
 
   /** Creates a new differentialDrive. */
-  public differentialDriveSparks(DoubleSupplier forwardSpeed, DoubleSupplier reverseSpeed, DoubleSupplier leftSpeed, 
-  DoubleSupplier rightSpeed, DrivetrainSparks subsystem) {
+  public differentialDriveSparks(DoubleSupplier leftSpeed, DoubleSupplier rightSpeed, DrivetrainSparks subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_drivetrain = subsystem;
     m_leftSpeed = leftSpeed;
     m_rightSpeed = rightSpeed;
-    m_forwardSpeed = forwardSpeed;
-    m_reverseSpeed = reverseSpeed;
 
     addRequirements(m_drivetrain);
   }
@@ -47,7 +41,6 @@ public class differentialDriveSparks extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_currentSpeed = 0;
     m_drivetrain.stopDrive();
   }
 

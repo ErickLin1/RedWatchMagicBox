@@ -12,13 +12,21 @@
     "types": {
       "/FMSInfo": "FMSInfo",
       "/LiveWindow/Climber": "Subsystem",
+      "/LiveWindow/ControlPanel": "Subsystem",
       "/LiveWindow/Drivetrain": "Subsystem",
       "/LiveWindow/DrivetrainSparks": "Subsystem",
       "/LiveWindow/DrivetrainTalons": "Subsystem",
       "/LiveWindow/ExampleSubsystem": "Subsystem",
       "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
       "/LiveWindow/Ungrouped/DifferentialDrive[2]": "DifferentialDrive",
-      "/LiveWindow/Ungrouped/Scheduler": "Scheduler"
+      "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
+      "/Shuffleboard/Commands/Run Motors": "Command",
+      "/Shuffleboard/Commands/Toggle Solenoid": "Command",
+      "/Shuffleboard/Control Panel/Motor Controls/Run Motors": "Command",
+      "/Shuffleboard/Control Panel/Spark Motor Controls/Run Motors": "Command",
+      "/Shuffleboard/Control Panel/Talon Motor Controls/Run Motors": "Command",
+      "/Shuffleboard/Control Panel/Toggle Solenoid": "Command",
+      "/Shuffleboard/Testing/Toggle Solenoid": "Command"
     },
     "windows": {
       "/LiveWindow/Ungrouped/DifferentialDrive[1]": {
@@ -49,6 +57,9 @@
       },
       "Testing": {
         "Status": {
+          "open": true
+        },
+        "Toggle Solenoid": {
           "open": true
         },
         "open": true
