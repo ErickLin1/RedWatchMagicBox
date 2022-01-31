@@ -21,6 +21,7 @@ import frc.robot.commands.toggleSolenoid;
 /** Creates a control panel in Shuffleboard that displays all important information and controls. Contains all shuffleboard related code. */
 public class ControlPanel extends SubsystemBase {
   /** Creates a new ControlPanel. */
+  private final Beambreak m_beambreak;
 
   private final ShuffleboardTab m_ShuffleboardTab;
   private final ShuffleboardLayout m_SparkControls;
@@ -40,17 +41,17 @@ public class ControlPanel extends SubsystemBase {
     // Set up layouts
     m_SparkControls = m_ShuffleboardTab.getLayout("Spark Motor Controls", BuiltInLayouts.kList)
     .withPosition(3, 0)
-    .withSize(3, 3);
+    .withSize(2, 3);
     m_TalonControls = m_ShuffleboardTab.getLayout("Talon Motor Controls", BuiltInLayouts.kList)
-    .withPosition(8, 0)
-    .withSize(3, 3);
+    .withPosition(7, 0)
+    .withSize(2, 3);
     m_SparkStatus = m_ShuffleboardTab.getLayout("Spark Status", BuiltInLayouts.kList)
     .withSize(2,2)
-    .withPosition(6,0)
+    .withPosition(5,0)
     .withProperties(Map.of("Label position", "TOP"));
     m_TalonStatus = m_ShuffleboardTab.getLayout("Talon Status", BuiltInLayouts.kList)
-    .withSize(2,3)
-    .withPosition(6,2)
+    .withSize(2,2)
+    .withPosition(5,2)
     .withProperties(Map.of("Label position", "TOP"));
 
     // Set up spark motor controls
@@ -90,7 +91,13 @@ public class ControlPanel extends SubsystemBase {
     // Enables or disables the solenoid
     m_ShuffleboardTab.add("Toggle Solenoid", new toggleSolenoid(m_climber))
       .withPosition(3, 3)
-      .withSize(3, 1);
+      .withSize(2, 1);
+    
+    // Set up beam break status
+    m_beambreak = new Beambreak();
+    m_ShuffleboardTab.add("Beam Status", m_beambreak.get())
+    .withPosition(7, 3)
+    .withSize(2, 1);
   }
 
   @Override
