@@ -95,7 +95,7 @@ public class ControlPanel extends SubsystemBase {
     
     // Set up beam break status
     m_beambreak = new Beambreak();
-    m_ShuffleboardTab.addBoolean("Beam Status", () -> m_beambreak.get())
+    m_ShuffleboardTab.add("Beam Status", m_beambreak.get())
     .withPosition(7, 3)
     .withSize(2, 1);
   }
