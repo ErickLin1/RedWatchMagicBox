@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import java.util.Map;
-import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
@@ -76,7 +75,7 @@ public class ControlPanel extends SubsystemBase {
     RightSparkRPM = m_ShuffleboardTab.add("Right RPM", 5500)
       .withPosition(1, 3)
       .getEntry();
-    m_ShuffleboardTab.add("Run Motors RPM", new differentialDriveSparks(() -> getSpeedFromRPM(LeftSparkRPM.getDouble(5500)), () -> getSpeedFromRPM(RightSparkRPM.getDouble(5500)), m_drivetrainSparks)).withPosition(2, 3);
+    m_ShuffleboardTab.add("Run Motors RPM", new differentialDriveSparks(() -> getSpeedFromRPM(LeftSparkRPM.getDouble(0)), () -> getSpeedFromRPM(RightSparkRPM.getDouble(0)), m_drivetrainSparks)).withPosition(2, 3);
 
     // Set up talon motor controls
     LeftTalonMotor = m_TalonControls.add("Left Motor Speed", 0)
@@ -118,7 +117,7 @@ public class ControlPanel extends SubsystemBase {
    * @return a double to get that rpm
    */
   private double getSpeedFromRPM(double RPM) {
-    double maxRPM = 5500;
+    int maxRPM = Constants.maxSparkRPM;
     double speed = RPM / maxRPM;
 
     if (speed > 1.0) {
