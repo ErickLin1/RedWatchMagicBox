@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import java.util.Map;
+import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
@@ -33,6 +34,8 @@ public class ControlPanel extends SubsystemBase {
   private final NetworkTableEntry RightSparkMotor;
   private final NetworkTableEntry LeftTalonMotor;
   private final NetworkTableEntry RightTalonMotor;
+  private final NetworkTableEntry LeftSparkRPM;
+  private final NetworkTableEntry RightSparkRPM;
 
   public ControlPanel(Climber m_climber, DrivetrainSparks m_drivetrainSparks, DrivetrainTalons m_drivetrainTalons) {
     // Initialize Control Panel Shuffleboard
@@ -66,6 +69,15 @@ public class ControlPanel extends SubsystemBase {
     // Turns on the motors and reads the shuffleboard's motor speed values
     m_SparkControls.add("Run Motors", new differentialDriveSparks(() -> LeftSparkMotor.getDouble(0), () -> RightSparkMotor.getDouble(0), m_drivetrainSparks));
 
+    // Set up Spark RPM controls
+    LeftSparkRPM = m_ShuffleboardTab.add("Left RPM", 5500)
+      .withPosition(0, 3)
+      .getEntry();
+    RightSparkRPM = m_ShuffleboardTab.add("Right RPM", 5500)
+      .withPosition(1, 3)
+      .getEntry();
+    m_ShuffleboardTab.add("Run Motors RPM", new differentialDriveSparks(() -> getSpeedFromRPM(LeftSparkRPM.getDouble(5500)), () -> getSpeedFromRPM(RightSparkRPM.getDouble(5500)), m_drivetrainSparks)).withPosition(2, 3);
+
     // Set up talon motor controls
     LeftTalonMotor = m_TalonControls.add("Left Motor Speed", 0)
     .withWidget(BuiltInWidgets.kNumberSlider)
@@ -98,6 +110,22 @@ public class ControlPanel extends SubsystemBase {
     m_ShuffleboardTab.addBoolean("Beam Status", () -> m_beambreak.get())
     .withPosition(7, 3)
     .withSize(2, 1);
+  }
+
+  /**
+   * Converts RPM to Speed so the robot can run at that RPM.
+   * @param RPM the rotations per minute for motor
+   * @return a double to get that rpm
+   */
+  private double getSpeedFromRPM(double RPM) {
+    double maxRPM = 5500;
+    double speed = RPM / maxRPM;
+
+    if (speed > 1.0) {
+      return 1.0;
+    }
+
+    return speed;
   }
 
   @Override

@@ -11,7 +11,9 @@
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/LiveWindow/Beambreak": "Subsystem",
       "/LiveWindow/Climber": "Subsystem",
+      "/LiveWindow/ColorDetection": "Subsystem",
       "/LiveWindow/ControlPanel": "Subsystem",
       "/LiveWindow/Drivetrain": "Subsystem",
       "/LiveWindow/DrivetrainSparks": "Subsystem",
@@ -19,10 +21,12 @@
       "/LiveWindow/ExampleSubsystem": "Subsystem",
       "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
       "/LiveWindow/Ungrouped/DifferentialDrive[2]": "DifferentialDrive",
+      "/LiveWindow/Ungrouped/DigitalInput[1]": "Digital Input",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
       "/Shuffleboard/Commands/Run Motors": "Command",
       "/Shuffleboard/Commands/Toggle Solenoid": "Command",
       "/Shuffleboard/Control Panel/Motor Controls/Run Motors": "Command",
+      "/Shuffleboard/Control Panel/Run Motors RPM": "Command",
       "/Shuffleboard/Control Panel/Spark Motor Controls/Run Motors": "Command",
       "/Shuffleboard/Control Panel/Talon Motor Controls/Run Motors": "Command",
       "/Shuffleboard/Control Panel/Toggle Solenoid": "Command",
