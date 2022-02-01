@@ -31,10 +31,10 @@ public class ControlPanel extends SubsystemBase {
 
   private final NetworkTableEntry LeftSparkMotor;
   private final NetworkTableEntry RightSparkMotor;
-  private final NetworkTableEntry LeftTalonMotor;
-  private final NetworkTableEntry RightTalonMotor;
   private final NetworkTableEntry LeftSparkRPM;
   private final NetworkTableEntry RightSparkRPM;
+  private final NetworkTableEntry LeftTalonMotor;
+  private final NetworkTableEntry RightTalonMotor;
 
   public ControlPanel(Climber m_climber, DrivetrainSparks m_drivetrainSparks, DrivetrainTalons m_drivetrainTalons) {
     // Initialize Control Panel Shuffleboard
@@ -113,8 +113,8 @@ public class ControlPanel extends SubsystemBase {
 
   /**
    * Converts RPM to Speed so the robot can run at that RPM.
-   * @param RPM the rotations per minute for motor
-   * @return a double to get that rpm
+   * @param RPM the rotations per minute to convert
+   * @return the converted speed to get that rpm
    */
   private double getSpeedFromRPM(double RPM) {
     int maxRPM = Constants.maxSparkRPM;
