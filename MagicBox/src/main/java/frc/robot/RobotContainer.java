@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import frc.robot.commands.TurnLightsBlue;
 import frc.robot.commands.differentialDriveSparks;
 import frc.robot.commands.differentialDriveTalons;
 import frc.robot.commands.toggleSolenoid;
@@ -14,6 +15,7 @@ import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DrivetrainSparks;
 import frc.robot.subsystems.DrivetrainTalons;
+import frc.robot.subsystems.Lights;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -30,6 +32,8 @@ public class RobotContainer {
 
   private final XboxController m_sparkdriver = new XboxController(Constants.kSparkControllerPort);
   private final XboxController m_talondriver = new XboxController(Constants.kTalonControllerPort);
+
+  private final Lights m_light = new Lights();
 
   private final Climber m_climber;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -63,6 +67,7 @@ public class RobotContainer {
     // Add button for each controller to toggle solenoid
     new JoystickButton(m_sparkdriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
     new JoystickButton(m_talondriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
+    new JoystickButton(m_sparkdriver, Button.kA.value).whenPressed(new TurnLightsBlue(m_light));
   }
 
   /**
