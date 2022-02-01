@@ -26,7 +26,7 @@ public class Climber extends SubsystemBase {
     solMotor = new DoubleSolenoid(Constants.PneumaticType, Constants.solMotorPort, Constants.solMotorPort + 1);
   }
 
-  // Turns solenoid off and on
+  /** Turns solenoid off and on. */
   public void toggleSolenoid() {
     if (solMotor.get().equals(Value.kForward)) {
       solMotor.set(Value.kReverse);

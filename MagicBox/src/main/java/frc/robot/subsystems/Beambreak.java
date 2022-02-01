@@ -8,14 +8,18 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+/** Creates a subsystem for the beam break. */
 public class Beambreak extends SubsystemBase {
-  /** Creates a new Beambreak. */
   private final DigitalInput input;
 
   public Beambreak() {
     input = new DigitalInput(Constants.BeambreakPort);
   }
 
+  /**
+   * 
+   * @return Returns a boolean whether the beam is connected or not.
+   */
   public boolean get() {
     return input.get();
   }
