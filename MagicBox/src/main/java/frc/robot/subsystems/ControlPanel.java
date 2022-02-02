@@ -69,10 +69,10 @@ public class ControlPanel extends SubsystemBase {
     m_SparkControls.add("Run Motors", new differentialDriveSparks(() -> LeftSparkMotor.getDouble(0), () -> RightSparkMotor.getDouble(0), m_drivetrainSparks));
 
     // Set up Spark RPM controls
-    LeftSparkRPM = m_ShuffleboardTab.add("Left RPM", 5500)
+    LeftSparkRPM = m_ShuffleboardTab.add("Left RPM", Constants.maxSparkRPM)
       .withPosition(0, 3)
       .getEntry();
-    RightSparkRPM = m_ShuffleboardTab.add("Right RPM", 5500)
+    RightSparkRPM = m_ShuffleboardTab.add("Right RPM", Constants.maxSparkRPM)
       .withPosition(1, 3)
       .getEntry();
     m_ShuffleboardTab.add("Run Motors RPM", new differentialDriveSparks(() -> getSpeedFromRPM(LeftSparkRPM.getDouble(0)), () -> getSpeedFromRPM(RightSparkRPM.getDouble(0)), m_drivetrainSparks)).withPosition(2, 3);
