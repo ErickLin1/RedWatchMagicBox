@@ -37,6 +37,8 @@ public class Lights extends SubsystemBase {
 
     m_ledDriver = new Spark(kBlinkinDriverPort);
     resetLights();
+
+    m_lightValues.addNumber("Light Output", () -> getCurrentLights());
   }
 
   /* TODO: When robot takes in ball of each color
@@ -78,6 +80,5 @@ public class Lights extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    m_lightValues.addNumber("Light Output", () -> getCurrentLights());
   }
 }
