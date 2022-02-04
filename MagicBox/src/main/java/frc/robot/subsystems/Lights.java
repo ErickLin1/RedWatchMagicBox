@@ -78,6 +78,6 @@ public class Lights extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    m_LightValues.addNumber("Light Output", () -> m_lights.getCurrentLights());
+    m_lightValues.addNumber("Light Output", () -> getCurrentLights());
   }
 }
