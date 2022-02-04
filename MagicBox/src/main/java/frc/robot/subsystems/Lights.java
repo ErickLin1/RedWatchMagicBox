@@ -55,6 +55,14 @@ public class Lights extends SubsystemBase {
     m_ledDriver.set(kDefaultColor);
   }
 
+  public double getCurrentLights() {
+    return m_ledDriver.get();
+  }
+
+  public void setGiven(double color) {
+    m_ledDriver.set(color);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
