@@ -21,6 +21,7 @@ import frc.robot.commands.toggleSolenoid;
 /** Creates a control panel in Shuffleboard that displays all important information and controls. Contains all shuffleboard related code. */
 public class ControlPanel extends SubsystemBase {
   /** Creates a new ControlPanel. */
+  private final Beambreak m_beambreak;
 
   private final ShuffleboardTab m_ShuffleboardTab;
   private final ShuffleboardLayout m_SparkControls;
@@ -30,6 +31,8 @@ public class ControlPanel extends SubsystemBase {
 
   private final NetworkTableEntry LeftSparkMotor;
   private final NetworkTableEntry RightSparkMotor;
+  private final NetworkTableEntry LeftSparkRPM;
+  private final NetworkTableEntry RightSparkRPM;
   private final NetworkTableEntry LeftTalonMotor;
   private final NetworkTableEntry RightTalonMotor;
 
@@ -40,17 +43,17 @@ public class ControlPanel extends SubsystemBase {
     // Set up layouts
     m_SparkControls = m_ShuffleboardTab.getLayout("Spark Motor Controls", BuiltInLayouts.kList)
     .withPosition(3, 0)
-    .withSize(3, 3);
+    .withSize(2, 3);
     m_TalonControls = m_ShuffleboardTab.getLayout("Talon Motor Controls", BuiltInLayouts.kList)
-    .withPosition(8, 0)
-    .withSize(3, 3);
+    .withPosition(7, 0)
+    .withSize(2, 3);
     m_SparkStatus = m_ShuffleboardTab.getLayout("Spark Status", BuiltInLayouts.kList)
     .withSize(2,2)
-    .withPosition(6,0)
+    .withPosition(5,0)
     .withProperties(Map.of("Label position", "TOP"));
     m_TalonStatus = m_ShuffleboardTab.getLayout("Talon Status", BuiltInLayouts.kList)
-    .withSize(2,3)
-    .withPosition(6,2)
+    .withSize(2,2)
+    .withPosition(5,2)
     .withProperties(Map.of("Label position", "TOP"));
 
     // Set up spark motor controls
@@ -64,6 +67,15 @@ public class ControlPanel extends SubsystemBase {
     .getEntry();
     // Turns on the motors and reads the shuffleboard's motor speed values
     m_SparkControls.add("Run Motors", new differentialDriveSparks(() -> LeftSparkMotor.getDouble(0), () -> RightSparkMotor.getDouble(0), m_drivetrainSparks));
+
+    // Set up Spark RPM controls
+    LeftSparkRPM = m_ShuffleboardTab.add("Left RPM", Constants.maxSparkRPM)
+      .withPosition(0, 3)
+      .getEntry();
+    RightSparkRPM = m_ShuffleboardTab.add("Right RPM", Constants.maxSparkRPM)
+      .withPosition(1, 3)
+      .getEntry();
+    m_ShuffleboardTab.add("Run Motors RPM", new differentialDriveSparks(() -> getSpeedFromRPM(LeftSparkRPM.getDouble(0)), () -> getSpeedFromRPM(RightSparkRPM.getDouble(0)), m_drivetrainSparks)).withPosition(2, 3);
 
     // Set up talon motor controls
     LeftTalonMotor = m_TalonControls.add("Left Motor Speed", 0)
@@ -82,15 +94,37 @@ public class ControlPanel extends SubsystemBase {
     m_SparkStatus.addNumber("Right Speed", () -> m_drivetrainSparks.rightSparkSpeed);
 
     // Set up Talon Status
-    m_TalonStatus.addNumber("Left Speed (not working)", () -> m_drivetrainTalons.getLeftSpeed());
-    m_TalonStatus.addNumber("Right Speed (not working)", () -> m_drivetrainTalons.getRightSpeed());
+    m_TalonStatus.addNumber("Left Speed", () -> m_drivetrainTalons.getLeftSpeed()); // not working
+    m_TalonStatus.addNumber("Right Speed", () -> m_drivetrainTalons.getRightSpeed()); // not working
     m_TalonStatus.addNumber("Left Output", () -> m_drivetrainTalons.getLeftOutput());
     m_TalonStatus.addNumber("Right Output", () -> m_drivetrainTalons.getRightOutput());
 
     // Enables or disables the solenoid
     m_ShuffleboardTab.add("Toggle Solenoid", new toggleSolenoid(m_climber))
       .withPosition(3, 3)
-      .withSize(3, 1);
+      .withSize(2, 1);
+    
+    // Set up beam break status
+    m_beambreak = new Beambreak();
+    m_ShuffleboardTab.addBoolean("Beam Status", () -> m_beambreak.get())
+    .withPosition(7, 3)
+    .withSize(2, 1);
+  }
+
+  /**
+   * Converts RPM to Speed so the robot can run at that RPM.
+   * @param RPM the rotations per minute to convert
+   * @return the converted speed to get that rpm
+   */
+  private double getSpeedFromRPM(double RPM) {
+    int maxRPM = Constants.maxSparkRPM;
+    double speed = RPM / maxRPM;
+
+    if (speed > 1.0) {
+      return 1.0;
+    }
+
+    return speed;
   }
 
   @Override

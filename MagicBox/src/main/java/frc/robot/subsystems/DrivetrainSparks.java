@@ -110,7 +110,7 @@ public class DrivetrainSparks extends SubsystemBase {
   // }
   
   public void tankDrive(double leftPower, double rightPower, boolean squareInputs) {
-    m_drive.tankDrive(leftPower, rightPower, squareInputs);
+    m_drive.tankDrive(leftPower, rightPower, squareInputs); 
   }
 
   public void stopDrive() {
@@ -120,7 +120,7 @@ public class DrivetrainSparks extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    leftSparkSpeed = -m_leftEncoder.getVelocity();
-    rightSparkSpeed = -m_rightEncoder.getVelocity();
+    leftSparkSpeed = m_leftEncoder.getVelocity();
+    rightSparkSpeed = m_rightEncoder.getVelocity();
   }
 }
