@@ -7,11 +7,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Lights;
 
-public class cycleLightsLeft extends CommandBase {
+public class cycleLightsRight extends CommandBase {
 
   private final Lights m_light;
   /** Creates a new cycleLightsLeft. */
-  public cycleLightsLeft(Lights light) {
+  public cycleLightsRight(Lights light) {
     m_light = light;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_light);
@@ -25,8 +25,8 @@ public class cycleLightsLeft extends CommandBase {
   @Override
   public void execute() {
     double currentColor = m_light.getCurrentLights();
-    if (currentColor != -0.99) {
-      m_light.setGiven(currentColor - 0.02);
+    if (currentColor != 0.99) {
+      m_light.setGiven(currentColor + 0.02);
     }
   }
 
