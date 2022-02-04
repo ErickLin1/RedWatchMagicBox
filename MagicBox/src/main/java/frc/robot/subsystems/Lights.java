@@ -24,7 +24,7 @@ public class Lights extends SubsystemBase {
   public Lights() {
 
     m_ledDriver = new Spark(kBlinkinDriverPort);
-
+    resetLights();
   }
 
   /* TODO: When robot takes in ball of each color
@@ -49,6 +49,10 @@ public class Lights extends SubsystemBase {
 
   public void intakeBlue() {
     m_ledDriver.set(kBlueBall);
+  }
+
+  public void resetLights() {
+    m_ledDriver.set(kDefaultColor);
   }
 
   @Override
