@@ -12,14 +12,16 @@ import frc.robot.subsystems.RPMSpeedPID;
 
 public class RunMotorsRPM extends CommandBase {
   /** Creates a new RunMotorsRPM. */
+  private final DoubleSupplier leftMotorRPM;
+  private final DoubleSupplier rightMotorRPM;
   private final RPMSpeedPID m_LeftPID;
   private final RPMSpeedPID m_RightPID;
   public RunMotorsRPM(DoubleSupplier leftRPM, DoubleSupplier rightRPM, DrivetrainSparks drivetrain) {
     m_LeftPID = new RPMSpeedPID(drivetrain.leftSpark);
     m_RightPID = new RPMSpeedPID(drivetrain.rightSpark);
 
-    m_LeftPID.setSetpoint(leftRPM.getAsDouble());
-    m_RightPID.setSetpoint(rightRPM.getAsDouble());
+    leftMotorRPM = leftRPM;
+    rightMotorRPM = rightRPM;
     
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -27,6 +29,9 @@ public class RunMotorsRPM extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_LeftPID.setSetpoint(leftMotorRPM.getAsDouble());
+    m_RightPID.setSetpoint(rightMotorRPM.getAsDouble());
+
     m_LeftPID.enable();
     m_RightPID.enable();
   }
