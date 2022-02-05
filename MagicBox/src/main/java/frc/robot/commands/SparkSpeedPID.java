@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
@@ -14,14 +16,14 @@ import frc.robot.subsystems.DrivetrainSparks;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class SparkSpeedPID extends PIDCommand {
   /** Creates a new SparkSpeedPID. */
-  public SparkSpeedPID(DrivetrainSparks drivetrain, double speed) {
+  public SparkSpeedPID(DrivetrainSparks drivetrain, DoubleSupplier speed) {
     super(
         // The controller that the command will use
         new PIDController(0, 0.001, 0),
         // This should return the measurement
         () -> drivetrain.getLeftSpeed(),
         // This should return the setpoint (can also be a constant)
-        () -> speed,
+        () -> speed.getAsDouble(),
         // This uses the output
         output -> {
           // Use the output here
