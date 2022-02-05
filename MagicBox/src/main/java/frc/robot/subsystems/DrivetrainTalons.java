@@ -69,7 +69,7 @@ public class DrivetrainTalons extends SubsystemBase {
   // }
 
   public void tankDrive(double leftPower, double rightPower, boolean squareInputs) {
-    m_drive.tankDrive(leftPower/2, rightPower/2, squareInputs);
+    m_drive.tankDrive(leftPower, rightPower, squareInputs);
   }
 
   public void stopDrive() {
