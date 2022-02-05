@@ -30,8 +30,8 @@ public class DrivetrainSparks extends SubsystemBase {
 
   private final DifferentialDrive m_drive;
 
-  public double leftSparkSpeed;
-  public double rightSparkSpeed;
+  // public double leftSparkSpeed;
+  // public double rightSparkSpeed;
   
   public DrivetrainSparks() {
     // Spark Maxes
@@ -87,13 +87,13 @@ public class DrivetrainSparks extends SubsystemBase {
   //   return -m_rightEncoder.getPosition();
   // }
 
-  // private double getLeftSpeed() {
-  //   return -m_leftEncoder.getVelocity();
-  // }
+  public double getLeftSpeed() {
+    return m_leftEncoder.getVelocity();
+  }
 
-  // private double getRightSpeed() {
-  //   return -m_rightEncoder.getVelocity();
-  // }
+  public double getRightSpeed() {
+    return m_rightEncoder.getVelocity();
+  }
 
   //public double getRobotAngle() {
     //return m_imu.getAngle();
@@ -110,17 +110,25 @@ public class DrivetrainSparks extends SubsystemBase {
   // }
   
   public void tankDrive(double leftPower, double rightPower, boolean squareInputs) {
-    m_drive.tankDrive(leftPower, rightPower, squareInputs); 
+    m_drive.tankDrive(leftPower, rightPower, squareInputs);
   }
 
   public void stopDrive() {
     m_drive.tankDrive(0, 0);
   }
 
+  public void setLeftSpeed(int speed) {
+    leftSpark.set(speed);
+  }
+
+  public void setRightSpeed(int speed) {
+    rightSpark.set(speed);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    leftSparkSpeed = m_leftEncoder.getVelocity();
-    rightSparkSpeed = m_rightEncoder.getVelocity();
+    // leftSparkSpeed = m_leftEncoder.getVelocity();
+    // rightSparkSpeed = m_rightEncoder.getVelocity();
   }
 }

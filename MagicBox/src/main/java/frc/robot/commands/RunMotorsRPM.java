@@ -4,43 +4,41 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.DrivetrainSparks;
+import frc.robot.subsystems.RPMSpeedPID;
 
-public class differentialDriveSparks extends CommandBase {
+public class RunMotorsRPM extends CommandBase {
+  /** Creates a new RunMotorsRPM. */
+  private final RPMSpeedPID m_LeftPID;
+  private final RPMSpeedPID m_RightPID;
+  public RunMotorsRPM(double leftRPM, double rightRPM, DrivetrainSparks drivetrain) {
+    m_LeftPID = new RPMSpeedPID(drivetrain.leftSpark);
+    m_RightPID = new RPMSpeedPID(drivetrain.rightSpark);
 
-  private final DrivetrainSparks m_drivetrain;
-  private final DoubleSupplier m_leftSpeed;
-  private final DoubleSupplier m_rightSpeed;
-
-  /** Creates a new differentialDrive. */
-  public differentialDriveSparks(DoubleSupplier leftSpeed, DoubleSupplier rightSpeed, DrivetrainSparks subsystem) {
+    m_LeftPID.setSetpoint(leftRPM);
+    m_RightPID.setSetpoint(rightRPM);
+    
     // Use addRequirements() here to declare subsystem dependencies.
-    m_drivetrain = subsystem;
-    m_leftSpeed = leftSpeed;
-    m_rightSpeed = rightSpeed;
-
-    addRequirements(m_drivetrain);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_drivetrain.stopDrive();
+    new InstantCommand(m_LeftPID::enable, m_LeftPID);
+    new InstantCommand(m_RightPID::enable, m_RightPID);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    m_drivetrain.tankDrive(m_leftSpeed.getAsDouble(), m_rightSpeed.getAsDouble(), false);
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_drivetrain.stopDrive();
+    new InstantCommand(m_LeftPID::disable, m_LeftPID);
+    new InstantCommand(m_RightPID::disable, m_RightPID);
   }
 
   // Returns true when the command should end.

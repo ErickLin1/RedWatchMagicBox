@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.commands.RunMotorsRPM;
 import frc.robot.commands.differentialDriveSparks;
 import frc.robot.commands.differentialDriveTalons;
 import frc.robot.commands.toggleSolenoid;
@@ -75,7 +76,8 @@ public class ControlPanel extends SubsystemBase {
     RightSparkRPM = m_ShuffleboardTab.add("Right RPM", Constants.maxSparkRPM)
       .withPosition(1, 3)
       .getEntry();
-    m_ShuffleboardTab.add("Run Motors RPM", new differentialDriveSparks(() -> getSpeedFromRPM(LeftSparkRPM.getDouble(0)), () -> getSpeedFromRPM(RightSparkRPM.getDouble(0)), m_drivetrainSparks)).withPosition(2, 3);
+    // m_ShuffleboardTab.add("Run Motors RPM", new differentialDriveSparks(() -> getSpeedFromRPM(LeftSparkRPM.getDouble(0)), () -> getSpeedFromRPM(RightSparkRPM.getDouble(0)), m_drivetrainSparks)).withPosition(2, 3);
+    m_ShuffleboardTab.add("Run Motors RPM", new RunMotorsRPM(LeftSparkRPM.getDouble(0), RightSparkRPM.getDouble(0), m_drivetrainSparks)).withPosition(2, 3);
 
     // Set up talon motor controls
     LeftTalonMotor = m_TalonControls.add("Left Motor Speed", 0)
@@ -90,8 +92,8 @@ public class ControlPanel extends SubsystemBase {
     m_TalonControls.add("Run Motors", new differentialDriveTalons(() -> LeftTalonMotor.getDouble(0), () -> RightTalonMotor.getDouble(0), m_drivetrainTalons));
 
     // Set up Spark Status
-    m_SparkStatus.addNumber("Left Speed", () -> m_drivetrainSparks.leftSparkSpeed);
-    m_SparkStatus.addNumber("Right Speed", () -> m_drivetrainSparks.rightSparkSpeed);
+    m_SparkStatus.addNumber("Left Speed", () -> m_drivetrainSparks.getLeftSpeed());
+    m_SparkStatus.addNumber("Right Speed", () -> m_drivetrainSparks.getRightSpeed());
 
     // Set up Talon Status
     m_TalonStatus.addNumber("Left Speed", () -> m_drivetrainTalons.getLeftSpeed()); // not working
