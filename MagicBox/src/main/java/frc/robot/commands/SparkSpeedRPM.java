@@ -15,9 +15,6 @@ public class SparkSpeedRPM extends CommandBase {
   private final PIDController leftPID;
   // private final PIDController rightPID;
 
-  private double leftFinalSpeed;
-  private double rightFinalSpeed;
-
   private final DoubleSupplier leftSpeed;
   private final DoubleSupplier rightSpeed;
   private final DrivetrainSparks m_drivetrain;
@@ -43,13 +40,8 @@ public class SparkSpeedRPM extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (!leftPID.atSetpoint()) {
-      leftFinalSpeed = leftPID.calculate(m_drivetrain.getLeftSpeed(), leftSpeed.getAsDouble());
-      m_drivetrain.setLeftSpeed(leftFinalSpeed);
-      // m_drivetrain.setRightSpeed(rightPID.calculate(m_drivetrain.getRightSpeed(), rightSpeed.getAsDouble()));
-    } else {
-      m_drivetrain.setLeftSpeed(leftFinalSpeed);
-    }
+    m_drivetrain.setLeftSpeed(leftPID.calculate(m_drivetrain.getLeftSpeed(), leftSpeed.getAsDouble()));
+    // m_drivetrain.setRightSpeed(rightPID.calculate(m_drivetrain.getRightSpeed(), rightSpeed.getAsDouble()));
   }
 
   // Called once the command ends or is interrupted.
