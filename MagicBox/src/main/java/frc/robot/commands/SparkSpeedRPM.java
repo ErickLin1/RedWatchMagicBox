@@ -40,8 +40,10 @@ public class SparkSpeedRPM extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drivetrain.setLeftSpeed(leftPID.calculate(m_drivetrain.getLeftSpeed(), leftSpeed.getAsDouble()));
-    // m_drivetrain.setRightSpeed(rightPID.calculate(m_drivetrain.getRightSpeed(), rightSpeed.getAsDouble()));
+    if (!leftPID.atSetpoint()) {
+      m_drivetrain.setLeftSpeed(leftPID.calculate(m_drivetrain.getLeftSpeed(), leftSpeed.getAsDouble()));
+      // m_drivetrain.setRightSpeed(rightPID.calculate(m_drivetrain.getRightSpeed(), rightSpeed.getAsDouble()));
+    }
   }
 
   // Called once the command ends or is interrupted.
