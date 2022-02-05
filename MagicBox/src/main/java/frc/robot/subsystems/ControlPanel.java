@@ -78,7 +78,7 @@ public class ControlPanel extends SubsystemBase {
       .getEntry();
     // m_ShuffleboardTab.add("Run Motors RPM", new differentialDriveSparks(() -> getSpeedFromRPM(LeftSparkRPM.getDouble(0)), () -> getSpeedFromRPM(RightSparkRPM.getDouble(0)), m_drivetrainSparks)).withPosition(2, 3);
     // m_ShuffleboardTab.add("Run Motors RPM", new RunMotorsRPM(() -> LeftSparkRPM.getDouble(0), () -> RightSparkRPM.getDouble(0), m_drivetrainSparks)).withPosition(2, 3);
-    m_ShuffleboardTab.add("LEFT Motors RPM", new SparkSpeedPID(m_drivetrainSparks, 500)).withPosition(2, 3);
+    m_ShuffleboardTab.add("LEFT Motors RPM", new SparkSpeedPID(m_drivetrainSparks, LeftSparkRPM.getDouble(0))).withPosition(2, 3);
 
     // Set up talon motor controls
     LeftTalonMotor = m_TalonControls.add("Left Motor Speed", 0)
