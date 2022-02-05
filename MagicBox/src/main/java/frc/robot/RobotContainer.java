@@ -32,7 +32,7 @@ public class RobotContainer {
   private final XboxController m_sparkdriver = new XboxController(Constants.kSparkControllerPort);
   private final XboxController m_talondriver = new XboxController(Constants.kTalonControllerPort);
 
-  private final Climber m_climber;
+  // private final Climber m_climber;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Drivetrain for Sparks
@@ -46,10 +46,10 @@ public class RobotContainer {
       new differentialDriveTalons(() -> -m_talondriver.getLeftY(), () -> -m_talondriver.getRightY(), m_drivetrainTalons));
 
     // Sets up pneumatics and solenoids
-    m_climber = new Climber();
+    // m_climber = new Climber();
 
     // Sets up the control panel
-    new ControlPanel(m_climber, m_drivetrainSparks, m_drivetrainTalons);
+    new ControlPanel(m_drivetrainSparks, m_drivetrainTalons);
 
     // Sets up Color Sensor
     new ColorDetection();
@@ -65,8 +65,8 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // Add button for each controller to toggle solenoid
-    new JoystickButton(m_sparkdriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
-    new JoystickButton(m_talondriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
+    // new JoystickButton(m_sparkdriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
+    // new JoystickButton(m_talondriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
   }
 
   /**

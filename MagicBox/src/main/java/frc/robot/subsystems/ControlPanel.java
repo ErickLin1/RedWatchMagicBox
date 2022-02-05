@@ -37,7 +37,7 @@ public class ControlPanel extends SubsystemBase {
   private final NetworkTableEntry LeftTalonMotor;
   private final NetworkTableEntry RightTalonMotor;
 
-  public ControlPanel(Climber m_climber, DrivetrainSparks m_drivetrainSparks, DrivetrainTalons m_drivetrainTalons) {
+  public ControlPanel(DrivetrainSparks m_drivetrainSparks, DrivetrainTalons m_drivetrainTalons) { // Climber m_climber
     // Initialize Control Panel Shuffleboard
     m_ShuffleboardTab = Shuffleboard.getTab(Constants.kShuffleboardTab);
 
@@ -103,9 +103,9 @@ public class ControlPanel extends SubsystemBase {
     m_TalonStatus.addNumber("Right Output", () -> m_drivetrainTalons.getRightOutput());
 
     // Enables or disables the solenoid
-    m_ShuffleboardTab.add("Toggle Solenoid", new toggleSolenoid(m_climber))
-      .withPosition(3, 3)
-      .withSize(2, 1);
+    // m_ShuffleboardTab.add("Toggle Solenoid", new toggleSolenoid(m_climber))
+    //   .withPosition(3, 3)
+    //   .withSize(2, 1);
     
     // Set up beam break status
     m_beambreak = new Beambreak();
