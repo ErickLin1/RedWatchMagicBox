@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.commands.RunMotorsRPM;
+import frc.robot.commands.SparkSpeedPID;
 import frc.robot.commands.differentialDriveSparks;
 import frc.robot.commands.differentialDriveTalons;
 import frc.robot.commands.toggleSolenoid;
@@ -77,7 +78,8 @@ public class ControlPanel extends SubsystemBase {
       .withPosition(1, 3)
       .getEntry();
     // m_ShuffleboardTab.add("Run Motors RPM", new differentialDriveSparks(() -> getSpeedFromRPM(LeftSparkRPM.getDouble(0)), () -> getSpeedFromRPM(RightSparkRPM.getDouble(0)), m_drivetrainSparks)).withPosition(2, 3);
-    m_ShuffleboardTab.add("Run Motors RPM", new RunMotorsRPM(() -> LeftSparkRPM.getDouble(0), () -> RightSparkRPM.getDouble(0), m_drivetrainSparks)).withPosition(2, 3);
+    // m_ShuffleboardTab.add("Run Motors RPM", new RunMotorsRPM(() -> LeftSparkRPM.getDouble(0), () -> RightSparkRPM.getDouble(0), m_drivetrainSparks)).withPosition(2, 3);
+    m_ShuffleboardTab.add("LEFT Motors RPM", new SparkSpeedPID(m_drivetrainSparks.leftSpark, 500)).withPosition(2, 3);
 
     // Set up talon motor controls
     LeftTalonMotor = m_TalonControls.add("Left Motor Speed", 0)
