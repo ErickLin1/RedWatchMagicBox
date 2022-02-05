@@ -18,13 +18,13 @@ public class SparkSpeedPID extends PIDCommand {
         // The controller that the command will use
         new PIDController(0, 0, 0),
         // This should return the measurement
-        () -> drivetrain.leftSpark.getEncoder().getVelocity(),
+        () -> drivetrain.getLeftSpeed(),
         // This should return the setpoint (can also be a constant)
         () -> speed,
         // This uses the output
         output -> {
           // Use the output here
-          drivetrain.leftSpark.set(output);
+          drivetrain.setLeftSpeed(output);;
         });
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drivetrain);

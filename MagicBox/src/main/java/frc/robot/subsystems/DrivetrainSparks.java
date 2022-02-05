@@ -117,11 +117,11 @@ public class DrivetrainSparks extends SubsystemBase {
     m_drive.tankDrive(0, 0);
   }
 
-  public void setLeftSpeed(int speed) {
+  public void setLeftSpeed(double speed) {
     leftSpark.set(speed);
   }
 
-  public void setRightSpeed(int speed) {
+  public void setRightSpeed(double speed) {
     rightSpark.set(speed);
   }
 
