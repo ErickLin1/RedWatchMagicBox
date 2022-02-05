@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DrivetrainSparks;
 import frc.robot.subsystems.RPMSpeedPID;
@@ -12,12 +14,12 @@ public class RunMotorsRPM extends CommandBase {
   /** Creates a new RunMotorsRPM. */
   private final RPMSpeedPID m_LeftPID;
   private final RPMSpeedPID m_RightPID;
-  public RunMotorsRPM(double leftRPM, double rightRPM, DrivetrainSparks drivetrain) {
+  public RunMotorsRPM(DoubleSupplier leftRPM, DoubleSupplier rightRPM, DrivetrainSparks drivetrain) {
     m_LeftPID = new RPMSpeedPID(drivetrain.leftSpark);
     m_RightPID = new RPMSpeedPID(drivetrain.rightSpark);
 
-    m_LeftPID.setSetpoint(leftRPM);
-    m_RightPID.setSetpoint(rightRPM);
+    m_LeftPID.setSetpoint(leftRPM.getAsDouble());
+    m_RightPID.setSetpoint(rightRPM.getAsDouble());
     
     // Use addRequirements() here to declare subsystem dependencies.
   }

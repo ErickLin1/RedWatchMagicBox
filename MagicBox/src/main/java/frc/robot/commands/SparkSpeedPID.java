@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import com.revrobotics.CANSparkMax;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 
@@ -12,17 +14,18 @@ import edu.wpi.first.wpilibj2.command.PIDCommand;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class SparkSpeedPID extends PIDCommand {
   /** Creates a new SparkSpeedPID. */
-  public SparkSpeedPID() {
+  public SparkSpeedPID(CANSparkMax motor, double speed) {
     super(
         // The controller that the command will use
         new PIDController(0, 0, 0),
         // This should return the measurement
-        () -> 0,
+        () -> motor.getEncoder().getVelocity(),
         // This should return the setpoint (can also be a constant)
-        () -> 0,
+        () -> speed,
         // This uses the output
         output -> {
           // Use the output here
+          motor.set(output);
         });
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
