@@ -35,8 +35,6 @@ public class SparkSpeedRPM extends CommandBase {
   public void initialize() {
     leftPID.setTolerance(10);
     // rightPID.setTolerance(10);
-
-    m_drivetrain.setLeftSpeed(leftPID.calculate(m_drivetrain.getLeftSpeed(), leftSpeed.getAsDouble()));
   }
 
   // Called every time the scheduler runs while the command is scheduled.
