@@ -16,6 +16,7 @@ public class Climber extends SubsystemBase {
   /** Creates a new Climber. */
   private Compressor airCompressor;
   private DoubleSolenoid solMotor;
+  private DoubleSolenoid solMotor2;
 
   public Climber() {
     airCompressor = new Compressor(0, PneumaticsModuleType.CTREPCM);  //Digtial I/O,Relay
@@ -24,14 +25,17 @@ public class Climber extends SubsystemBase {
     airCompressor.enableDigital();    
     
     solMotor = new DoubleSolenoid(Constants.PneumaticType, Constants.solMotorPort, Constants.solMotorPort + 1);
+    solMotor2 = new DoubleSolenoid(Constants.PneumaticType, Constants.solMotorPort2, Constants.solMotorPort2 + 1);
   }
 
   /** Turns solenoid off and on. */
   public void toggleSolenoid() {
     if (solMotor.get().equals(Value.kForward)) {
       solMotor.set(Value.kReverse);
+      solMotor2.set(Value.kReverse);
     } else {
       solMotor.set(Value.kForward);
+      solMotor2.set(Value.kForward);
     }
   }
 

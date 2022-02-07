@@ -40,6 +40,7 @@ public final class Constants {
     // Pneumatics
     public static final PneumaticsModuleType PneumaticType = PneumaticsModuleType.CTREPCM;
     public static final int solMotorPort = 4;
+    public static final int solMotorPort2 = 6;
 
     public static final int BeambreakPort = 1;
 }
