@@ -17,6 +17,7 @@ import frc.robot.subsystems.DrivetrainSparks;
 import frc.robot.subsystems.DrivetrainTalons;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import static frc.robot.Constants.ControllerConstants.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -29,8 +30,8 @@ public class RobotContainer {
   private final DrivetrainSparks m_drivetrainSparks;
   private final DrivetrainTalons m_drivetrainTalons;
 
-  private final XboxController m_sparkdriver = new XboxController(Constants.kSparkControllerPort);
-  private final XboxController m_talondriver = new XboxController(Constants.kTalonControllerPort);
+  private final XboxController m_sparkdriver = new XboxController(kSparkControllerPort);
+  private final XboxController m_talondriver = new XboxController(kTalonControllerPort);
 
   private final Climber m_climber;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */

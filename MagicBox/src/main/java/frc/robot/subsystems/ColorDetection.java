@@ -9,7 +9,7 @@ import com.revrobotics.ColorSensorV3;
 import java.util.Map;
 
 import edu.wpi.first.wpilibj.util.Color;
-import frc.robot.Constants;
+import static frc.robot.Constants.ControlPanelConstants.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -30,7 +30,7 @@ public class ColorDetection extends SubsystemBase {
   public ColorDetection() {
     // Creates new color sensor and shufffleboard
     m_colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
-    m_controlPanelTab = Shuffleboard.getTab(Constants.kShuffleboardTab);
+    m_controlPanelTab = Shuffleboard.getTab(kShuffleboardTab);
     m_controlPanelStatus = m_controlPanelTab.getLayout("Color Status", BuiltInLayouts.kList)
       .withSize(3, 3)
       .withProperties(Map.of("Label position", "TOP"));
