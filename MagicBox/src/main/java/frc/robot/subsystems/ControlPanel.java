@@ -16,6 +16,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.commands.SparkSpeedPID;
 import frc.robot.commands.SparkSpeedRPM;
+import static frc.robot.Constants.DriveSpark.*;
+import static frc.robot.Constants.ControlPanelConstants.*;
 import frc.robot.commands.differentialDriveSparks;
 import frc.robot.commands.differentialDriveTalons;
 import frc.robot.commands.toggleSolenoid;
@@ -40,7 +42,7 @@ public class ControlPanel extends SubsystemBase {
 
   public ControlPanel(DrivetrainSparks m_drivetrainSparks, DrivetrainTalons m_drivetrainTalons) { // Climber m_climber
     // Initialize Control Panel Shuffleboard
-    m_ShuffleboardTab = Shuffleboard.getTab(Constants.kShuffleboardTab);
+    m_ShuffleboardTab = Shuffleboard.getTab(kShuffleboardTab);
 
     // Set up layouts
     m_SparkControls = m_ShuffleboardTab.getLayout("Spark Motor Controls", BuiltInLayouts.kList)
@@ -71,10 +73,10 @@ public class ControlPanel extends SubsystemBase {
     m_SparkControls.add("Run Motors", new differentialDriveSparks(() -> LeftSparkMotor.getDouble(0), () -> RightSparkMotor.getDouble(0), m_drivetrainSparks));
 
     // Set up Spark RPM controls
-    LeftSparkRPM = m_ShuffleboardTab.add("Left RPM", Constants.maxSparkRPM)
+    LeftSparkRPM = m_ShuffleboardTab.add("Left RPM", maxSparkRPM)
       .withPosition(0, 3)
       .getEntry();
-    RightSparkRPM = m_ShuffleboardTab.add("Right RPM", Constants.maxSparkRPM)
+    RightSparkRPM = m_ShuffleboardTab.add("Right RPM", maxSparkRPM)
       .withPosition(1, 3)
       .getEntry();
     // m_ShuffleboardTab.add("Run Motors RPM", new differentialDriveSparks(() -> getSpeedFromRPM(LeftSparkRPM.getDouble(0)), () -> getSpeedFromRPM(RightSparkRPM.getDouble(0)), m_drivetrainSparks)).withPosition(2, 3);
@@ -121,7 +123,7 @@ public class ControlPanel extends SubsystemBase {
    * @return the converted speed to get that rpm
    */
   private double getSpeedFromRPM(double RPM) {
-    int maxRPM = Constants.maxSparkRPM;
+    int maxRPM = maxSparkRPM;
     double speed = RPM / maxRPM;
 
     if (speed > 1.0) {

@@ -9,7 +9,7 @@ import com.revrobotics.ColorSensorV3;
 import java.util.Map;
 
 import edu.wpi.first.wpilibj.util.Color;
-import frc.robot.Constants;
+import static frc.robot.Constants.ControlPanelConstants.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -30,7 +30,7 @@ public class ColorDetection extends SubsystemBase {
   public ColorDetection() {
     // Creates new color sensor and shufffleboard
     m_colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
-    m_controlPanelTab = Shuffleboard.getTab(Constants.kShuffleboardTab);
+    m_controlPanelTab = Shuffleboard.getTab(kShuffleboardTab);
     m_controlPanelStatus = m_controlPanelTab.getLayout("Color Status", BuiltInLayouts.kList)
       .withSize(3, 3)
       .withProperties(Map.of("Label position", "TOP"));
@@ -40,9 +40,11 @@ public class ColorDetection extends SubsystemBase {
 
   private void shuffleboardInit() {
     // Displays color detected as a color box
-    m_controlPanelStatus.addBoolean("Red", () -> m_detectedColor.red > m_detectedColor.blue && m_detectedColor.red >= 0.3);
-    m_controlPanelStatus.addBoolean("Blue", () -> m_detectedColor.blue > m_detectedColor.red && m_detectedColor.blue >= 0.3);
-    m_controlPanelStatus.addBoolean("Green", () -> m_detectedColor.green >= 0.5);
+    m_controlPanelStatus.addBoolean("Red", () -> m_detectedColor.red > m_detectedColor.blue && m_detectedColor.red >= 0.3)
+      .withProperties(Map.of("Color when true", "Red", "Color when false", "Black"));
+    m_controlPanelStatus.addBoolean("Blue", () -> m_detectedColor.blue > m_detectedColor.red && m_detectedColor.blue >= 0.3)
+      .withProperties(Map.of("Color when true", "Cyan", "Color when false", "Black"));
+    // m_controlPanelStatus.addBoolean("Green", () -> m_detectedColor.green >= 0.5);
 
     // Shows color values (RGB)
     m_controlPanelStatus.addNumber("R", () -> m_detectedColor.red);

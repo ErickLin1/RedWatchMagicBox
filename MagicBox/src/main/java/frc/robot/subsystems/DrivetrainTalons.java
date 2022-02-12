@@ -5,7 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import static frc.robot.Constants.DriveTalon.*;
 
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -22,8 +22,8 @@ public class DrivetrainTalons extends SubsystemBase {
 
   public DrivetrainTalons() {
     // Talons
-    leftTalon = new WPI_TalonSRX(Constants.kLeftTalonPort);
-    rightTalon = new WPI_TalonSRX(Constants.kRightTalonPort);
+    leftTalon = new WPI_TalonSRX(kLeftTalonPort);
+    rightTalon = new WPI_TalonSRX(kRightTalonPort);
     
     leftTalon.configFactoryDefault();
     rightTalon.configFactoryDefault();

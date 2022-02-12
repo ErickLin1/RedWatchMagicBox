@@ -17,29 +17,43 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 public final class Constants {
 
     // Controller Ports
-    public static final int kSparkControllerPort = 1;
-    public static final int kTalonControllerPort = 2;
+    public static class ControllerConstants {
+        public static final int kSparkControllerPort = 1;
+        public static final int kTalonControllerPort = 2;
+    }
 
-    public static final boolean kLeftReversedDefault = true;
-    public static final boolean kRightReversedDefault = !kLeftReversedDefault;
-    public static final String kShuffleboardTab = "Control Panel";
-    public static final int STALL_LIMIT = 45;
-    public static final int kCurrentLimit = 60;
+    public static class ControlPanelConstants {
+        public static final String kShuffleboardTab = "Control Panel";
+    }
 
-    // Spark Maxes
-    public static final int LEFT_SPARK_ID = 2;
-    public static final int RIGHT_SPARK_ID = 1;
-    public static final int maxSparkRPM = 5500;
-    // public static final String kShuffleboardTabSpark = "Spark Maxes";
+    public static class DriveSpark {
+        public static final boolean kLeftReversedDefault = true;
+        public static final boolean kRightReversedDefault = !kLeftReversedDefault;
+        public static final int STALL_LIMIT = 45;
+        public static final int kCurrentLimit = 60;
 
-    // Talons
-    public static final int kLeftTalonPort = 3;
-    public static final int kRightTalonPort = 4;
-    // public static final String kShuffleboardTabTalon = "Talons";
+        // Spark Maxes
+        public static final int LEFT_SPARK_ID = 2;
+        public static final int RIGHT_SPARK_ID = 1;
+        public static final int maxSparkRPM = 5500;
+        // public static final String kShuffleboardTabSpark = "Spark Maxes";
+    }
 
+    public static class DriveTalon {
+        // Talons
+        public static final int kLeftTalonPort = 3;
+        public static final int kRightTalonPort = 4;
+        // public static final String kShuffleboardTabTalon = "Talons";
+    }
+
+    public static class PneumaticSolenoid {
     // Pneumatics
     public static final PneumaticsModuleType PneumaticType = PneumaticsModuleType.CTREPCM;
     public static final int solMotorPort = 4;
+    public static final int solMotorPort2 = 6;
+    }
 
-    public static final int BeambreakPort = 1;
+    public static class BeambreakConstants {
+        public static final int BeambreakPort = 1;
+    }
 }

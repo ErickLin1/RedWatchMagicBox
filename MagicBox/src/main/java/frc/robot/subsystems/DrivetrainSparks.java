@@ -6,7 +6,7 @@ package frc.robot.subsystems;
 
 //import com.analog.adis16470.frc.ADIS16470_IMU;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import static frc.robot.Constants.DriveSpark.*;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -35,14 +35,14 @@ public class DrivetrainSparks extends SubsystemBase {
   
   public DrivetrainSparks() {
     // Spark Maxes
-    leftSpark = new com.revrobotics.CANSparkMax(Constants.LEFT_SPARK_ID, MotorType.kBrushless);
-    rightSpark = new com.revrobotics.CANSparkMax(Constants.RIGHT_SPARK_ID, MotorType.kBrushless);
+    leftSpark = new com.revrobotics.CANSparkMax(LEFT_SPARK_ID, MotorType.kBrushless);
+    rightSpark = new com.revrobotics.CANSparkMax(RIGHT_SPARK_ID, MotorType.kBrushless);
     
-    motorInit(leftSpark, Constants.kLeftReversedDefault);
-    motorInit(rightSpark, Constants.kRightReversedDefault);
+    motorInit(leftSpark, kLeftReversedDefault);
+    motorInit(rightSpark, kRightReversedDefault);
 
-    leftSpark.setSmartCurrentLimit(Constants.STALL_LIMIT);
-    rightSpark.setSmartCurrentLimit(Constants.STALL_LIMIT);
+    leftSpark.setSmartCurrentLimit(STALL_LIMIT);
+    rightSpark.setSmartCurrentLimit(STALL_LIMIT);
 
     leftSpark.setIdleMode(IdleMode.kBrake);
     rightSpark.setIdleMode(IdleMode.kBrake);
@@ -65,7 +65,7 @@ public class DrivetrainSparks extends SubsystemBase {
   private void motorInit(CANSparkMax motor, boolean invert) {
     motor.restoreFactoryDefaults();
     motor.setIdleMode(IdleMode.kBrake);
-    motor.setSmartCurrentLimit(Constants.kCurrentLimit);
+    motor.setSmartCurrentLimit(kCurrentLimit);
     motor.setInverted(invert);
 
     encoderInit(motor.getEncoder());
