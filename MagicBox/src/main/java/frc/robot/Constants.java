@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-
     // Controller Ports
     public static class ControllerConstants {
         public static final int kSparkControllerPort = 1;
@@ -47,10 +46,10 @@ public final class Constants {
     }
 
     public static class PneumaticSolenoid {
-    // Pneumatics
-    public static final PneumaticsModuleType PneumaticType = PneumaticsModuleType.CTREPCM;
-    public static final int solMotorPort = 4;
-    public static final int solMotorPort2 = 6;
+        // Pneumatics
+        public static final PneumaticsModuleType PneumaticType = PneumaticsModuleType.CTREPCM;
+        public static final int solMotorPort = 4;
+        public static final int solMotorPort2 = 6;
     }
 
     public static class BeambreakConstants {

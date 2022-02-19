@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import static frc.robot.Constants.DriveTalon.*;
 
 
@@ -16,22 +17,22 @@ public class DrivetrainTalons extends SubsystemBase {
 
   // Create Talons
   private final WPI_TalonSRX leftTalon;
-  private final WPI_TalonSRX rightTalon;
+  // private final WPI_TalonSRX rightTalon;
 
   private final DifferentialDrive m_drive;
 
   public DrivetrainTalons() {
     // Talons
     leftTalon = new WPI_TalonSRX(kLeftTalonPort);
-    rightTalon = new WPI_TalonSRX(kRightTalonPort);
+    // rightTalon = new WPI_TalonSRX(kRightTalonPort);
     
     leftTalon.configFactoryDefault();
-    rightTalon.configFactoryDefault();
+    // rightTalon.configFactoryDefault();
 
     // leftTalon.setInverted(true);
     // rightTalon.setInverted(true);
 
-    m_drive = new DifferentialDrive(leftTalon, rightTalon);
+    m_drive = new DifferentialDrive(leftTalon, leftTalon);
 
     // // Initialize Shuffleboard
     // m_drivetrainTab = Shuffleboard.getTab(Constants.kShuffleboardTab);
@@ -46,17 +47,17 @@ public class DrivetrainTalons extends SubsystemBase {
     return leftTalon.getSelectedSensorVelocity();
   }
 
-  public double getRightSpeed() {
-    return rightTalon.getSelectedSensorVelocity();
-  }
+  // public double getRightSpeed() {
+  //   return rightTalon.getSelectedSensorVelocity();
+  // }
 
   public double getLeftOutput() {
     return leftTalon.get();
   }
 
-  public double getRightOutput() {
-    return rightTalon.get();
-  }
+  // public double getRightOutput() {
+  //   return rightTalon.get();
+  // }
 
   // private void shuffleboardInit() {
   //   m_drivetrainStatus.addNumber("Left Speed", () -> getLeftSpeed());
