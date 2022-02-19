@@ -26,8 +26,8 @@ public class Climber extends SubsystemBase {
     
     solMotor = new DoubleSolenoid(PneumaticType, solMotorPort, solMotorPort + 1);
     solMotor2 = new DoubleSolenoid(PneumaticType, solMotorPort2, solMotorPort2 + 1);
-    solMotor.set(Value.kReverse);
-    solMotor2.set(Value.kReverse);
+    solMotor.set(Value.kForward);
+    solMotor2.set(Value.kForward);
   }
 
   /** Turns solenoid off and on. */

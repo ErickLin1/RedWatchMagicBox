@@ -67,6 +67,7 @@ public class DrivetrainSparks extends SubsystemBase {
     motor.setIdleMode(IdleMode.kBrake);
     motor.setSmartCurrentLimit(kCurrentLimit);
     motor.setInverted(invert);
+    leftSpark.follow(rightSpark);
 
     encoderInit(motor.getEncoder());
   }
