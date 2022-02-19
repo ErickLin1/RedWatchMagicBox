@@ -95,10 +95,10 @@ public class ControlPanel extends SubsystemBase {
     m_SparkStatus.addNumber("Right Speed", () -> m_drivetrainSparks.rightSparkSpeed);
 
     // Set up Talon Status
-    m_TalonStatus.addNumber("Left Speed", () -> m_drivetrainTalons.getLeftSpeed()); // not working
-    m_TalonStatus.addNumber("Right Speed", () -> m_drivetrainTalons.getRightSpeed()); // not working
-    m_TalonStatus.addNumber("Left Output", () -> m_drivetrainTalons.getLeftOutput());
-    m_TalonStatus.addNumber("Right Output", () -> m_drivetrainTalons.getRightOutput());
+    // m_TalonStatus.addNumber("Left Speed", () -> m_drivetrainTalons.getLeftSpeed()); // not working
+    // m_TalonStatus.addNumber("Right Speed", () -> m_drivetrainTalons.getRightSpeed()); // not working
+    // m_TalonStatus.addNumber("Left Output", () -> m_drivetrainTalons.getLeftOutput());
+    // m_TalonStatus.addNumber("Right Output", () -> m_drivetrainTalons.getRightOutput());
 
     // Enables or disables the solenoid
     m_ShuffleboardTab.add("Toggle Solenoid", new toggleSolenoid(m_climber))
