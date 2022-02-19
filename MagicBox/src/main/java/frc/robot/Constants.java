@@ -33,8 +33,8 @@ public final class Constants {
         public static final int kCurrentLimit = 60;
 
         // Spark Maxes
-        public static final int LEFT_SPARK_ID = 2;
-        public static final int RIGHT_SPARK_ID = 1;
+        public static final int LEFT_SPARK_ID = 7;
+        public static final int RIGHT_SPARK_ID = 9;
         public static final int maxSparkRPM = 5500;
         // public static final String kShuffleboardTabSpark = "Spark Maxes";
     }
