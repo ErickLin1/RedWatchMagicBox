@@ -59,11 +59,11 @@ public class ControlPanel extends SubsystemBase {
 
     // Set up spark motor controls
     LeftSparkMotor = m_SparkControls.add("Left Motor Speed", 0)
-    .withWidget(BuiltInWidgets.kNumberSlider)
+    .withWidget(BuiltInWidgets.kNumberBar)
     .withProperties(Map.of("min", -1, "max", 1))
     .getEntry();
     RightSparkMotor = m_SparkControls.add("Right Motor Speed", 0)
-    .withWidget(BuiltInWidgets.kNumberSlider)
+    .withWidget(BuiltInWidgets.kNumberBar)
     .withProperties(Map.of("min", -1, "max", 1))
     .getEntry();
     // Turns on the motors and reads the shuffleboard's motor speed values
