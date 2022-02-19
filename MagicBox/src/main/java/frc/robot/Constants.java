@@ -41,8 +41,8 @@ public final class Constants {
 
     public static class DriveTalon {
         // Talons
-        public static final int kLeftTalonPort = 3;
-        public static final int kRightTalonPort = 4;
+        public static final int kLeftTalonPort = 11;
+        public static final int kRightTalonPort = 10;
         // public static final String kShuffleboardTabTalon = "Talons";
     }
 
