@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 
 
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 
@@ -45,9 +46,13 @@ public class RevToSpeed extends CommandBase {
     error = m_TargetRPM - currentRPM;
 
     increment = error/100000;
+    m_shooter.increment = increment;
     m_motorPower += increment;
+    m_shooter.motorPower = m_motorPower;
 
     m_shooter.topMotor.set(m_motorPower);
+
+    
   }
 
   // Called once the command ends or is interrupted.
