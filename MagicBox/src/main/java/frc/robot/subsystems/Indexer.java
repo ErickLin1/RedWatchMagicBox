@@ -31,7 +31,7 @@ public class Indexer extends SubsystemBase {
     m_ballDetect = new DigitalInput(Constants.kBeamBreakPort);    
   }
 
-  public void motorInit(CANSparkMax motor, boolean invert){
+  public void motorInit(CANSparkMax motor, boolean invert) {
     motor.restoreFactoryDefaults();
     motor.setIdleMode(IdleMode.kBrake);
     motor.setSmartCurrentLimit(Constants.kCurrentLimit);
