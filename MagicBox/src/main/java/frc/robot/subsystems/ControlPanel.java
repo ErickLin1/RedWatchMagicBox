@@ -110,6 +110,9 @@ public class ControlPanel extends SubsystemBase {
     m_ShuffleboardTab.addBoolean("Beam Status", () -> m_beambreak.get())
     .withPosition(7, 3)
     .withSize(2, 1);
+
+    // Automatically sets or changes Shuffleboard's current tab to Control Panel
+    Shuffleboard.selectTab(kShuffleboardTab);
   }
 
   /**

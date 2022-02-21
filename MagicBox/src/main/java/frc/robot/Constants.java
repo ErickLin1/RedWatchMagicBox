@@ -22,7 +22,7 @@ public final class Constants {
     }
 
     public static class ControlPanelConstants {
-        public static final String kShuffleboardTab = "Control Panel";
+        public static final String kShuffleboardTab = "Magic Panel";
     }
 
     public static class DriveSpark {
