@@ -13,11 +13,12 @@ import frc.robot.subsystems.Shooter;
 public class RevToSpeed extends CommandBase {
 
   Shooter m_shooter;
-  double m_motorPower;
-  double currentRPM;
+  double m_motorPower = 0;
+  double currentRPM = 0;
   double m_TargetRPM;
-  double increment;
-  double error;
+  double increment = 0;
+  double error = 0;
+  boolean finished = false;
 
   /** Creates a new RevToSpeed. */
   public RevToSpeed(double rpm, Shooter shooter) {
@@ -34,7 +35,11 @@ public class RevToSpeed extends CommandBase {
   public void initialize() {
     m_shooter.topMotor.set(0);
     m_shooter.encoderReset(m_shooter.m_topEncoder);
-
+    m_motorPower = 0;
+    currentRPM = 0;
+    increment = 0;
+    error = 0;
+    finished = false;
     
     
   }
@@ -45,13 +50,14 @@ public class RevToSpeed extends CommandBase {
     currentRPM = m_shooter.getEncoderVelocity(m_shooter.m_topEncoder);
     error = m_TargetRPM - currentRPM;
 
-    increment = error/100000;
+    increment = error / 120000;
     m_shooter.increment = increment;
     m_motorPower += increment;
     m_shooter.motorPower = m_motorPower;
 
     m_shooter.topMotor.set(m_motorPower);
 
+    finished = Math.abs(error) <= 20;
     
   }
 
@@ -59,6 +65,7 @@ public class RevToSpeed extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_shooter.flyWheelSpeedAfterRev = m_motorPower;
+    m_shooter.topMotor.set(0);
 
 
   }
@@ -66,6 +73,6 @@ public class RevToSpeed extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(currentRPM - m_TargetRPM) <= 0.005;
+    return finished;
   }
 }

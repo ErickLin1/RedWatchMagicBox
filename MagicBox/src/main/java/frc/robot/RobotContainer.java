@@ -52,7 +52,7 @@ public class RobotContainer {
 
     //shoot low
     new JoystickButton(m_driver, Button.kY.value).whenPressed(new RevFlywheel(1000, m_shooter));
-    new JoystickButton(m_driver, Button.kX.value).whenPressed(new RevToSpeed(1000, m_shooter));
+    new JoystickButton(m_driver, Button.kX.value).whenPressed(new RevToSpeed(4000, m_shooter));
   
   }
 
