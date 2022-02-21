@@ -10,12 +10,12 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
-import frc.robot.commands.EjectBall;
+
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.LoadBall;
-import frc.robot.commands.ShootCargo;
+import frc.robot.commands.RevFlywheel;
+
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.Indexer;
+//import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -29,14 +29,14 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Shooter m_shooter;
-  private final Indexer m_indexer;
+  //private final Indexer m_indexer;
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   private final XboxController m_driver = new XboxController(Constants.kDriverControllerPort);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    m_indexer = new Indexer();
+    //m_indexer = new Indexer();
     m_shooter = new Shooter();
     // Configure the button bindings
     configureButtonBindings();
@@ -49,13 +49,9 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(m_driver, Button.kA.value).whenPressed(new LoadBall(m_indexer));
-    new JoystickButton(m_driver, Button.kX.value).whileHeld(new EjectBall(m_indexer));
 
-    // shoot high
-    new JoystickButton(m_driver, Button.kB.value).whileHeld(new ShootCargo(Constants.kHighShootSpeed, m_shooter));
     //shoot low
-    new JoystickButton(m_driver, Button.kY.value).whileHeld(new ShootCargo(Constants.kLowShootSpeed, m_shooter));
+    new JoystickButton(m_driver, Button.kY.value).whenPressed(new RevFlywheel(1000, m_shooter));
   
   }
 

@@ -14,7 +14,7 @@ package frc.robot;
  */
 public final class Constants {
 
-    public static final int TOP_MOTOR_ID = 8;
+    public static final int TOP_MOTOR_ID = 1;
     public static final int BOTTOM_MOTOR_ID = 9;
 
     public static final int kBeamBreak = 4;
@@ -32,6 +32,10 @@ public final class Constants {
     public static final double kLowShootSpeed = 0.5;
     
     public static double kIndexerSpeed = 0.5;
+
+    public static double kFlyWheelPID = 0.05;
+    public static final String kShooterTab = "Shooter";
+    public static double kFlyWheelTolerance = 50.0;
 
     }
 
