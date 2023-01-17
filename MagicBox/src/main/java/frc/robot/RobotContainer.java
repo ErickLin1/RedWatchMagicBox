@@ -30,7 +30,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DrivetrainSparks m_drivetrainSparks;
   private final DrivetrainTalons m_drivetrainTalons;
-  public static AnalogPotentiometer ArmPotentiometer = new AnalogPotentiometer(1);
+  public static AnalogPotentiometer m_armPotentiometer;
   private final XboxController m_sparkdriver = new XboxController(kSparkControllerPort);
   private final XboxController m_talondriver = new XboxController(kTalonControllerPort);
 
@@ -42,7 +42,7 @@ public class RobotContainer {
     m_drivetrainSparks.setDefaultCommand(
       new differentialDriveSparks(() -> -m_sparkdriver.getLeftY(), () -> -m_sparkdriver.getRightY(), m_drivetrainSparks));
     //Defining Potentiometers
-    ArmPotentiometer = new AnalogPotentiometer(1);
+    m_armPotentiometer = new AnalogPotentiometer(1);
     // // Drivetrain for Talons
     m_drivetrainTalons = new DrivetrainTalons();
     m_drivetrainTalons.setDefaultCommand(

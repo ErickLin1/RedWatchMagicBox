@@ -98,7 +98,7 @@ public class ControlPanel extends SubsystemBase {
     
     
     //Set Potentiometers
-    m_ShuffleboardTab.add("Potentiometer Values", RobotContainer.ArmPotentiometer.get());
+    m_ShuffleboardTab.add("Potentiometer Values", RobotContainer.m_armPotentiometer.get());
 
     // Set up Talon Status
     // m_TalonStatus.addNumber("Left Speed", () -> m_drivetrainTalons.getLeftSpeed()); // not working
