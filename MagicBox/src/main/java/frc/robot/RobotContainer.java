@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
@@ -29,7 +30,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DrivetrainSparks m_drivetrainSparks;
   private final DrivetrainTalons m_drivetrainTalons;
-
+  public static AnalogPotentiometer ArmPotentiometer = new AnalogPotentiometer(1);
   private final XboxController m_sparkdriver = new XboxController(kSparkControllerPort);
   private final XboxController m_talondriver = new XboxController(kTalonControllerPort);
 
@@ -40,7 +41,8 @@ public class RobotContainer {
     m_drivetrainSparks = new DrivetrainSparks();
     m_drivetrainSparks.setDefaultCommand(
       new differentialDriveSparks(() -> -m_sparkdriver.getLeftY(), () -> -m_sparkdriver.getRightY(), m_drivetrainSparks));
-
+    //Defining Potentiometers
+    ArmPotentiometer = new AnalogPotentiometer(1);
     // // Drivetrain for Talons
     m_drivetrainTalons = new DrivetrainTalons();
     m_drivetrainTalons.setDefaultCommand(

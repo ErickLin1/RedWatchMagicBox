@@ -15,6 +15,8 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.DriveSpark.*;
 import static frc.robot.Constants.ControlPanelConstants.*;
+
+import frc.robot.RobotContainer;
 import frc.robot.commands.differentialDriveSparks;
 import frc.robot.commands.differentialDriveTalons;
 import frc.robot.commands.toggleSolenoid;
@@ -93,6 +95,10 @@ public class ControlPanel extends SubsystemBase {
     // Set up Spark Status
     m_SparkStatus.addNumber("Left Speed", () -> m_drivetrainSparks.leftSparkSpeed);
     m_SparkStatus.addNumber("Right Speed", () -> m_drivetrainSparks.rightSparkSpeed);
+    
+    
+    //Set Potentiometers
+    m_ShuffleboardTab.add("Potentiometer Values", RobotContainer.ArmPotentiometer.get());
 
     // Set up Talon Status
     // m_TalonStatus.addNumber("Left Speed", () -> m_drivetrainTalons.getLeftSpeed()); // not working
