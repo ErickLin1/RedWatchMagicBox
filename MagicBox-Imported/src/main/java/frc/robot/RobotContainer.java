@@ -12,6 +12,7 @@ import frc.robot.commands.differentialDriveSparks;
 import frc.robot.commands.differentialDriveTalons;
 import frc.robot.commands.toggleSolenoid;
 import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.ColorDetection;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DrivetrainSparks;
 import frc.robot.subsystems.DrivetrainTalons;
@@ -19,7 +20,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import static frc.robot.Constants.ControllerConstants.*;
 
-/**
+/*
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
  * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
@@ -53,6 +54,8 @@ public class RobotContainer {
     // Sets up the control panel
     new ControlPanel(m_climber, m_drivetrainSparks, m_drivetrainTalons);
 
+    // Sets up Color Sensor
+    new ColorDetection();
 
     configureButtonBindings();
   }
