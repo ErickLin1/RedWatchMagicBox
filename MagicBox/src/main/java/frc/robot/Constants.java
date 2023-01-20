@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-
     // Controller Ports
     public static final int kSparkControllerPort = 1;
     public static final int kTalonControllerPort = 2;
@@ -47,5 +46,45 @@ public final class Constants {
         public static final double kRedBall = 0.61;
         public static final double kBlueBall = 0.87;
         public static final double kDefaultColor = 0.93; //TODO: Find what we want default to be (same as disabled?)
+    }
+
+    public static class ControllerConstants {
+        public static final int kSparkControllerPort = 1;
+        public static final int kTalonControllerPort = 2;
+    }
+
+    public static class ControlPanelConstants {
+        public static final String kShuffleboardTab = "Magic Panel";
+    }
+
+    public static class DriveSpark {
+        public static final boolean kLeftReversedDefault = true;
+        public static final boolean kRightReversedDefault = !kLeftReversedDefault;
+        public static final int STALL_LIMIT = 45;
+        public static final int kCurrentLimit = 60;
+
+        // Spark Maxes
+        public static final int LEFT_SPARK_ID = 5;
+        public static final int RIGHT_SPARK_ID = 6;
+        public static final int maxSparkRPM = 5500;
+        // public static final String kShuffleboardTabSpark = "Spark Maxes";
+    }
+
+    public static class DriveTalon {
+        // Talons
+        public static final int kLeftTalonPort = 11;
+        public static final int kRightTalonPort = 10;
+        // public static final String kShuffleboardTabTalon = "Talons";
+    }
+
+    public static class PneumaticSolenoid {
+        // Pneumatics
+        public static final PneumaticsModuleType PneumaticType = PneumaticsModuleType.CTREPCM;
+        public static final int solMotorPort = 4;
+        public static final int solMotorPort2 = 6;
+    }
+
+    public static class BeambreakConstants {
+        public static final int BeambreakPort = 1;
     }
 }
