@@ -18,7 +18,7 @@ public class MeasuringPotentiometer extends SubsystemBase {
   private final AnalogPotentiometer pot;
   private final ShuffleboardTab m_controlPanelTab;
   private final ShuffleboardLayout m_controlPanelStatus; 
-  private double pot_val;
+  public double pot_val;
 
   /** Creates a new MeasuringPotentiometer. */
   public MeasuringPotentiometer() {
