@@ -16,6 +16,7 @@ import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DrivetrainSparks;
 import frc.robot.subsystems.DrivetrainTalons;
 import frc.robot.subsystems.MeasuringPotentiometer;
+import frc.robot.subsystems.SingleSpark;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import static frc.robot.Constants.ControllerConstants.*;
@@ -33,6 +34,7 @@ public class RobotContainer {
 
   private final MeasuringPotentiometer m_pot;
 
+  private final SingleSpark m_SingleSpark;
   private final XboxController m_sparkdriver = new XboxController(kSparkControllerPort);
   private final XboxController m_talondriver = new XboxController(kTalonControllerPort);
 
@@ -58,7 +60,7 @@ public class RobotContainer {
 
     // // Sets up Color Sensor
     // new ColorDetection();
-
+    m_SingleSpark = new SingleSpark();
     m_pot = new MeasuringPotentiometer();
 
     configureButtonBindings();

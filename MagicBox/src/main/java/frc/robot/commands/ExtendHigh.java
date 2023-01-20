@@ -9,10 +9,11 @@ import frc.robot.subsystems.*;
 public class ExtendHigh extends CommandBase {
 
   private final MeasuringPotentiometer m_pot;
-
+  private final SingleSpark m_Spark;
   /** Creates a new ExtendHigh. */
-  public ExtendHigh(MeasuringPotentiometer m_pot) {
-    
+  public ExtendHigh(MeasuringPotentiometer potentiometer, SingleSpark spark) {
+    m_pot = potentiometer;
+    m_Spark = spark;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
