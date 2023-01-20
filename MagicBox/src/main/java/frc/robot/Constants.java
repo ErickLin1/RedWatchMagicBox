@@ -32,8 +32,8 @@ public final class Constants {
         public static final int kCurrentLimit = 60;
 
         // Spark Maxes
-        public static final int LEFT_SPARK_ID = 5;
-        public static final int RIGHT_SPARK_ID = 6;
+        public static final int LEFT_SPARK_ID = 1;
+        public static final int RIGHT_SPARK_ID = 7;
         public static final int maxSparkRPM = 5500;
         // public static final String kShuffleboardTabSpark = "Spark Maxes";
     }
@@ -42,13 +42,13 @@ public final class Constants {
         // Talons
         public static final int kLeftTalonPort = 11;
         public static final int kRightTalonPort = 10;
-        // public static final String kShuffleboardTabTalon = "Talons";
+        // public static final String kShuffleboardTabTalon = "Talons";         3
     }
 
     public static class PneumaticSolenoid {
         // Pneumatics
         public static final PneumaticsModuleType PneumaticType = PneumaticsModuleType.CTREPCM;
-        public static final int solMotorPort = 4;
+        public static final int solMotorPort = 1;
         public static final int solMotorPort2 = 6;
     }
 

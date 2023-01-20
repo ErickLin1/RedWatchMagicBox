@@ -27,33 +27,33 @@ import static frc.robot.Constants.ControllerConstants.*;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DrivetrainSparks m_drivetrainSparks;
-  private final DrivetrainTalons m_drivetrainTalons;
+  // private final DrivetrainSparks m_drivetrainSparks;
+  // private final DrivetrainTalons m_drivetrainTalons;
 
-  private final XboxController m_sparkdriver = new XboxController(kSparkControllerPort);
+  // private final XboxController m_sparkdriver = new XboxController(kSparkControllerPort);
   private final XboxController m_talondriver = new XboxController(kTalonControllerPort);
 
   private final Climber m_climber;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Drivetrain for Sparks
-    m_drivetrainSparks = new DrivetrainSparks();
-    m_drivetrainSparks.setDefaultCommand(
-      new differentialDriveSparks(() -> -m_sparkdriver.getLeftY(), () -> -m_sparkdriver.getRightY(), m_drivetrainSparks));
+    // m_drivetrainSparks = new DrivetrainSparks();
+    // m_drivetrainSparks.setDefaultCommand(
+    //   new differentialDriveSparks(() -> -m_sparkdriver.getLeftY(), () -> -m_sparkdriver.getRightY(), m_drivetrainSparks));
 
     // // Drivetrain for Talons
-    m_drivetrainTalons = new DrivetrainTalons();
-    m_drivetrainTalons.setDefaultCommand(
-      new differentialDriveTalons(() -> -m_talondriver.getLeftY(), () -> -m_talondriver.getRightY(), m_drivetrainTalons));
+    // m_drivetrainTalons = new DrivetrainTalons();
+    // m_drivetrainTalons.setDefaultCommand(
+    //   new differentialDriveTalons(() -> -m_talondriver.getLeftY(), () -> -m_talondriver.getRightY(), m_drivetrainTalons));
 
     // Sets up pneumatics and solenoids
     m_climber = new Climber();
 
     // Sets up the control panel
-    new ControlPanel(m_climber, m_drivetrainSparks, m_drivetrainTalons);
+    // new ControlPanel(m_climber, m_drivetrainSparks, m_drivetrainTalons);
 
     // Sets up Color Sensor
-    new ColorDetection();
+    // new ColorDetection();
 
     configureButtonBindings();
   }
@@ -66,7 +66,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // Add button for each controller to toggle solenoid
-    new JoystickButton(m_sparkdriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
+    // new JoystickButton(m_sparkdriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
     new JoystickButton(m_talondriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
   }
 
