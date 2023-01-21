@@ -5,33 +5,31 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.MeasuringPotentiometer;
+import frc.robot.subsystems.Lights;
 
-public class cycleLightsRight extends CommandBase {
+public class potToLights extends CommandBase {
+  private final Lights m_lights;
   private final MeasuringPotentiometer m_pot;
-  private final Lights m_light;
-  /** Creates a new cycleLightsLeft. */
-  public cycleLightsRight(Lights light, MeasuringPotentiometer mPotentiometer) {
-    m_pot = mPotentiometer;
-    m_light = light;
+  /** Creates a new potToLights. */
+  public potToLights(MeasuringPotentiometer pot, Lights lights) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_light);
+    m_lights = lights;
+    m_pot = pot;
+
+    addRequirements(lights);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    double currentColor = m_light.getCurrentLights();
-    if (currentColor != 0.99) {
-      m_light.setGiven(currentColor + 0.02);
-    }
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
+    m_lights.setGiven(m_pot.pot_val);
   }
 
   // Called once the command ends or is interrupted.
@@ -41,6 +39,6 @@ public class cycleLightsRight extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

@@ -10,15 +10,8 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.commands.TurnLightsBlue;
 import frc.robot.commands.cycleLightsLeft;
 import frc.robot.commands.cycleLightsRight;
-import frc.robot.commands.differentialDriveSparks;
-import frc.robot.commands.differentialDriveTalons;
-import frc.robot.commands.toggleSolenoid;
-import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.ColorDetection;
-import frc.robot.subsystems.ControlPanel;
-import frc.robot.subsystems.DrivetrainSparks;
-import frc.robot.subsystems.DrivetrainTalons;
 import frc.robot.subsystems.Lights;
+import frc.robot.subsystems.MeasuringPotentiometer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import static frc.robot.Constants.ControllerConstants.*;
@@ -38,6 +31,7 @@ public class RobotContainer {
   private final XboxController m_talondriver = new XboxController(kTalonControllerPort);
 
   private final Lights m_light;
+  private final MeasuringPotentiometer m_pot;
 
   // private final Climber m_climber;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -62,6 +56,7 @@ public class RobotContainer {
     // new ColorDetection();
 
     m_light = new Lights();
+    m_pot = new MeasuringPotentiometer();
 
     configureButtonBindings();
   }
@@ -78,7 +73,7 @@ public class RobotContainer {
     // new JoystickButton(m_talondriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
     new JoystickButton(m_sparkdriver, Button.kA.value).whenPressed(new TurnLightsBlue(m_light));
     new JoystickButton(m_sparkdriver, Button.kLeftBumper.value).whenPressed(new cycleLightsLeft(m_light));
-    new JoystickButton(m_sparkdriver, Button.kRightBumper.value).whenPressed(new cycleLightsRight(m_light));
+    new JoystickButton(m_sparkdriver, Button.kRightBumper.value).whenPressed(new cycleLightsRight(m_light, m_pot));
   }
 
   /**
