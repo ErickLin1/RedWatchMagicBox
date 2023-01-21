@@ -40,7 +40,7 @@ public final class Constants {
     public static final int solMotorPort = 4;
 
     public static class LightConstants {
-        public static final int kBlinkinDriverPort = 0; //TODO: Find a port for this
+        public static final int kBlinkinDriverPort = 4; //TODO: Find a port for this
 		public static final double kDisabled = 0.0; //TODO: Find what color we want for this and its value
 		public static final double kLightsOff = 0.99;
         public static final double kRedBall = 0.61;
