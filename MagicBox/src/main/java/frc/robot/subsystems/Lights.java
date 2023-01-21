@@ -44,14 +44,6 @@ public class Lights extends SubsystemBase {
     m_lightValues.addNumber("Light Output", () -> getCurrentLights());
   }
 
-  /* TODO: When robot takes in ball of each color
-   * When robot is speeding up flywheel 
-   * When ball comes out of c-shooter
-   * When robot is hanging?
-   * When robot has completed hanging
-   * Auto?
-   */
-
   public void setDisabledColor() {
     m_ledDriver.set(kDisabled);
   }
