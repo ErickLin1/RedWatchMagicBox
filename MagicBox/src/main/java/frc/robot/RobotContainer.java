@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import frc.robot.commands.ExtendHigh;
 import frc.robot.commands.differentialDriveSparks;
 import frc.robot.commands.differentialDriveTalons;
 import frc.robot.commands.toggleSolenoid;
@@ -37,7 +38,10 @@ public class RobotContainer {
   private final SingleSpark m_SingleSpark;
   private final XboxController m_sparkdriver = new XboxController(kSparkControllerPort);
   private final XboxController m_talondriver = new XboxController(kTalonControllerPort);
-
+  // 
+  private final double midLength = 15; 
+  private final double highLength = 30; 
+  private final double lowStop = 0.5; 
   // private final Climber m_climber;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -75,7 +79,9 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // Add button for each controller to toggle solenoid
     // new JoystickButton(m_sparkdriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
-    // new JoystickButton(m_talondriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
+    new JoystickButton(m_talondriver, Button.kY.value).whenPressed(new ExtendHigh(false, highLength,m_pot, m_SingleSpark));
+    new JoystickButton(m_talondriver, Button.kX.value).whenPressed(new ExtendHigh(false, midLength,m_pot, m_SingleSpark));
+    new JoystickButton(m_talondriver, Button.kA.value).whenPressed(new ExtendHigh(true, lowStop,m_pot, m_SingleSpark));
   }
 
   /**

@@ -32,6 +32,9 @@ public class MeasuringPotentiometer extends SubsystemBase {
     shuffleboardInit();
 
   }
+  public double getDistance(){
+    return pot_val;
+  }
 
   private void shuffleboardInit() {
     // Proximity to ball
