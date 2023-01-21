@@ -19,18 +19,21 @@ public class MeasuringPotentiometer extends SubsystemBase {
   private final ShuffleboardTab m_controlPanelTab;
   private final ShuffleboardLayout m_controlPanelStatus; 
   public double pot_val;
+  public double pot_value;
+  public double offset;
 
   /** Creates a new MeasuringPotentiometer. */
   public MeasuringPotentiometer() {
 
     pot = new AnalogPotentiometer(1);
+    
     m_controlPanelTab = Shuffleboard.getTab("stringpot");
     m_controlPanelStatus = m_controlPanelTab.getLayout("String Pot", BuiltInLayouts.kList)
     .withSize(3, 3)
     .withProperties(Map.of("Label position", "TOP"));
 
     shuffleboardInit();
-
+    offset = pot.get();
   }
   public double getDistance(){
     return pot_val;
@@ -38,13 +41,16 @@ public class MeasuringPotentiometer extends SubsystemBase {
 
   private void shuffleboardInit() {
     // Proximity to ball
-    m_controlPanelStatus.addNumber("Pot Value", () -> pot_val);
+    m_controlPanelStatus.addNumber("Pot Value", () -> pot_value);
+    m_controlPanelStatus.addNumber("inch Value", () -> pot_value*50);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    pot_val = ((pot.get())*2)-1;
+    pot_value = pot_val-offset;
+
+
     
   }
 }
