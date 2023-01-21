@@ -49,7 +49,10 @@ public class MeasuringPotentiometer extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     pot_value = pot_val-offset;
-
+    if (Math.round(pot_value*100)/100.0 >= 0.97)
+    {
+      offset = offset+0.97;
+    } 
 
     
   }
