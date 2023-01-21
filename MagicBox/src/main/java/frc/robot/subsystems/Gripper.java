@@ -61,6 +61,27 @@ m_gripperStatus = m_gripperTable.getEntry("Gripper Running");
 
   }
 
+public void runGripper(double speed) {
+
+m_gripperLeftMotor.set(speed);
+m_gripperRightMotor.set(speed);
+m_gripperStatus.setBoolean(true);
+  }
+
+public void stopGripper() {
+  m_gripperLeftMotor.set(0);
+  m_gripperRightMotor.set(0);
+  m_gripperStatus.setBoolean(false);
+}
+
+public void intakeGripper() {
+  runGripper(kGripperIntakeMotorSpeed);
+}
+
+public void ejectGripper() {
+  runGripper(kGripperEjectMotorSpeed);
+}
+
 
   public void setMotor(CANSparkMax motor, boolean inverse) {
     motor.restoreFactoryDefaults();
