@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import java.util.Map;
 
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
@@ -32,12 +33,12 @@ public class ControlPanel extends SubsystemBase {
   private final ShuffleboardLayout m_SparkStatus;
   private final ShuffleboardLayout m_TalonStatus;
 
-  private final NetworkTableEntry LeftSparkMotor;
-  private final NetworkTableEntry RightSparkMotor;
-  private final NetworkTableEntry LeftSparkRPM;
-  private final NetworkTableEntry RightSparkRPM;
-  private final NetworkTableEntry LeftTalonMotor;
-  private final NetworkTableEntry RightTalonMotor;
+  private final GenericEntry LeftSparkMotor;
+  private final GenericEntry RightSparkMotor;
+  private final GenericEntry LeftSparkRPM;
+  private final GenericEntry RightSparkRPM;
+  private final GenericEntry LeftTalonMotor;
+  private final GenericEntry RightTalonMotor;
 
   public ControlPanel(Climber m_climber, DrivetrainSparks m_drivetrainSparks, DrivetrainTalons m_drivetrainTalons) {
     // Initialize Control Panel Shuffleboard

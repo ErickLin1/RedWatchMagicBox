@@ -33,7 +33,7 @@ public class MeasuringPotentiometer extends SubsystemBase {
     .withProperties(Map.of("Label position", "TOP"));
 
     shuffleboardInit();
-    offset = pot.get();
+    // offset = pot.get();
   }
   public double getDistance(){
     return pot_val;
@@ -41,18 +41,18 @@ public class MeasuringPotentiometer extends SubsystemBase {
 
   private void shuffleboardInit() {
     // Proximity to ball
-    m_controlPanelStatus.addNumber("Pot Value", () -> pot_value);
+    m_controlPanelStatus.addNumber("Pot Value", () -> pot_val);
     m_controlPanelStatus.addNumber("inch Value", () -> pot_value*50);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    pot_value = pot_val-offset;
-    if (Math.round(pot_value*100)/100.0 >= 0.97)
-    {
-      offset = offset+0.97;
-    } 
+    // pot_value = pot_val-offset;
+    // if (Math.round(pot_value*100)/100.0 >= 0.97)
+    // {
+      // offset = offset+0.97;
+    // } 
 
     
   }
