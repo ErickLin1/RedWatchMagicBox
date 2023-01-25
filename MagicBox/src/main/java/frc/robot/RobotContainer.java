@@ -34,6 +34,8 @@ public class RobotContainer {
   private final XboxController m_talondriver = new XboxController(kTalonControllerPort);
 
   private final Climber m_climber;
+  private final ColorDetection m_color;
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Drivetrain for Sparks
@@ -48,6 +50,7 @@ public class RobotContainer {
 
     // Sets up pneumatics and solenoids
     m_climber = new Climber();
+    m_color = new ColorDetection();
 
     // Sets up the control panel
     // new ControlPanel(m_climber, m_drivetrainSparks, m_drivetrainTalons);
