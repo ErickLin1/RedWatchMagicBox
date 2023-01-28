@@ -38,17 +38,17 @@ public class ColorDetection extends SubsystemBase {
 
     m_colorStatus = m_controlPanelTab.getLayout("Color", BuiltInLayouts.kList)
     .withSize(3, 3)
-    .withProperties(Map.of("Label position", "TOP", "colorWhenFalse", "black"));
+    .withProperties(Map.of("Label position", "TOP", "Color when false", "black"));
 
     shuffleboardInit();
   }
 
   private void shuffleboardInit() {
     // Displays color detected as a color box
-    m_controlPanelStatus.addBoolean("Red", () -> m_detectedColor.red > m_detectedColor.blue && m_detectedColor.red >= 0.7)
-      .withProperties(Map.of("Color when true", "Red", "Color when false", "Black"));
-    m_controlPanelStatus.addBoolean("Blue", () -> m_detectedColor.blue > m_detectedColor.red && m_detectedColor.blue >= 0.7) 
-      .withProperties(Map.of("Color when true", "Cyan", "Color when false", "Black"));
+    m_controlPanelStatus.addBoolean("Purple", () -> m_detectedColor.green > m_detectedColor.blue && proximity >= 80)
+      .withProperties(Map.of("Color when true", "Purple", "Color when false", "Black"));
+    m_controlPanelStatus.addBoolean("Yellow", () -> m_detectedColor.blue > m_detectedColor.green && m_detectedColor.blue - m_detectedColor.green >= 200 && proximity < 120 && proximity > 30) 
+      .withProperties(Map.of("Color when true", "Yellow", "Color when false", "Black"));
     // m_controlPanelStatus.addBoolean("Green", () -> m_detectedColor.green >= 0.5);
 
     // Shows color values (RGB)
@@ -59,7 +59,7 @@ public class ColorDetection extends SubsystemBase {
     // Proximity to ball
     m_controlPanelStatus.addNumber("Ball Proximity", () -> proximity);
 
-    m_colorStatus.withProperties(Map.of("colorWhenTrue", m_detectedColor)); // FIX COLOR NOT BEING SHOWN. Need to get color value
+    m_colorStatus.addNumber("E", () -> m_detectedColor.red).withProperties(Map.of("Color when true", "Red")); // FIX COLOR NOT BEING SHOWN. Need to get color value
 
   }
 
