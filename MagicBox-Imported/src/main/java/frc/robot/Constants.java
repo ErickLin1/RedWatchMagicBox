@@ -58,11 +58,11 @@ public final class Constants {
 
     public static class GripperConstants {
         // Most likely only be using one motor, but written code for 2 in case.
-        public static final int kGripperLeftMotor = 0;
+        public static final int kGripperLeftMotor = 1;
         public static final int kGripperRightMotor = 0;
         // Variable assigned values can change depending on what is needed for the robot.
-        public static final double kGripperIntakeMotorSpeed = 0.70;   
-        public static final double kGripperEjectMotorSpeed = 0.70;
+        public static final double kGripperIntakeMotorSpeed = 0.20;   
+        public static final double kGripperEjectMotorSpeed = -0.2;
         
     }
 }

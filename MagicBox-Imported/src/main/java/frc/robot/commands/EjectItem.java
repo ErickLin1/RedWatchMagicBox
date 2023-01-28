@@ -8,29 +8,23 @@ import frc.robot.subsystems.Gripper;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import static frc.robot.Constants.GripperConstants.*;
 
-public class PickUpItem extends CommandBase {
-  /** Creates a new PickUpItem. */
+public class EjectItem extends CommandBase {
 
-private final Gripper m_gripper;
-// private final light m_lights
+  private final Gripper m_gripper;
+  /** Creates a new EjectItem. */
+  public EjectItem(Gripper gripper) {
+    m_gripper = gripper;
+  addRequirements(gripper);
 
-  public PickUpItem(Gripper gripper) {
     // Use addRequirements() here to declare subsystem dependencies.
-
-m_gripper = gripper;
-addRequirements(gripper);
-
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
-m_gripper.intakeGripper();
-
+    if (Gripper.m_gripper_direction != "eject")
+      m_gripper.ejectGripper();
   }
-
-
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -39,11 +33,8 @@ m_gripper.intakeGripper();
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-
-m_gripper.stopGripper();
-
+    m_gripper.stopGripper();
   }
-
 
   // Returns true when the command should end.
   @Override
