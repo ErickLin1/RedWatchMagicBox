@@ -29,7 +29,7 @@ public class potToLights extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_lights.setGiven(m_pot.pot_val);
+    m_lights.setGiven(m_pot.pot_value);
   }
 
   // Called once the command ends or is interrupted.

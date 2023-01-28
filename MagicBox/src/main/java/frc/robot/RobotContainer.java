@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.commands.TurnLightsBlue;
 import frc.robot.commands.cycleLightsLeft;
 import frc.robot.commands.cycleLightsRight;
+import frc.robot.commands.potToLights;
 import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.MeasuringPotentiometer;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -57,7 +58,7 @@ public class RobotContainer {
 
     m_light = new Lights();
     m_pot = new MeasuringPotentiometer();
-
+    m_light.setDefaultCommand(new potToLights(m_pot, m_light));
     configureButtonBindings();
   }
 
