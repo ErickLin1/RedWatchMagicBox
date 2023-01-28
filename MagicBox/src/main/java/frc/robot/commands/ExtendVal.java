@@ -6,17 +6,18 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.*;
-public class ExtendHigh extends CommandBase {
-
+public class ExtendVal extends CommandBase {
+  private final TelescopingArm m_Arm;
   private final MeasuringPotentiometer m_pot;
   private double neededPot=10;
   private final SingleSpark m_spark;
   private boolean isReverse = false;
   private double speed = 0.5;
   /** Creates a new ExtendHigh. */
-  public ExtendHigh(boolean reverse, double potLength, MeasuringPotentiometer potentiometer, SingleSpark spark) {
+  public ExtendVal(boolean reverse, double potLength, MeasuringPotentiometer potentiometer, SingleSpark spark, TelescopingArm subsystem) {
     m_pot = potentiometer;
     m_spark = spark;
+    m_Arm = subsystem;
     isReverse = reverse;
     neededPot = potLength;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -33,17 +34,9 @@ public class ExtendHigh extends CommandBase {
   @Override
   public void execute() {
     boolean rev = false;
-    if(isReverse){
-      rev = (m_pot.pot_val > neededPot);
-    }else{
-      rev = (m_pot.pot_val < neededPot);
-    }
-    if (rev) {
-      m_spark.leftSpark.set(speed);
-    }
-    else {
-      m_spark.leftSpark.set(0);
-    }
+    
+    m_Arm.turnMotor(m_Arm.m_ArmExtend, rev);
+
   }
 
   // Called once the command ends or is interrupted.
@@ -55,6 +48,12 @@ public class ExtendHigh extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    boolean rev;
+    if(isReverse){
+      rev = (m_pot.pot_val > neededPot);
+    }else{
+      rev = (m_pot.pot_val < neededPot);
+    }
+    return rev;
   }
 }
