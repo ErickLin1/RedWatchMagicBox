@@ -9,7 +9,8 @@ import frc.robot.Constants.TelescopingConstants.*;
 public class ArmControl extends CommandBase{
   
     private final TelescopingArm m_Arm;
-    private final DoubleSupplier m_ArmSpeed;
+    // private final DoubleSupplier m_ArmSpeed;
+    private DoubleSupplier stickVal;
     private final BooleanSupplier m_leftBumper;
     private final BooleanSupplier m_rightBumper;
 
@@ -23,7 +24,8 @@ public class ArmControl extends CommandBase{
 
      public ArmControl(DoubleSupplier armSpeed, BooleanSupplier leftBumper, BooleanSupplier rightBumper, TelescopingArm subsystem) {
         m_Arm = subsystem;
-        m_ArmSpeed = armSpeed;
+        // m_ArmSpeed = armSpeed;
+        stickVal = armSpeed;
         m_leftBumper = leftBumper;
         m_rightBumper = rightBumper;
         addRequirements(m_Arm);
@@ -36,16 +38,26 @@ public class ArmControl extends CommandBase{
 
     @Override
     public void execute(){
-      if(m_rightBumper.getAsBoolean() && m_Arm.m_ArmEncoder.getPosition() <= 9.95){
-          // m_pinkArm.m_pivot.set(m_ArmSpeed.getAsDouble()/1.25);
-          m_Arm.turnMotor(m_Arm.m_ArmExtend, false);
-      }
-      else if (m_leftBumper.getAsBoolean() && m_Arm.m_ArmEncoder.getPosition() >= 0.03) {
+        if ((stickVal.getAsDouble() <= -0.85) &&( m_Arm.m_ArmEncoder.getPosition() <= 9.95)){
+            m_Arm.turnMotor(m_Arm.m_ArmExtend, false);
+        }else if ((stickVal.getAsDouble() >= 0.85  )&& (m_Arm.m_ArmEncoder.getPosition() >= 0.03)) {
           m_Arm.turnMotor(m_Arm.m_ArmExtend, true);
-      }
-      else {
-          m_Arm.m_ArmExtend.set(0);
-      }
+        }
+        else {
+            m_Arm.m_ArmExtend.set(0);
+        }
+        /*
+        if(m_rightBumper.getAsBoolean() && m_Arm.m_ArmEncoder.getPosition() <= 9.95){
+            // m_pinkArm.m_pivot.set(m_ArmSpeed.getAsDouble()/1.25);
+            m_Arm.turnMotor(m_Arm.m_ArmExtend, false);
+        }
+        else if (m_leftBumper.getAsBoolean() && m_Arm.m_ArmEncoder.getPosition() >= 0.03) {
+            m_Arm.turnMotor(m_Arm.m_ArmExtend, true);
+        }
+        else {
+            m_Arm.m_ArmExtend.set(0);
+        }
+        */
   }
 
     @Override

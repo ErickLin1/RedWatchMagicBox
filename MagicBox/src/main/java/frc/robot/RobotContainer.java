@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import frc.robot.commands.ArmControl;
 import frc.robot.commands.ExtendVal;
 import frc.robot.commands.differentialDriveSparks;
 import frc.robot.commands.differentialDriveTalons;
@@ -69,6 +70,8 @@ public class RobotContainer {
     m_SingleSpark = new SingleSpark();
     m_pot = new MeasuringPotentiometer();
     m_arm = new TelescopingArm();
+    m_arm.setDefaultCommand(
+      new ArmControl(() -> m_talondriver.getLeftY(), () -> m_talondriver.getLeftBumper(), () -> m_talondriver.getRightBumper(), m_arm));
 
     configureButtonBindings();
   }
