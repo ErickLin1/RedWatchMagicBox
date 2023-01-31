@@ -16,6 +16,40 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
  */
 public final class Constants {
     // Controller Ports
+    public static final int kSparkControllerPort = 1;
+    public static final int kTalonControllerPort = 2;
+
+    public static final boolean kLeftReversedDefault = true;
+    public static final boolean kRightReversedDefault = !kLeftReversedDefault;
+    public static final String kShuffleboardTab = "Control Panel";
+    public static final int STALL_LIMIT = 45;
+    public static final int kCurrentLimit = 60;
+
+    // Spark Maxes
+    public static final int LEFT_SPARK_ID = 2;
+    public static final int RIGHT_SPARK_ID = 1;
+    // public static final String kShuffleboardTabSpark = "Spark Maxes";
+
+    // Talons
+    public static final int kLeftTalonPort = 3;
+    public static final int kRightTalonPort = 4;
+    // public static final String kShuffleboardTabTalon = "Talons";
+
+    // Pneumatics
+    public static final PneumaticsModuleType PneumaticType = PneumaticsModuleType.CTREPCM;
+    public static final int solMotorPort = 4;
+
+    public static class LightConstants {
+        public static final int kBlinkinDriverPort = 4; //TODO: Find a port for this
+		public static final double kDisabled = 0.0; //TODO: Find what color we want for this and its value
+		public static final double kLightsOff = 0.99;
+        public static final double kRedBall = 0.67;
+        public static final double kBlueBall = 0.87;
+        public static final double kPurpleCube = 0.91;
+        public static final double kYellowCone = 0.67;
+        public static final double kDefaultColor = 0.93; //TODO: Find what we want default to be (same as disabled?)
+    }
+
     public static class ControllerConstants {
         public static final int kSparkControllerPort = 1;
         public static final int kTalonControllerPort = 2;
