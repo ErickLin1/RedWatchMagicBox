@@ -140,5 +140,6 @@ public void ejectGripper() {
     // This method will be called once per scheduler run
 m_detectedColor = m_colorSensor.getRawColor0();
 m_proximity = m_colorSensor.getProximity0();
+m_gripperStatus.setString(m_gripper_direction);
   }
 }

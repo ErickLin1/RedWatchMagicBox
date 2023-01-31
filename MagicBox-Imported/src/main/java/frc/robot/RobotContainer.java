@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.commands.EjectItem;
-import frc.robot.commands.IntakeEjectItem;
+import frc.robot.commands.IntakeItem;
 import frc.robot.commands.differentialDriveSparks;
 import frc.robot.commands.differentialDriveTalons;
 import frc.robot.commands.toggleSolenoid;
@@ -75,8 +75,9 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // Add button for each controller to toggle solenoid
     // new JoystickButton(m_sparkdriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
-    new JoystickButton(m_talondriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
-    new JoystickButton(m_talondriver, Button.kA.value).whenPressed(new IntakeEjectItem(m_gripper));
+    // new JoystickButton(m_talondriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
+    new JoystickButton(m_talondriver, Button.kA.value).whenPressed(new IntakeItem(m_gripper));
+    new JoystickButton(m_talondriver, Button.kY.value).whenPressed(new EjectItem(m_gripper));
   }
 
   /**
