@@ -36,7 +36,7 @@ public class RobotContainer {
   // private final XboxController m_sparkdriver = new XboxController(kSparkControllerPort);
   private final XboxController m_talondriver = new XboxController(kTalonControllerPort);
 
-  private final Climber m_climber;
+  // private final Climber m_climber;
   // private final ColorDetection m_color;
   private final Gripper m_gripper;
 
@@ -53,7 +53,7 @@ public class RobotContainer {
     //   new differentialDriveTalons(() -> -m_talondriver.getLeftY(), () -> -m_talondriver.getRightY(), m_drivetrainTalons));
 
     // Sets up pneumatics and solenoids
-    m_climber = new Climber();
+    // m_climber = new Climber();
     // m_color = new ColorDetection();
     m_gripper = new Gripper();
 
