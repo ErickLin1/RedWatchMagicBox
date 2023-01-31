@@ -8,12 +8,18 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.commands.ChangeLEDColor;
+import frc.robot.commands.CheckObjectColor;
+import frc.robot.commands.EjectItem;
+import frc.robot.commands.IntakeItem;
+import frc.robot.commands.PickUpItem;
+import frc.robot.commands.StopGripper;
 import frc.robot.commands.TurnLightsBlue;
 import frc.robot.commands.cycleLightsLeft;
 import frc.robot.commands.cycleLightsRight;
 import frc.robot.commands.potToLights;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ColorDetection;
+import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.MeasuringPotentiometer;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -40,6 +46,7 @@ public class RobotContainer {
 
   private final Lights m_light;
   private final MeasuringPotentiometer m_pot;
+  private final Gripper m_gripper;
 
   // private final Climber m_climber;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -55,8 +62,11 @@ public class RobotContainer {
     //   new differentialDriveTalons(() -> -m_talondriver.getLeftY(), () -> -m_talondriver.getRightY(), m_drivetrainTalons));
 
     // Sets up pneumatics and solenoids
+    m_gripper = new Gripper();
     m_climber = new Climber();
     m_color = new ColorDetection();
+    m_light = new Lights(); 
+    m_color.setDefaultCommand(new CheckObjectColor(m_color, m_light));
 
     // Sets up the control panel
     // new ControlPanel(m_climber, m_drivetrainSparks, m_drivetrainTalons);
@@ -64,7 +74,6 @@ public class RobotContainer {
     // Sets up Color Sensor
     // new ColorDetection();
 
-    m_light = new Lights();
     m_pot = new MeasuringPotentiometer();
     m_light.setDefaultCommand(new potToLights(m_pot, m_light));
     configureButtonBindings();
@@ -80,11 +89,14 @@ public class RobotContainer {
     // Add button for each controller to toggle solenoid
     // new JoystickButton(m_sparkdriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
     // new JoystickButton(m_talondriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
-    new JoystickButton(m_talondriver, Button.kA.value).whenPressed(new TurnLightsBlue(m_light));
-    new JoystickButton(m_talondriver, Button.kLeftBumper.value).whenPressed(new cycleLightsLeft(m_light));
-    new JoystickButton(m_talondriver, Button.kRightBumper.value).whenPressed(new cycleLightsRight(m_light, m_pot));
-    new JoystickButton(m_talondriver, Button.kX.value).whenPressed(new ChangeLEDColor(m_light, kPurpleCube));
-    new JoystickButton(m_talondriver, Button.kY.value).whenPressed(new ChangeLEDColor(m_light, kYellowCone));
+    // new JoystickButton(m_talondriver, Button.kA.value).whenPressed(new TurnLightsBlue(m_light));
+    // new JoystickButton(m_talondriver, Button.kLeftBumper.value).whenPressed(new cycleLightsLeft(m_light));
+    // new JoystickButton(m_talondriver, Button.kRightBumper.value).whenPressed(new cycleLightsRight(m_light, m_pot));
+    // new JoystickButton(m_talondriver, Button.kX.value).whenPressed(new ChangeLEDColor(m_light, kPurpleCube));
+    // new JoystickButton(m_talondriver, Button.kY.value).whenPressed(new ChangeLEDColor(m_light, kYellowCone));
+    new JoystickButton(m_talondriver, Button.kY.value).whenPressed(new IntakeItem(m_gripper));
+    new JoystickButton(m_talondriver, Button.kA.value).whenPressed(new EjectItem(m_gripper));
+    new JoystickButton(m_talondriver, Button.kBack.value).whenPressed(new StopGripper(m_gripper));
 
   }
 

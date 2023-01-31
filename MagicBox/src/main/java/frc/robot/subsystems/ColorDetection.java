@@ -41,11 +41,10 @@ public class ColorDetection extends SubsystemBase {
 
   private void shuffleboardInit() {
     // Displays color detected as a color box
-    m_controlPanelStatus.addBoolean("Red", () -> m_detectedColor.red > m_detectedColor.blue && m_detectedColor.red >= 0.3)
-      .withProperties(Map.of("Color when true", "Red", "Color when false", "Black"));
-    m_controlPanelStatus.addBoolean("Blue", () -> m_detectedColor.blue > m_detectedColor.red && m_detectedColor.blue >= 0.3)
-      .withProperties(Map.of("Color when true", "Cyan", "Color when false", "Black"));
-    // m_controlPanelStatus.addBoolean("Green", () -> m_detectedColor.green >= 0.5);
+    m_controlPanelStatus.addBoolean("Purple", () -> m_detectedColor.green > m_detectedColor.blue && proximity >= 80)
+    .withProperties(Map.of("Color when true", "Purple", "Color when false", "Black"));
+    m_controlPanelStatus.addBoolean("Yellow", () -> m_detectedColor.blue > m_detectedColor.green && m_detectedColor.blue - m_detectedColor.green >= 200 && proximity < 120 && proximity > 30) 
+    .withProperties(Map.of("Color when true", "Yellow", "Color when false", "Black"));
 
     // Shows color values (RGB)
     m_controlPanelStatus.addNumber("R", () -> m_detectedColor.red);
