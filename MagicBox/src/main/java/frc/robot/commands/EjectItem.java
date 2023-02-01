@@ -15,7 +15,6 @@ public class EjectItem extends CommandBase {
   /** Creates a new EjectItem. */
   public EjectItem(Gripper gripper) {
     m_gripper = gripper;
-  addRequirements(gripper);
 
 addRequirements(gripper);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -26,7 +25,9 @@ addRequirements(gripper);
   public void initialize() {
     if (Gripper.m_gripper_direction != "eject")
       m_gripper.ejectGripper();
-    m_gripper.ejectGripper();
+    
+    else
+      m_gripper.stopGripper();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

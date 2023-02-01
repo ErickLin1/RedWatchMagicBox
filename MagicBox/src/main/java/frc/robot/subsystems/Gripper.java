@@ -33,7 +33,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 public class Gripper extends SubsystemBase {
 
   private final CANSparkMax m_gripperLeftMotor;
-  // private final CANSparkMax m_gripperRightMotor;
+  private final CANSparkMax m_gripperRightMotor;
 
   // private final PicoColorSensor m_colorSensor;
 
@@ -53,13 +53,13 @@ public class Gripper extends SubsystemBase {
 
 // Initialize left and right motors.
 m_gripperLeftMotor = new CANSparkMax(kGripperLeftMotor, MotorType.kBrushless);
-// m_gripperRightMotor = new CANSparkMax(kGripperRightMotor, MotorType.kBrushless);
+m_gripperRightMotor = new CANSparkMax(kGripperRightMotor, MotorType.kBrushless);
 
 m_gripperLeftMotor.restoreFactoryDefaults();
-// m_gripperRightMotor.restoreFactoryDefaults();
+m_gripperRightMotor.restoreFactoryDefaults();
 
 m_gripperLeftMotor.setIdleMode(IdleMode.kBrake);
-// m_gripperRightMotor.setIdleMode(IdleMode.kBrake);
+m_gripperRightMotor.setIdleMode(IdleMode.kBrake);
 
 // Sets color sensor.
 // m_colorSensor = new PicoColorSensor();
@@ -105,14 +105,14 @@ m_gripper_direction = "none";
 
 public void runGripper(double speed) {
 m_gripperLeftMotor.set(speed);
-// m_gripperRightMotor.set(speed);
+m_gripperRightMotor.set(speed);
 m_gripperStatus.setBoolean(true);
   }
 
 public void stopGripper() {
   m_gripper_direction = "none";
   m_gripperLeftMotor.set(0);
-  // m_gripperRightMotor.set(0);
+  m_gripperRightMotor.set(0);
   m_gripperStatus.setBoolean(false);
 }
 

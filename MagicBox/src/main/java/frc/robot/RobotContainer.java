@@ -94,9 +94,10 @@ public class RobotContainer {
     // new JoystickButton(m_talondriver, Button.kRightBumper.value).whenPressed(new cycleLightsRight(m_light, m_pot));
     // new JoystickButton(m_talondriver, Button.kX.value).whenPressed(new ChangeLEDColor(m_light, kPurpleCube));
     // new JoystickButton(m_talondriver, Button.kY.value).whenPressed(new ChangeLEDColor(m_light, kYellowCone));
-    new JoystickButton(m_talondriver, Button.kY.value).whenPressed(new IntakeItem(m_gripper));
-    new JoystickButton(m_talondriver, Button.kA.value).whenPressed(new EjectItem(m_gripper));
-    new JoystickButton(m_talondriver, Button.kBack.value).whenPressed(new StopGripper(m_gripper));
+    new JoystickButton(m_talondriver, Button.kStart.value).whenPressed(new IntakeItem(m_gripper));
+    new JoystickButton(m_talondriver, Button.kBack.value).whenPressed(new EjectItem(m_gripper));
+    new JoystickButton(m_talondriver, Button.kLeftStick.value).whenPressed(new ChangeLEDColor(m_light, kYellowCone));
+    new JoystickButton(m_talondriver, Button.kRightStick.value).whenPressed(new ChangeLEDColor(m_light, kPurpleCube));
 
   }
 

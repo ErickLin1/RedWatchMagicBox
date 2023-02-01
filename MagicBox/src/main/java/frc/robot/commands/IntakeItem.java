@@ -20,7 +20,11 @@ public class IntakeItem extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_gripper.intakeGripper();
+    if (Gripper.m_gripper_direction != "intake")
+      m_gripper.intakeGripper();
+    
+    else
+      m_gripper.stopGripper();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
