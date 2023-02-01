@@ -20,38 +20,38 @@ public class DrivetrainSparks extends SubsystemBase {
 
   // Create Spark Maxes
   public final com.revrobotics.CANSparkMax leftSpark;
-  public final com.revrobotics.CANSparkMax rightSpark;
+  // public final com.revrobotics.CANSparkMax rightSpark;
 
   //Encoders
   private final RelativeEncoder m_leftEncoder;
-  private final RelativeEncoder m_rightEncoder;
+  // private final RelativeEncoder m_rightEncoder;
 
  // private final ADIS16470_IMU m_imu;
 
-  private final DifferentialDrive m_drive;
+  // private final DifferentialDrive m_drive;
 
   public double leftSparkSpeed;
-  public double rightSparkSpeed;
+  // public double rightSparkSpeed;
   
   public DrivetrainSparks() {
     // Spark Maxes
     leftSpark = new com.revrobotics.CANSparkMax(LEFT_SPARK_ID, MotorType.kBrushless);
-    rightSpark = new com.revrobotics.CANSparkMax(RIGHT_SPARK_ID, MotorType.kBrushless);
+    // rightSpark = new com.revrobotics.CANSparkMax(RIGHT_SPARK_ID, MotorType.kBrushless);
     
     motorInit(leftSpark, kLeftReversedDefault);
-    motorInit(rightSpark, kRightReversedDefault);
+    // motorInit(rightSpark, kRightReversedDefault);
 
     leftSpark.setSmartCurrentLimit(STALL_LIMIT);
-    rightSpark.setSmartCurrentLimit(STALL_LIMIT);
+    // rightSpark.setSmartCurrentLimit(STALL_LIMIT);
 
     leftSpark.setIdleMode(IdleMode.kBrake);
-    rightSpark.setIdleMode(IdleMode.kBrake);
+    // rightSpark.setIdleMode(IdleMode.kBrake);
 
     // Encoders
     m_leftEncoder = leftSpark.getEncoder();
-    m_rightEncoder = rightSpark.getEncoder();
+    // m_rightEncoder = rightSpark.getEncoder();
 
-    m_drive = new DifferentialDrive(leftSpark, rightSpark);
+    // m_drive = new DifferentialDrive(leftSpark, rightSpark);
     
     // Initialize Shuffleboard
     // m_drivetrainTab = Shuffleboard.getTab(Constants.kShuffleboardTab);
@@ -67,7 +67,7 @@ public class DrivetrainSparks extends SubsystemBase {
     motor.setIdleMode(IdleMode.kBrake);
     motor.setSmartCurrentLimit(kCurrentLimit);
     motor.setInverted(invert);
-    leftSpark.follow(rightSpark);
+    // leftSpark.follow(rightSpark);
 
     encoderInit(motor.getEncoder());
   }
@@ -109,7 +109,7 @@ public class DrivetrainSparks extends SubsystemBase {
   //   //m_drivetrainStatus.addNumber("Right Position", () -> getRightDistance());
   //   // m_drivetrainStatus.addNumber("Angle", () -> getRobotAngle());
   // }
-  
+  /*
   public void tankDrive(double leftPower, double rightPower, boolean squareInputs) {
     m_drive.tankDrive(leftPower, rightPower, squareInputs); 
   }
@@ -123,5 +123,5 @@ public class DrivetrainSparks extends SubsystemBase {
     // This method will be called once per scheduler run
     leftSparkSpeed = m_leftEncoder.getVelocity();
     rightSparkSpeed = m_rightEncoder.getVelocity();
-  }
+  }*/
 }

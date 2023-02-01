@@ -24,7 +24,7 @@ public class differentialDriveSparks extends CommandBase {
 
     addRequirements(m_drivetrain);
   }
-
+/* 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
@@ -48,5 +48,5 @@ public class differentialDriveSparks extends CommandBase {
   @Override
   public boolean isFinished() {
     return false;
-  }
+  }*/
 }

@@ -9,14 +9,12 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.commands.ArmControl;
 import frc.robot.commands.ExtendVal;
-import frc.robot.commands.differentialDriveSparks;
-import frc.robot.commands.differentialDriveTalons;
+import frc.robot.commands.testingMotor;
 import frc.robot.commands.toggleSolenoid;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ColorDetection;
-import frc.robot.subsystems.ControlPanel;
+// import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.DrivetrainSparks;
-import frc.robot.subsystems.DrivetrainTalons;
 import frc.robot.subsystems.MeasuringPotentiometer;
 import frc.robot.subsystems.SingleSpark;
 import frc.robot.subsystems.TelescopingArm;
@@ -85,9 +83,10 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // Add button for each controller to toggle solenoid
     // new JoystickButton(m_sparkdriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
-    new JoystickButton(m_talondriver, Button.kY.value).whenPressed(new ExtendVal(false, highLength,m_pot, m_SingleSpark, m_arm));
-    new JoystickButton(m_talondriver, Button.kX.value).whenPressed(new ExtendVal(false, midLength,m_pot, m_SingleSpark, m_arm));
-    new JoystickButton(m_talondriver, Button.kA.value).whenPressed(new ExtendVal(true, lowStop,m_pot, m_SingleSpark, m_arm));
+    new JoystickButton(m_talondriver, Button.kY.value).toggleOnTrue(new ExtendVal(false, highLength,m_pot, m_SingleSpark, m_arm));
+    new JoystickButton(m_talondriver, Button.kX.value).toggleOnTrue(new ExtendVal(false, midLength,m_pot, m_SingleSpark, m_arm));
+    new JoystickButton(m_talondriver, Button.kA.value).toggleOnTrue(new ExtendVal(true, lowStop,m_pot, m_SingleSpark, m_arm));
+    new JoystickButton(m_talondriver, Button.kB.value).toggleOnTrue(new testingMotor(m_arm));
   }
 
   /**
