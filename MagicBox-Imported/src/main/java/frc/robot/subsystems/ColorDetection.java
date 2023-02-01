@@ -25,8 +25,7 @@ public class ColorDetection extends SubsystemBase {
 
   private final ShuffleboardTab m_controlPanelTab;
   private final ShuffleboardLayout m_controlPanelStatus;
-  private final ShuffleboardLayout m_colorStatus;
-
+  
   /** Creates a new Color. */
   public ColorDetection() {
     // Creates new color sensor and shufffleboard
@@ -35,10 +34,6 @@ public class ColorDetection extends SubsystemBase {
     m_controlPanelStatus = m_controlPanelTab.getLayout("Color Status", BuiltInLayouts.kList)
       .withSize(3, 3)
       .withProperties(Map.of("Label position", "TOP"));
-
-    m_colorStatus = m_controlPanelTab.getLayout("Color", BuiltInLayouts.kList)
-    .withSize(3, 3)
-    .withProperties(Map.of("Label position", "TOP", "Color when false", "black"));
 
     shuffleboardInit();
   }
@@ -58,9 +53,6 @@ public class ColorDetection extends SubsystemBase {
 
     // Proximity to ball
     m_controlPanelStatus.addNumber("Ball Proximity", () -> proximity);
-
-    m_colorStatus.addNumber("E", () -> m_detectedColor.red).withProperties(Map.of("Color when true", "Red")); // FIX COLOR NOT BEING SHOWN. Need to get color value
-
   }
 
   @Override

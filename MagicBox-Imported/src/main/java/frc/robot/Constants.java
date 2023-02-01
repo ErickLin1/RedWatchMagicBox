@@ -59,10 +59,22 @@ public final class Constants {
     public static class GripperConstants {
         // Most likely only be using one motor, but written code for 2 in case.
         public static final int kGripperLeftMotor = 1;
-        public static final int kGripperRightMotor = 0;
+        public static final int kGripperRightMotor = 2;
         // Variable assigned values can change depending on what is needed for the robot.
         public static final double kGripperIntakeMotorSpeed = 0.20;   
         public static final double kGripperEjectMotorSpeed = -0.2;
         
+    }
+
+    public static class LightConstants {
+        public static final String kShuffleboardTab = "Lights";
+        public static final int kBlinkinDriverPort = 4; //TODO: Find a port for this
+		public static final double kDisabled = 0.0; //TODO: Find what color we want for this and its value
+		public static final double kLightsOff = 0.99;
+        public static final double kRedBall = 0.67;
+        public static final double kBlueBall = 0.87;
+        public static final double kPurpleCube = 0.91;
+        public static final double kYellowCone = 0.67;
+        public static final double kDefaultColor = 0.93; //TODO: Find what we want default to be (same as disabled?)
     }
 }
