@@ -22,6 +22,7 @@ public final RelativeEncoder m_ArmEncoder;
 
  public TelescopingArm() {
     
+  // Initializes the arm encoder.
     m_ArmExtend = new CANSparkMax(kArmExtendPort, MotorType.kBrushless);
     // setMotor(motor, INVERSE);
     setMotor(m_ArmExtend, true);
@@ -41,6 +42,7 @@ public final RelativeEncoder m_ArmEncoder;
 
   }
 
+  // Turns the motor on or off.
   public void turnMotor(CANSparkMax motor, boolean inverse) {
     if (inverse) {
       motor.set(-0.1);
@@ -50,6 +52,7 @@ public final RelativeEncoder m_ArmEncoder;
     }
   }
 
+  // Initializes the position encoder.
   private void positionEncoderInit(RelativeEncoder encoder) {
     encoder.setPositionConversionFactor(kDistancePerRevolution);
 
@@ -60,11 +63,13 @@ public final RelativeEncoder m_ArmEncoder;
   //   encoder.setPositionConversionFactor(kAnglePerRevolution);
   // }
 
+  // Resets the encoder to its initial position.
   public void encoderReset(RelativeEncoder encoder) {
     encoder.setPosition(0);
   }
 
 
+  // Returns the distance between the encoding and the arm.
   public double getArmDistance() {
     return -m_ArmEncoder.getPosition();
   }
@@ -73,6 +78,7 @@ public final RelativeEncoder m_ArmEncoder;
   //   return -m_pivotArmEncoder.getPosition();
   // }
 
+  // Sets the motor.
   public void setMotor(CANSparkMax motor, boolean inverse) {
     motor.restoreFactoryDefaults();
     motor.setIdleMode(IdleMode.kBrake);

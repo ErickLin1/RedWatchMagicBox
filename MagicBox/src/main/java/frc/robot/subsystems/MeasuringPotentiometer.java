@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import java.util.Map;
 
+// Imports wpi - i. e. first. WPI - J2 shuffleboard.
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -15,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class MeasuringPotentiometer extends SubsystemBase {
 
+  // Calculates the potential of the control panel.
   private final AnalogPotentiometer pot;
   private final ShuffleboardTab m_controlPanelTab;
   private final ShuffleboardLayout m_controlPanelStatus; 
@@ -23,6 +25,7 @@ public class MeasuringPotentiometer extends SubsystemBase {
   /** Creates a new MeasuringPotentiometer. */
   public MeasuringPotentiometer() {
 
+    // Initialize the shuffleboard.
     pot = new AnalogPotentiometer(1);
     m_controlPanelTab = Shuffleboard.getTab("stringpot");
     m_controlPanelStatus = m_controlPanelTab.getLayout("String Pot", BuiltInLayouts.kList)
@@ -32,15 +35,19 @@ public class MeasuringPotentiometer extends SubsystemBase {
     shuffleboardInit();
 
   }
+  
+  // Gets the distance from this value to this value.
   public double getDistance(){
     return pot_val;
   }
 
+  // Initialize the shuffleboard.
   private void shuffleboardInit() {
     // Proximity to ball
     m_controlPanelStatus.addNumber("Pot Value", () -> pot_val);
   }
 
+  // Periodically calculates the value of the pot.
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
