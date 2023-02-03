@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.commands.ChangeLEDColor;
-import frc.robot.commands.TurnLightsBlue;
 import frc.robot.commands.cycleLightsLeft;
 import frc.robot.commands.cycleLightsRight;
 import frc.robot.commands.potToLights;
@@ -74,7 +73,6 @@ public class RobotContainer {
     // Add button for each controller to toggle solenoid
     // new JoystickButton(m_sparkdriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
     // new JoystickButton(m_talondriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
-    new JoystickButton(m_sparkdriver, Button.kA.value).whenPressed(new TurnLightsBlue(m_light));
     new JoystickButton(m_sparkdriver, Button.kLeftBumper.value).whenPressed(new cycleLightsLeft(m_light));
     new JoystickButton(m_sparkdriver, Button.kRightBumper.value).whenPressed(new cycleLightsRight(m_light, m_pot));
     new JoystickButton(m_sparkdriver, Button.kX.value).whenPressed(new ChangeLEDColor(m_light, kPurpleCube));

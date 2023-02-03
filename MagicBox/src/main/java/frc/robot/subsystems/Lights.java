@@ -33,6 +33,7 @@ public class Lights extends SubsystemBase {
 
   /** Creates a new Lights. */
   public Lights() {
+    // Adds Lights to Shuffleboard
     m_ShuffleboardTab = Shuffleboard.getTab(Constants.kShuffleboardTab);
     m_lightValues = m_ShuffleboardTab.getLayout("Light Jawndess", BuiltInLayouts.kList);
     m_lightTable = NetworkTableInstance.getDefault().getTable("Light Statuses");
@@ -44,39 +45,39 @@ public class Lights extends SubsystemBase {
     m_lightValues.addNumber("Light Output", () -> getCurrentLights());
   }
 
+  //Turns off Lights
   public void setDisabledColor() {
     m_ledDriver.set(kDisabled);
   }
 
+  //Turns lights to black/off
   public void setOff() {
     m_ledDriver.set(kLightsOff);
   }
 
-  public void intakeRed() {
-    m_ledDriver.set(kRedBall);
-  }
-
-  public void intakeBlue() {
-    resetLights();
-    m_ledDriver.set(kBlueBall);
-  }
-
+  //Resets lights to solid White
   public void resetLights() {
     m_ledDriver.set(kDefaultColor);
   }
+
+  //Sets lights to purple
   public void setCube() {
     resetLights();
     m_ledDriver.set(kPurpleCube);
   }
+
+  //Sets lights to yellow
   public void setCone() {
     resetLights();
     m_ledDriver.set(kYellowCone);
   }
 
+  //Gets the Blinkin Pattern value
   public double getCurrentLights() {
     return m_ledDriver.get();
   }
 
+  //Sets lights to given color value
   public void setGiven(double color) {
     m_ledDriver.set(color);
   }
