@@ -7,23 +7,29 @@ package frc.robot.commands;
 import frc.robot.subsystems.Gripper;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
+// Maketh a commandeth f'r the gripp'r subsyst'm to runneth mot'rs to grabeth an objecteth from the gripp'r
+// Creates a command for the gripper subsystem to run motors to grab an object from the gripper
 public class IntakeItem extends CommandBase {
-  /** Creates a new PickUpItem. */
 
-private final Gripper m_gripper;
-// private final light m_lights
+  // Starteth a variable f'r the gripp'r
+  // Create a variable for the gripper
+  private final Gripper m_gripper;
 
+  /** Creates a new IntakeItem. */
   public IntakeItem(Gripper gripper) {
+    // Setteth gripp'r variabl' to the gripp'r subsyst'm
+    // Set gripper variable to the gripper subsystem
+    m_gripper = gripper;
+    
     // Use addRequirements() here to declare subsystem dependencies.
-
-m_gripper = gripper;
-addRequirements(gripper);
+    addRequirements(gripper);
 
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    // Runs the gripper motors at intake speed
     m_gripper.intakeGripper();
 
   }
@@ -35,8 +41,8 @@ addRequirements(gripper);
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-
-m_gripper.stopGripper();
+    // Stops gripper motors
+    m_gripper.stopGripper();
 
   }
 
@@ -44,6 +50,10 @@ m_gripper.stopGripper();
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    // Checks if the cone (isObjectThere) is in the gripper or if the cube (isPurple) is in the gripper
+    if (m_gripper.isObjectThere() || m_gripper.isPurple())
+      return true;
+    
     return false;
   }
 }

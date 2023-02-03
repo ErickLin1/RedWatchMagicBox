@@ -17,22 +17,25 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import static frc.robot.Constants.LightConstants.*;
 
 public class Lights extends SubsystemBase {
- 
-  private static final double kDisabled = 0;
+  
+  // Creates a LED controller
   private final Spark m_ledDriver;
-  private final ShuffleboardTab m_ShuffleboardTab;
+
+  // Displays information related to LEDs
+  private final ShuffleboardTab m_shuffleboardTab;
   private final ShuffleboardLayout m_lightValues;
-
-
 
   /** Creates a new Lights. */
   public Lights() {
-    m_ShuffleboardTab = Shuffleboard.getTab(kShuffleboardTab);
-    m_lightValues = m_ShuffleboardTab.getLayout("Light Jawndess", BuiltInLayouts.kList);
+    // Initializes shuffleboard
+    m_shuffleboardTab = Shuffleboard.getTab(kShuffleboardTab);
+    m_lightValues = m_shuffleboardTab.getLayout("Light Jawndess", BuiltInLayouts.kList);
 
+    // Initializes BlinkIn (LED controller)
     m_ledDriver = new Spark(kBlinkinDriverPort);
     resetLights();
 
+    // Adds current color value to shuffleboard
     m_lightValues.addNumber("Light Output", () -> getCurrentLights());
   }
 
@@ -42,15 +45,6 @@ public class Lights extends SubsystemBase {
 
   public void setOff() {
     m_ledDriver.set(kLightsOff);
-  }
-
-  public void intakeRed() {
-    m_ledDriver.set(kRedBall);
-  }
-
-  public void intakeBlue() {
-    resetLights();
-    m_ledDriver.set(kBlueBall);
   }
 
   public void resetLights() {

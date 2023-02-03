@@ -7,14 +7,18 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Lights;
 
+// Creates a command called ChangeColor that will change the LED color using a variable
 public class ChangeColor extends CommandBase {
+
+  // Instantiating variables lights and color
   private final Lights m_flashyflashy;
-  private final double m_color;
+  private final double m_pigmentation;
 
   /** Creates a new ChangeColor. */
   public ChangeColor(Lights lights, double color) {
+    // Assigning lights and color to their corresponding variables
     m_flashyflashy = lights;
-    m_color = color;
+    m_pigmentation = color;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(lights);
@@ -23,7 +27,8 @@ public class ChangeColor extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_flashyflashy.setGiven(m_color);
+    // Set the lights color
+    m_flashyflashy.setGiven(m_pigmentation);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

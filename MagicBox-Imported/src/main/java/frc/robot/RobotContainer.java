@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.commands.ChangeColor;
-import frc.robot.commands.ChangeColorObject;
+import frc.robot.commands.CheckObjectForColorChange;
 import frc.robot.commands.EjectItem;
 import frc.robot.commands.IntakeItem;
 import frc.robot.subsystems.Gripper;
@@ -46,7 +46,7 @@ public class RobotContainer {
     m_lights = new Lights();
 
     // Setting default commands
-    m_lights.setDefaultCommand(new ChangeColorObject(m_lights, m_gripper));
+    m_lights.setDefaultCommand(new CheckObjectForColorChange(m_lights, m_gripper));
 
     configureButtonBindings();
   }
@@ -58,8 +58,8 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(m_weaponsController, Button.kBack.value).whenPressed(new IntakeItem(m_gripper));
-    new JoystickButton(m_weaponsController, Button.kStart.value).whenPressed(new EjectItem(m_gripper));
+    new JoystickButton(m_weaponsController, Button.kBack.value).whenHeld(new IntakeItem(m_gripper));
+    new JoystickButton(m_weaponsController, Button.kStart.value).whenHeld(new EjectItem(m_gripper));
     
     new JoystickButton(m_weaponsController, Button.kLeftStick.value).whenPressed(new ChangeColor(m_lights, kYellowCone));
     new JoystickButton(m_weaponsController, Button.kRightStick.value).whenPressed(new ChangeColor(m_lights, kPurpleCube));
