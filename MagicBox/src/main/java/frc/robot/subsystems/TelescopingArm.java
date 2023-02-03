@@ -12,10 +12,7 @@ import edu.wpi.first.wpilibj.SPI;
 public class TelescopingArm extends SubsystemBase {
     
 public final CANSparkMax m_ArmExtend;
-public final CANSparkMax m_ArmPivot;
-
 public final RelativeEncoder m_ArmEncoder;
-public final RelativeEncoder m_pivotArmEncoder;
 
 // /private static AHRS m_ahrs;
 
@@ -26,19 +23,11 @@ public final RelativeEncoder m_pivotArmEncoder;
  public TelescopingArm() {
     
     m_ArmExtend = new CANSparkMax(kArmExtendPort, MotorType.kBrushless);
-    m_ArmPivot = new CANSparkMax(kArmPivotPort, MotorType.kBrushless);
-
     // setMotor(motor, INVERSE);
     setMotor(m_ArmExtend, true);
-    setMotor(m_ArmPivot, true);
-
-
     m_ArmEncoder = m_ArmExtend.getEncoder();
-
-    m_pivotArmEncoder = m_ArmPivot.getEncoder();
-    
     positionEncoderInit(m_ArmEncoder);
-    pivotEncoderInit(m_pivotArmEncoder);
+    
   /*
     try {
       m_ahrs = new AHRS(SPI.Port.kMXP);
@@ -67,9 +56,9 @@ public final RelativeEncoder m_pivotArmEncoder;
     encoderReset(encoder);
   }
 
-  private void pivotEncoderInit(RelativeEncoder encoder) {
-    encoder.setPositionConversionFactor(kAnglePerRevolution);
-  }
+  // private void pivotEncoderInit(RelativeEncoder encoder) {
+  //   encoder.setPositionConversionFactor(kAnglePerRevolution);
+  // }
 
   public void encoderReset(RelativeEncoder encoder) {
     encoder.setPosition(0);
@@ -80,9 +69,9 @@ public final RelativeEncoder m_pivotArmEncoder;
     return -m_ArmEncoder.getPosition();
   }
 
-  public double getRightPivot() {
-    return -m_pivotArmEncoder.getPosition();
-  }
+  // public double getRightPivot() {
+  //   return -m_pivotArmEncoder.getPosition();
+  // }
 
   public void setMotor(CANSparkMax motor, boolean inverse) {
     motor.restoreFactoryDefaults();
