@@ -123,12 +123,12 @@ public class Gripper extends SubsystemBase {
 
       // Proximity to ball
       m_controlPanelStatus.addNumber("Ball Proximity", () -> m_proximity);
-      m_controlPanelStatus.addNumber("EncoderVelo", () -> getEncoderVelocity());
+      m_controlPanelStatus.addNumber("EncoderVelo", () -> getVelocity());
     }
   
   // Get average encoder velocity
   public double getVelocity() {
-    return (m_gripperLeftMotor.getEncoder().getVelocity() + m_gripperRightMotor.getEncoder().getVelocity()) / 2;
+    return (Math.abs(m_gripperLeftMotor.getEncoder().getVelocity()) + Math.abs(m_gripperRightMotor.getEncoder().getVelocity())) / 2;
   }
 
   // Checks if object in gripper is purple
@@ -147,7 +147,7 @@ public class Gripper extends SubsystemBase {
 
   // Runs gripper motors based on speed
   public void runGripper(double speed) {
-    m_gripperLeftMotor.set(speed);
+    m_gripperLeftMotor.set(-speed);
     m_gripperRightMotor.set(speed);
     m_gripperStatus.setBoolean(true);
   }

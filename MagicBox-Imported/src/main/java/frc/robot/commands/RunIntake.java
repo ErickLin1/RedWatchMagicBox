@@ -36,6 +36,9 @@ public class RunIntake extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
-  }
+    if (m_gripper.getVelocity() > 1200)
+      
+    return true;
+  
+  return false;  }
 }
