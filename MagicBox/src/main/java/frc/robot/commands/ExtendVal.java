@@ -51,6 +51,6 @@ public class ExtendVal extends CommandBase {
   @Override
   public boolean isFinished() {
     // Returns true if the current value is equal to the desired value
-    return (m_pot.pot_val == neededPot);
+    return ((m_pot.pot_val >= neededPot-0.1) && (m_pot.pot_val <= neededPot+0.1));
   }
 }
