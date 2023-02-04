@@ -63,8 +63,8 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(m_weaponsController, Button.kA.value).toggleOnTrue(new Intake(m_gripper));
-    new JoystickButton(m_weaponsController, Button.kStart.value).whenHeld(new EjectItem(m_gripper));
+    new JoystickButton(m_weaponsController, Button.kStart.value).toggleOnTrue(new Intake(m_gripper));
+    new JoystickButton(m_weaponsController, Button.kBack.value).whenHeld(new EjectItem(m_gripper));
     
     new JoystickButton(m_weaponsController, Button.kLeftStick.value).whenPressed(new ChangeColor(m_lights, kYellowCone));
     new JoystickButton(m_weaponsController, Button.kRightStick.value).whenPressed(new ChangeColor(m_lights, kPurpleCube));
