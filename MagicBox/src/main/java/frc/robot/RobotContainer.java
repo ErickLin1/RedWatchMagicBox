@@ -86,10 +86,11 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // Add button for each controller to toggle solenoid
     // new JoystickButton(m_sparkdriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
+
+
     new JoystickButton(m_talondriver, Button.kY.value).toggleOnTrue(new ExtendVal(false, TelescopingConstants.HighExtendCube,m_pot, m_arm));
     new JoystickButton(m_talondriver, Button.kX.value).toggleOnTrue(new ExtendVal(false, TelescopingConstants.MidExtendCube,m_pot, m_arm));
     new JoystickButton(m_talondriver, Button.kA.value).toggleOnTrue(new ExtendVal(true, lowStop,m_pot, m_arm));
-    new JoystickButton(m_talondriver, Button.kStart.value).toggleOnTrue(new ResetPot(m_pot));
   }
 
   /**
