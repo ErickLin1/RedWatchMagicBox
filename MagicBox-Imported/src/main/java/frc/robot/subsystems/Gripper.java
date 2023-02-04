@@ -18,6 +18,8 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import static frc.robot.Constants.ControlPanelConstants.*;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+
 import frc.robot.PicoColorSensor.RawColor;
 
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -30,7 +32,10 @@ public class Gripper extends SubsystemBase {
 
   // Initialize motor controller variables
   private final CANSparkMax m_gripperLeftMotor;
-  private final CANSparkMax m_gripperRightMotor;
+  // private final CANSparkMax m_gripperRightMotor;
+
+  private final RelativeEncoder m_leftEncoder;
+  // private final RelativeEncoder m_rightEncoder;
 
   // Initializes color sensor
   private final PicoColorSensor m_colorSensor;
@@ -58,13 +63,19 @@ public class Gripper extends SubsystemBase {
 
     // Initialize left and right motors
     m_gripperLeftMotor = new CANSparkMax(kGripperLeftMotor, MotorType.kBrushless);
-    m_gripperRightMotor = new CANSparkMax(kGripperRightMotor, MotorType.kBrushless);
+    // m_gripperRightMotor = new CANSparkMax(kGripperRightMotor, MotorType.kBrushless);
 
     m_gripperLeftMotor.restoreFactoryDefaults();
-    m_gripperRightMotor.restoreFactoryDefaults();
+    // m_gripperRightMotor.restoreFactoryDefaults();
 
     m_gripperLeftMotor.setIdleMode(IdleMode.kBrake);
-    m_gripperRightMotor.setIdleMode(IdleMode.kBrake);
+    // m_gripperRightMotor.setIdleMode(IdleMode.kBrake);
+
+    m_leftEncoder = m_gripperLeftMotor.getEncoder();
+    // m_rightEncoder = m_gripperRightMotor.getEncoder();
+
+    encoderInit(m_leftEncoder);
+    // encoderInit(m_rightEncoder);
 
     m_gripper_direction = "none";
 
@@ -91,6 +102,13 @@ public class Gripper extends SubsystemBase {
     shuffleboardInit();
   }
 
+  private void encoderInit(RelativeEncoder encoder) {
+    encoderReset(encoder);
+  }
+
+  private void encoderReset(RelativeEncoder encoder) {
+    encoder.setPosition(0);
+  }
   private void shuffleboardInit() {
       // Displays color detected as a color box
       m_controlPanelStatus.addBoolean("Purple", () -> isPurple())
@@ -105,6 +123,7 @@ public class Gripper extends SubsystemBase {
 
       // Proximity to ball
       m_controlPanelStatus.addNumber("Ball Proximity", () -> m_proximity);
+      m_controlPanelStatus.addNumber("EncoderVelo", () -> getEncoderVelocity());
     }
   
   // Checks for object in gripper with beambreak
@@ -122,10 +141,14 @@ public class Gripper extends SubsystemBase {
     return m_detectedColor.blue > m_detectedColor.green && m_detectedColor.blue - m_detectedColor.green >= 200 && m_proximity < 120 && m_proximity > 30;
   }
 
+  public double getEncoderVelocity() {
+    return (m_leftEncoder.getVelocity());
+  }
+
   // Runs gripper motors based on speed
   public void runGripper(double speed) {
     m_gripperLeftMotor.set(speed);
-    m_gripperRightMotor.set(speed);
+    // m_gripperRightMotor.set(speed);
     m_gripperStatus.setBoolean(true);
   }
 
@@ -133,7 +156,7 @@ public class Gripper extends SubsystemBase {
   public void stopGripper() {
     m_gripper_direction = "none";
     m_gripperLeftMotor.set(0);
-    m_gripperRightMotor.set(0);
+    // m_gripperRightMotor.set(0);
     m_gripperStatus.setBoolean(false);
   }
 

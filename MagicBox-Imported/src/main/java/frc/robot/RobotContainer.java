@@ -7,13 +7,17 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commandgroups.Intake;
 import frc.robot.commands.ChangeColor;
 import frc.robot.commands.CheckObjectForColorChange;
 import frc.robot.commands.EjectItem;
 import frc.robot.commands.IntakeItem;
+import frc.robot.commands.RunIntake;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.Lights;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import static frc.robot.Constants.ControllerConstants.*;
 import static frc.robot.Constants.LightConstants.*;
@@ -48,6 +52,7 @@ public class RobotContainer {
     // Setting default commands
     m_lights.setDefaultCommand(new CheckObjectForColorChange(m_lights, m_gripper));
 
+    SmartDashboard.putData(CommandScheduler.getInstance());
     configureButtonBindings();
   }
 
@@ -58,7 +63,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(m_weaponsController, Button.kBack.value).whenHeld(new IntakeItem(m_gripper));
+    new JoystickButton(m_weaponsController, Button.kA.value).toggleOnTrue(new RunIntake(m_gripper));
     new JoystickButton(m_weaponsController, Button.kStart.value).whenHeld(new EjectItem(m_gripper));
     
     new JoystickButton(m_weaponsController, Button.kLeftStick.value).whenPressed(new ChangeColor(m_lights, kYellowCone));
