@@ -126,9 +126,9 @@ public class Gripper extends SubsystemBase {
       m_controlPanelStatus.addNumber("EncoderVelo", () -> getEncoderVelocity());
     }
   
-  // Checks for object in gripper with beambreak
-  public boolean isObjectThere() {
-    return m_beambreak.get();
+  // Get average encoder velocity
+  public double getVelocity() {
+    return (m_gripperLeftMotor.getEncoder().getVelocity() + m_gripperRightMotor.getEncoder().getVelocity()) / 2;
   }
 
   // Checks if object in gripper is purple

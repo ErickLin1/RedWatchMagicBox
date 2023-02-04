@@ -30,7 +30,11 @@ public class IntakeItem extends CommandBase {
   @Override
   public void initialize() {
     // Runs the gripper motors at intake speed
-    m_gripper.intakeGripper();
+    if (m_gripper.getVelocity() <= 100)
+      m_gripper.stopGripper();
+
+    else
+      m_gripper.intakeGripper();
 
   }
 
