@@ -63,6 +63,7 @@ public class RobotContainer {
     
     new JoystickButton(m_weaponsController, Button.kLeftStick.value).whenPressed(new ChangeColor(m_lights, kYellowCone));
     new JoystickButton(m_weaponsController, Button.kRightStick.value).whenPressed(new ChangeColor(m_lights, kPurpleCube));
+    new JoystickButton(m_weaponsController, Button.kA.value).whenPressed(new ChangeColor(m_lights, kParty));
   }
 
   /**

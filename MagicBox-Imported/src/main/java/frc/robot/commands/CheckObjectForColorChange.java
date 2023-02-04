@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.Gripper;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 // Default command for the Lights subsystem to change the color of the LEDs
 // Based on whether there is a cone or a cube within the gripper
@@ -30,6 +31,12 @@ public class CheckObjectForColorChange extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    
+  }
+
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() {
     // Checks if the object within the gripper is purple
     // Purple means cube
     if (m_grippygrippy.isPurple())
@@ -44,11 +51,13 @@ public class CheckObjectForColorChange extends CommandBase {
     // turn off LEDs
     else
       m_blinkyblinky.setDisabledColor();
-  }
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {}
+    new WaitCommand(1);
+
+    m_blinkyblinky.setDisabledColor();
+
+    new WaitCommand(1);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
