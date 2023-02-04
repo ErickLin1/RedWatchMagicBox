@@ -72,7 +72,7 @@ public class RobotContainer {
     m_arm = new TelescopingArm();
     m_pot.offset = m_pot.pot.get()*50;
     m_arm.setDefaultCommand(
-      new ArmControl(() -> m_talondriver.getLeftY(), () -> m_talondriver.getLeftBumper(), () -> m_talondriver.getRightBumper(), m_arm));
+      new ArmControl(() -> m_talondriver.getLeftY(), () -> m_talondriver.getLeftBumper(), () -> m_talondriver.getRightBumper(), m_arm, m_pot));
 
     configureButtonBindings();
   }
@@ -88,9 +88,9 @@ public class RobotContainer {
     // new JoystickButton(m_sparkdriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
 
 
-    new JoystickButton(m_talondriver, Button.kY.value).toggleOnTrue(new ExtendVal(false, TelescopingConstants.HighExtendCube,m_pot, m_arm));
-    new JoystickButton(m_talondriver, Button.kX.value).toggleOnTrue(new ExtendVal(false, TelescopingConstants.MidExtendCube,m_pot, m_arm));
-    new JoystickButton(m_talondriver, Button.kA.value).toggleOnTrue(new ExtendVal(true, lowStop,m_pot, m_arm));
+    new JoystickButton(m_talondriver, Button.kY.value).toggleOnTrue(new ExtendVal( TelescopingConstants.HighExtendCube,m_pot, m_arm));
+    new JoystickButton(m_talondriver, Button.kX.value).toggleOnTrue(new ExtendVal( TelescopingConstants.MidExtendCube,m_pot, m_arm));
+    new JoystickButton(m_talondriver, Button.kA.value).toggleOnTrue(new ExtendVal( lowStop,m_pot, m_arm));
   }
 
   /**

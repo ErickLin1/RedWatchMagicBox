@@ -3,6 +3,7 @@ package frc.robot.commands;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.MeasuringPotentiometer;
 import frc.robot.subsystems.TelescopingArm;
 import frc.robot.Constants.TelescopingConstants.*;
 
@@ -13,7 +14,7 @@ public class ArmControl extends CommandBase{
     private DoubleSupplier stickVal;
     private final BooleanSupplier m_leftBumper;
     private final BooleanSupplier m_rightBumper;
-
+    private final MeasuringPotentiometer m_pot;
     
     /**
      * Controls specific motors of the Telescoping Arm subsystem
@@ -22,9 +23,9 @@ public class ArmControl extends CommandBase{
      * @param subsystem TelescopingArm subsystem
      */
 
-     public ArmControl(DoubleSupplier armSpeed, BooleanSupplier leftBumper, BooleanSupplier rightBumper, TelescopingArm subsystem) {
+     public ArmControl(DoubleSupplier armSpeed, BooleanSupplier leftBumper, BooleanSupplier rightBumper, TelescopingArm subsystem, MeasuringPotentiometer pot) {
         m_Arm = subsystem;
-        // m_ArmSpeed = armSpeed;
+        m_pot = pot;
         stickVal = armSpeed;
         m_leftBumper = leftBumper;
         m_rightBumper = rightBumper;
@@ -38,9 +39,9 @@ public class ArmControl extends CommandBase{
 
     @Override
     public void execute(){
-        if ((stickVal.getAsDouble() <= -0.85) &&( m_Arm.m_ArmEncoder.getPosition() <= 9.95)){
+        if ((stickVal.getAsDouble() <= -0.85) &&( m_pot.pot_val <= 33.95)){
             m_Arm.turnMotor(m_Arm.m_ArmExtend, false);
-        }else if ((stickVal.getAsDouble() >= 0.85  )&& (m_Arm.m_ArmEncoder.getPosition() >= 0.03)) {
+        }else if ((stickVal.getAsDouble() >= 0.85  )&& (m_pot.pot_val >= 0.5)) {
           m_Arm.turnMotor(m_Arm.m_ArmExtend, true);
         }
         else {
