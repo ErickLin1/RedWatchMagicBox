@@ -22,7 +22,7 @@ public final RelativeEncoder m_ArmEncoder;
 
  public TelescopingArm() {
     
-  // Initializes the arm encoder.
+    //Initializes the arm encoder.
     m_ArmExtend = new CANSparkMax(kArmExtendPort, MotorType.kBrushless);
     // setMotor(motor, INVERSE);
     setMotor(m_ArmExtend, true);

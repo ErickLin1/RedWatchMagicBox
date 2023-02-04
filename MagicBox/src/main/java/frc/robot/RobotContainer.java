@@ -7,8 +7,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import frc.robot.Constants.TelescopingConstants;
 import frc.robot.commands.ArmControl;
 import frc.robot.commands.ExtendVal;
+import frc.robot.commands.ResetPot;
 import frc.robot.commands.testingMotor;
 import frc.robot.commands.toggleSolenoid;
 import frc.robot.subsystems.Climber;
@@ -36,12 +38,13 @@ public class RobotContainer {
   private final MeasuringPotentiometer m_pot;
   private final TelescopingArm m_arm;
 
-  private final SingleSpark m_SingleSpark;
+  
+
+  // Private variables for the Xbox controller.
   private final XboxController m_sparkdriver = new XboxController(kSparkControllerPort);
   private final XboxController m_talondriver = new XboxController(kTalonControllerPort);
   // 
-  private final double midLength = 15; 
-  private final double highLength = 30; 
+  
   private final double lowStop = 0.5; 
   // private final Climber m_climber;
 
@@ -65,9 +68,9 @@ public class RobotContainer {
 
     // // Sets up Color Sensor
     // new ColorDetection();
-    m_SingleSpark = new SingleSpark();
     m_pot = new MeasuringPotentiometer();
     m_arm = new TelescopingArm();
+    m_pot.offset = m_pot.pot.get()*50;
     m_arm.setDefaultCommand(
       new ArmControl(() -> m_talondriver.getLeftY(), () -> m_talondriver.getLeftBumper(), () -> m_talondriver.getRightBumper(), m_arm));
 
@@ -83,10 +86,10 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // Add button for each controller to toggle solenoid
     // new JoystickButton(m_sparkdriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
-    new JoystickButton(m_talondriver, Button.kY.value).toggleOnTrue(new ExtendVal(false, highLength,m_pot, m_SingleSpark, m_arm));
-    new JoystickButton(m_talondriver, Button.kX.value).toggleOnTrue(new ExtendVal(false, midLength,m_pot, m_SingleSpark, m_arm));
-    new JoystickButton(m_talondriver, Button.kA.value).toggleOnTrue(new ExtendVal(true, lowStop,m_pot, m_SingleSpark, m_arm));
-    new JoystickButton(m_talondriver, Button.kB.value).toggleOnTrue(new testingMotor(m_arm));
+    new JoystickButton(m_talondriver, Button.kY.value).toggleOnTrue(new ExtendVal(false, TelescopingConstants.HighExtendCube,m_pot, m_arm));
+    new JoystickButton(m_talondriver, Button.kX.value).toggleOnTrue(new ExtendVal(false, TelescopingConstants.MidExtendCube,m_pot, m_arm));
+    new JoystickButton(m_talondriver, Button.kA.value).toggleOnTrue(new ExtendVal(true, lowStop,m_pot, m_arm));
+    new JoystickButton(m_talondriver, Button.kStart.value).toggleOnTrue(new ResetPot(m_pot));
   }
 
   /**

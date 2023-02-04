@@ -17,10 +17,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class MeasuringPotentiometer extends SubsystemBase {
 
   // Calculates the potential of the control panel.
-  private final AnalogPotentiometer pot;
+  public final AnalogPotentiometer pot;
   private final ShuffleboardTab m_controlPanelTab;
   private final ShuffleboardLayout m_controlPanelStatus; 
   public double pot_val;
+  public double offset = 0;
 
   /** Creates a new MeasuringPotentiometer. */
   public MeasuringPotentiometer() {
@@ -45,12 +46,13 @@ public class MeasuringPotentiometer extends SubsystemBase {
   private void shuffleboardInit() {
     // Proximity to ball
     m_controlPanelStatus.addNumber("Pot Value", () -> pot_val);
+    m_controlPanelStatus.addNumber("Pot Offset", () -> offset);
   }
 
   // Periodically calculates the value of the pot.
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    pot_val = (pot.get())*50;
+    pot_val = ((pot.get())*50)-offset;
   }
 }

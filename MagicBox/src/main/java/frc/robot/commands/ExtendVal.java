@@ -13,25 +13,23 @@ public class ExtendVal extends CommandBase {
   private final TelescopingArm m_Arm;
   private final MeasuringPotentiometer m_pot;
   private double neededPot=10;
-  private final SingleSpark m_spark;
   private boolean isReverse = false;
 
   
   /** Creates a new ExtendHigh. */
-  public ExtendVal(boolean reverse, double potLength, MeasuringPotentiometer potentiometer, SingleSpark spark, TelescopingArm subsystem) {
+  public ExtendVal(boolean reverse, double potLength, MeasuringPotentiometer potentiometer, TelescopingArm subsystem) {
     m_pot = potentiometer;
-    m_spark = spark;
     m_Arm = subsystem;
     isReverse = reverse;
     neededPot = potLength;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_spark);
+    addRequirements();
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_spark.encoderReset(m_spark.m_leftEncoder);
+    m_pot.offset = m_pot.pot.get();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -56,9 +54,9 @@ public class ExtendVal extends CommandBase {
     // Returns true if the current value is less than or equal to the desired value
     boolean rev;
     if(isReverse){
-      rev = (m_pot.pot_val > neededPot);
-    }else{
       rev = (m_pot.pot_val < neededPot);
+    }else{
+      rev = (m_pot.pot_val > neededPot);
     }
     return rev;
   }

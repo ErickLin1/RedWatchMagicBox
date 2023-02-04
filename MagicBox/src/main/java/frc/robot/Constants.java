@@ -32,14 +32,17 @@ public final class Constants {
         public static final int kCurrentLimit = 60;
 
         // Spark Maxes
-        public static final int LEFT_SPARK_ID = 3;
+        public static final int LEFT_SPARK_ID = 2;
         // public static final int RIGHT_SPARK_ID = 6;
         public static final int maxSparkRPM = 5500;
         // public static final String kShuffleboardTabSpark = "Spark Maxes";
     }
 
     public static final class TelescopingConstants {
-
+        public static final double MidExtendCube = 23.5;
+        public static final double HighExtendCube = 34;
+        public static final double HighExtendCone = 34;
+        public static final double MidExtendCone = 26.7;
 		public static final int kArmExtendPort = 1;
 		public static final int kArmPivotPort = 10;
         // pivoting gearbox = 1:125 
