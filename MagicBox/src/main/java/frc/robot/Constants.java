@@ -41,6 +41,7 @@ public final class Constants {
 
     public static class LightConstants {
         public static final int kBlinkinDriverPort = 4; //TODO: Find a port for this
+        public static final int kPhoenixDriverPort = 0;
 		public static final double kDisabled = 0.0; //TODO: Find what color we want for this and its value
 		public static final double kLightsOff = 0.99;
         public static final double kRedBall = 0.67;
@@ -48,6 +49,8 @@ public final class Constants {
         public static final double kPurpleCube = 0.91;
         public static final double kYellowCone = 0.67;
         public static final double kDefaultColor = 0.93; //TODO: Find what we want default to be (same as disabled?)
+
+
     }
 
     public static class ControllerConstants {

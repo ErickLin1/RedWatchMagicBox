@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.commands.ChangeLEDColor;
+import frc.robot.commands.NewChangeLEDColor;
 import frc.robot.commands.CheckObjectColor;
 import frc.robot.commands.EjectItem;
 import frc.robot.commands.IntakeItem;
@@ -17,6 +18,7 @@ import frc.robot.commands.TurnLightsBlue;
 import frc.robot.commands.cycleLightsLeft;
 import frc.robot.commands.cycleLightsRight;
 import frc.robot.commands.potToLights;
+import frc.robot.subsystems.NewLights;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ColorDetection;
 import frc.robot.subsystems.Gripper;
@@ -45,6 +47,7 @@ public class RobotContainer {
   private final ColorDetection m_color;
 
   private final Lights m_light;
+  private final NewLights m_newlight;
   private final MeasuringPotentiometer m_pot;
   private final Gripper m_gripper;
 
@@ -66,6 +69,7 @@ public class RobotContainer {
     m_climber = new Climber();
     m_color = new ColorDetection();
     m_light = new Lights(); 
+    m_newlight = new NewLights();
     m_color.setDefaultCommand(new CheckObjectColor(m_color, m_light));
 
     // Sets up the control panel
@@ -98,7 +102,8 @@ public class RobotContainer {
     new JoystickButton(m_talondriver, Button.kBack.value).whenPressed(new EjectItem(m_gripper));
     new JoystickButton(m_talondriver, Button.kLeftStick.value).whenPressed(new ChangeLEDColor(m_light, kYellowCone));
     new JoystickButton(m_talondriver, Button.kRightStick.value).whenPressed(new ChangeLEDColor(m_light, kPurpleCube));
-
+    new JoystickButton(m_talondriver, Button.kX.value).whenPressed(new NewChangeLEDColor(m_newlight, 101, 15, 140));
+    new JoystickButton(m_talondriver, Button.kY.value).whenPressed(new NewChangeLEDColor(m_newlight, 255, 255, 0));
   }
 
   /**
