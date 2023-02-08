@@ -16,6 +16,9 @@ public class Vision extends SubsystemBase {
   NetworkTableEntry tx = table.getEntry("tx");
   NetworkTableEntry ty = table.getEntry("ty");
   NetworkTableEntry ta = table.getEntry("ta");
+  private double x;
+  private double y;
+  private double area;
   public Vision() {
 
   }
@@ -28,12 +31,24 @@ public class Vision extends SubsystemBase {
     table.getEntry("ledMode").setNumber(value);
   }
 
+  public double getX() {
+    return x;
+  }
+
+  public double getY() {
+    return y;
+  }
+
+  public double getArea() {
+    return area; 
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    double x = tx.getDouble(0.0);
-    double y = ty.getDouble(0.0);
-    double area = ta.getDouble(0.0);
+    x = tx.getDouble(0.0);
+    y = ty.getDouble(0.0);
+    area = ta.getDouble(0.0);
 
     SmartDashboard.putNumber("LimelightX", x);
     SmartDashboard.putNumber("LimelightY", y);

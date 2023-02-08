@@ -9,13 +9,14 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.commands.AprilTagMode;
 import frc.robot.commands.ReflectiveTapeMode;
+import frc.robot.commands.VisionAlign;
 import frc.robot.commands.differentialDriveSparks;
 // import frc.robot.commands.differentialDriveTalons;
 import frc.robot.commands.toggleSolenoid;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ColorDetection;
 // import frc.robot.subsystems.ControlPanel;
-import frc.robot.subsystems.DrivetrainSparks;
+import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Vision;
 // import frc.robot.subsystems.DrivetrainTalons;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -33,6 +34,7 @@ public class RobotContainer {
 
   private final XboxController m_driver = new XboxController(Constants.ControllerConstants.kDriverPort);
   private final Vision m_vision = new Vision();
+  private final Drivetrain m_drivetrain = new Drivetrain();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -49,6 +51,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     new JoystickButton(m_driver, Button.kA.value).onTrue(new AprilTagMode(m_vision));
     new JoystickButton(m_driver, Button.kB.value).onTrue(new ReflectiveTapeMode(m_vision));
+    new JoystickButton(m_driver, Button.kX.value).onTrue(new VisionAlign(m_drivetrain, m_vision));
   }
 
   /**
