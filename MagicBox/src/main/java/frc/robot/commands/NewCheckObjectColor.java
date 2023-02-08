@@ -31,10 +31,10 @@ public class NewCheckObjectColor extends CommandBase {
   @Override
   public void execute() {
     if (m_colorDetect.m_detectedColor.green > m_colorDetect.m_detectedColor.blue && m_colorDetect.proximity >= 80)
-      m_newlights.setGiven(110, 15, 140);
+      m_newlights.setCubeTwinkle();
     
     else if (m_colorDetect.m_detectedColor.blue > m_colorDetect.m_detectedColor.green && m_colorDetect.m_detectedColor.blue - m_colorDetect.m_detectedColor.green >= 200 && m_colorDetect.proximity < 120 && m_colorDetect.proximity > 30)
-      m_newlights.setGiven(255, 255, 0);
+      m_newlights.setConeTwinkle();
 
     else
       m_newlights.setDisabledColor();

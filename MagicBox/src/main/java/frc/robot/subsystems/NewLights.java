@@ -36,6 +36,10 @@ public class NewLights extends SubsystemBase {
   private final ShuffleboardTab m_ShuffleboardTab;
   private final ShuffleboardLayout m_lightValues;
 
+  public enum AnimationTypes {
+    Twinkle;
+  }
+  private AnimationTypes m_currentAnimation;
 
   public NewLights() {
 
@@ -63,10 +67,21 @@ public class NewLights extends SubsystemBase {
     resetLights();
     m_candle.setLEDs(101,15,140);
   }
+  public void setCubeTwinkle() {
+    resetLights();
+    m_candle.setLEDs(101,15,140);
+    changeAnimation(AnimationTypes.Twinkle);
+  }
+
 
   public void setCone() {
     resetLights();
     m_candle.setLEDs(255,255,0);
+  }
+  public void setConeTwinkle() {
+    resetLights();
+    m_candle.setLEDs(255,255,0);
+    changeAnimation(AnimationTypes.Twinkle);
   }
 
   public void setGiven(int RED, int GREEN, int BLUE) {
@@ -76,6 +91,9 @@ public class NewLights extends SubsystemBase {
 
   public double getCurrentLights() {
     return m_candle.configGetParameter(null, kPhoenixDriverPort);
+  }
+  public void changeAnimation(AnimationTypes toChange) {
+    m_currentAnimation = toChange;
   }
 
   @Override
