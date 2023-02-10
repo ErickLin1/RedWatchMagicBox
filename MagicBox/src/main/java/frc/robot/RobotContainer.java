@@ -43,13 +43,13 @@ public class RobotContainer {
   // private final XboxController m_sparkdriver = new XboxController(kSparkControllerPort);
   private final XboxController m_talondriver = new XboxController(kTalonControllerPort);
 
-  private final Climber m_climber;
-  private final ColorDetection m_color;
+  // private final Climber m_climber;
+  // private final ColorDetection m_color;
 
-  private final Lights m_light;
+  // private final Lights m_light;
   private final NewLights m_newlight;
-  private final MeasuringPotentiometer m_pot;
-  private final Gripper m_gripper;
+  // private final MeasuringPotentiometer m_pot;
+  // private final Gripper m_gripper;
 
   // private final Climber m_climber;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -65,12 +65,12 @@ public class RobotContainer {
     //   new differentialDriveTalons(() -> -m_talondriver.getLeftY(), () -> -m_talondriver.getRightY(), m_drivetrainTalons));
 
     // Sets up pneumatics and solenoids
-    m_gripper = new Gripper();
-    m_climber = new Climber();
-    m_color = new ColorDetection();
-    m_light = new Lights(); 
+    // m_gripper = new Gripper();
+    // m_climber = new Climber();
+    // m_color = new ColorDetection();
+    // m_light = new Lights(); 
     m_newlight = new NewLights();
-    m_color.setDefaultCommand(new CheckObjectColor(m_color, m_light));
+    // m_color.setDefaultCommand(new CheckObjectColor(m_color, m_light));
 
     // Sets up the control panel
     // new ControlPanel(m_climber, m_drivetrainSparks, m_drivetrainTalons);
@@ -78,8 +78,8 @@ public class RobotContainer {
     // Sets up Color Sensor
     // new ColorDetection();
 
-    m_pot = new MeasuringPotentiometer();
-    m_light.setDefaultCommand(new potToLights(m_pot, m_light));
+    // m_pot = new MeasuringPotentiometer();
+    // m_light.setDefaultCommand(new potToLights(m_pot, m_light));
     configureButtonBindings();
   }
 
@@ -98,12 +98,12 @@ public class RobotContainer {
     // new JoystickButton(m_talondriver, Button.kRightBumper.value).whenPressed(new cycleLightsRight(m_light, m_pot));
     // new JoystickButton(m_talondriver, Button.kX.value).whenPressed(new ChangeLEDColor(m_light, kPurpleCube));
     // new JoystickButton(m_talondriver, Button.kY.value).whenPressed(new ChangeLEDColor(m_light, kYellowCone));
-    new JoystickButton(m_talondriver, Button.kStart.value).whenPressed(new IntakeItem(m_gripper));
-    new JoystickButton(m_talondriver, Button.kBack.value).whenPressed(new EjectItem(m_gripper));
-    new JoystickButton(m_talondriver, Button.kLeftStick.value).whenPressed(new ChangeLEDColor(m_light, kYellowCone));
-    new JoystickButton(m_talondriver, Button.kRightStick.value).whenPressed(new ChangeLEDColor(m_light, kPurpleCube));
-    new JoystickButton(m_talondriver, Button.kX.value).whenPressed(new NewChangeLEDColor(m_newlight, 101, 15, 140));
-    new JoystickButton(m_talondriver, Button.kY.value).whenPressed(new NewChangeLEDColor(m_newlight, 255, 255, 0));
+    // new JoystickButton(m_talondriver, Button.kStart.value).whenPressed(new IntakeItem(m_gripper));
+    // new JoystickButton(m_talondriver, Button.kBack.value).whenPressed(new EjectItem(m_gripper));
+    // new JoystickButton(m_talondriver, Button.kLeftStick.value).whenPressed(new ChangeLEDColor(m_light, kYellowCone));
+    // new JoystickButton(m_talondriver, Button.kRightStick.value).whenPressed(new ChangeLEDColor(m_light, kPurpleCube));
+    new JoystickButton(m_talondriver, Button.kX.value).onTrue(new NewChangeLEDColor(m_newlight, 101, 15, 140));
+    new JoystickButton(m_talondriver, Button.kY.value).onTrue(new NewChangeLEDColor(m_newlight, 255, 255, 0));
   }
 
   /**

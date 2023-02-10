@@ -47,7 +47,7 @@ public class NewLights extends SubsystemBase {
     m_lightValues = m_ShuffleboardTab.getLayout("Light Jawndess", BuiltInLayouts.kList);
     m_lightTable = NetworkTableInstance.getDefault().getTable("Light Statuses");
     
-    m_candle = new CANdle(kPhoenixDriverPort, "rio");
+    m_candle = new CANdle(kPhoenixDriverPort);
     resetLights();
 
     // m_lightValues.addNumber("Light Output", () -> getCurrentLights());
