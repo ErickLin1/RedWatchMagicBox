@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Vision;
 
@@ -12,9 +13,11 @@ public class VisionAlign extends CommandBase {
   /** Creates a new VisionAlign. */
   public final Drivetrain m_drivetrain;
   public final Vision m_vision;
-  public VisionAlign(Drivetrain drivetrain, Vision vision) {
+  public final String m_target;
+  public VisionAlign(Drivetrain drivetrain, Vision vision, String target) {
     m_drivetrain = drivetrain;
     m_vision = vision;
+    m_target = target;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_drivetrain);
     addRequirements(m_vision);
@@ -23,7 +26,15 @@ public class VisionAlign extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
+    if (m_target.equals("HIGH")) {
+      Vision.target = "HIGH";
+      m_vision.setPipeline(Constants.VisionConstants.kHighTapePipeline);
+    }
+    else if (m_target.equals("MEDIUM")) {
+      Vision.target = "MEDIUM";
+      m_vision.setPipeline(Constants.VisionConstants.kLowTapePipeline);
+
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.

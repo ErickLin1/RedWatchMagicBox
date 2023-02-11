@@ -51,7 +51,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     new JoystickButton(m_driver, Button.kA.value).onTrue(new AprilTagMode(m_vision));
     new JoystickButton(m_driver, Button.kB.value).onTrue(new ReflectiveTapeMode(m_vision));
-    new JoystickButton(m_driver, Button.kX.value).onTrue(new VisionAlign(m_drivetrain, m_vision));
+    new JoystickButton(m_driver, Button.kX.value).onTrue(new VisionAlign(m_drivetrain, m_vision, "HIGH"));
   }
 
   /**

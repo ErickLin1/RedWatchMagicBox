@@ -9,9 +9,11 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Vision extends SubsystemBase {
   /** Creates a new Vision. */
+  public static String target = "HIGH";
   NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
   NetworkTableEntry tx = table.getEntry("tx");
   NetworkTableEntry ty = table.getEntry("ty");
@@ -39,8 +41,22 @@ public class Vision extends SubsystemBase {
     return y;
   }
 
+  // returns relative area of the target compared with FOV
   public double getArea() {
     return area; 
+  }
+
+  public double getDistanceFromTarget(String height) {
+    double angle = Constants.VisionConstants.kLimeLightAngle + y;
+    double ydist = 0;
+    if (height.equals("HIGH")) {
+      ydist = Constants.VisionConstants.kHighTargetHeight - Constants.VisionConstants.kLimeLightHeight;
+    }
+    else if (height.equals("MEDIUM")) {
+      ydist = Constants.VisionConstants.kMediumTargetHeight - Constants.VisionConstants.kLimeLightHeight;
+    }
+    double xdist = ydist / Math.tan(Math.toRadians(angle));
+    return xdist;
   }
 
   @Override

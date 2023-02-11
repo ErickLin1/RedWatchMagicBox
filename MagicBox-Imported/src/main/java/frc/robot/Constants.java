@@ -58,9 +58,16 @@ public final class Constants {
 
     public static class VisionConstants {
         public static final int kAprilTagPipeline = 1;
+        public static final double kHighTapePipeline = 0;
+        public static final double kLowTapePipeline = 2;
         public static final int kReflectiveTapePipeline = 0;
         public static final int kLightOffValue = 1;
         public static final int kLightOnValue = 3;
+        public static final double kLimeLightAngle = -13;
+        public static final double kHighTargetHeight = 45;
+        public static final double kMediumTargetHeight = 23.5;
+        public static final double kLimeLightHeight = 39.013; // from the CAD for the ALPHA BOT
+
     }
 
     public static final String kShuffleboardTab = "Testing";
