@@ -41,8 +41,8 @@ public class DrivetrainSparks extends SubsystemBase {
     motorInit(leftSpark, kLeftReversedDefault);
     motorInit(rightSpark, kRightReversedDefault);
 
-    leftSpark.setSmartCurrentLimit(STALL_LIMIT);
-    rightSpark.setSmartCurrentLimit(STALL_LIMIT);
+    // leftSpark.setSmartCurrentLimit(STALL_LIMIT);
+    // rightSpark.setSmartCurrentLimit(STALL_LIMIT);
 
     leftSpark.setIdleMode(IdleMode.kBrake);
     rightSpark.setIdleMode(IdleMode.kBrake);

@@ -6,7 +6,7 @@ package frc.robot.subsystems;
 
 import java.util.Map;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -15,8 +15,8 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.DriveSpark.*;
 import static frc.robot.Constants.ControlPanelConstants.*;
-import frc.robot.commands.differentialDriveSparks;
-import frc.robot.commands.differentialDriveTalons;
+// import frc.robot.commands.differentialDriveSparks;
+// import frc.robot.commands.differentialDriveTalons;
 import frc.robot.commands.toggleSolenoid;
 
 /** Creates a control panel in Shuffleboard that displays all important information and controls. Contains all shuffleboard related code. */
@@ -30,12 +30,12 @@ public class ControlPanel extends SubsystemBase {
   private final ShuffleboardLayout m_SparkStatus;
   private final ShuffleboardLayout m_TalonStatus;
 
-  private final NetworkTableEntry LeftSparkMotor;
-  private final NetworkTableEntry RightSparkMotor;
-  private final NetworkTableEntry LeftSparkRPM;
-  private final NetworkTableEntry RightSparkRPM;
-  private final NetworkTableEntry LeftTalonMotor;
-  private final NetworkTableEntry RightTalonMotor;
+  private final GenericEntry LeftSparkMotor;
+  private final GenericEntry RightSparkMotor;
+  private final GenericEntry LeftSparkRPM;
+  private final GenericEntry RightSparkRPM;
+  private final GenericEntry LeftTalonMotor;
+  private final GenericEntry RightTalonMotor;
 
   public ControlPanel(Climber m_climber, DrivetrainSparks m_drivetrainSparks, DrivetrainTalons m_drivetrainTalons) {
     // Initialize Control Panel Shuffleboard
@@ -67,7 +67,7 @@ public class ControlPanel extends SubsystemBase {
     .withProperties(Map.of("min", -1, "max", 1))
     .getEntry();
     // Turns on the motors and reads the shuffleboard's motor speed values
-    m_SparkControls.add("Run Motors", new differentialDriveSparks(() -> LeftSparkMotor.getDouble(0), () -> RightSparkMotor.getDouble(0), m_drivetrainSparks));
+    // m_SparkControls.add("Run Motors", new differentialDriveSparks(() -> LeftSparkMotor.getDouble(0), () -> RightSparkMotor.getDouble(0), m_drivetrainSparks));
 
     // Set up Spark RPM controls
     LeftSparkRPM = m_ShuffleboardTab.add("Left RPM", maxSparkRPM)
@@ -76,7 +76,7 @@ public class ControlPanel extends SubsystemBase {
     RightSparkRPM = m_ShuffleboardTab.add("Right RPM", maxSparkRPM)
       .withPosition(1, 3)
       .getEntry();
-    m_ShuffleboardTab.add("Run Motors RPM", new differentialDriveSparks(() -> getSpeedFromRPM(LeftSparkRPM.getDouble(0)), () -> getSpeedFromRPM(RightSparkRPM.getDouble(0)), m_drivetrainSparks)).withPosition(2, 3);
+    // m_ShuffleboardTab.add("Run Motors RPM", new differentialDriveSparks(() -> getSpeedFromRPM(LeftSparkRPM.getDouble(0)), () -> getSpeedFromRPM(RightSparkRPM.getDouble(0)), m_drivetrainSparks)).withPosition(2, 3);
 
     // Set up talon motor controls
     LeftTalonMotor = m_TalonControls.add("Left Motor Speed", 0)
@@ -88,7 +88,7 @@ public class ControlPanel extends SubsystemBase {
     .withProperties(Map.of("min", -1, "max", 1))
     .getEntry();
     // Turns on the motors and reads the shuffleboard's motor speed values
-    m_TalonControls.add("Run Motors", new differentialDriveTalons(() -> LeftTalonMotor.getDouble(0), () -> RightTalonMotor.getDouble(0), m_drivetrainTalons));
+    // m_TalonControls.add("Run Motors", new differentialDriveTalons(() -> LeftTalonMotor.getDouble(0), () -> RightTalonMotor.getDouble(0), m_drivetrainTalons));
 
     // Set up Spark Status
     m_SparkStatus.addNumber("Left Speed", () -> m_drivetrainSparks.leftSparkSpeed);
