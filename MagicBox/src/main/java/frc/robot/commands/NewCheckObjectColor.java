@@ -24,20 +24,22 @@ public class NewCheckObjectColor extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_newlights.setDisabledColor();;
+    m_newlights.setDefault();;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_colorDetect.m_detectedColor.green > m_colorDetect.m_detectedColor.blue && m_colorDetect.proximity >= 80)
-      m_newlights.setCubeTwinkle();
-    
-    else if (m_colorDetect.m_detectedColor.blue > m_colorDetect.m_detectedColor.green && m_colorDetect.m_detectedColor.blue - m_colorDetect.m_detectedColor.green >= 200 && m_colorDetect.proximity < 120 && m_colorDetect.proximity > 30)
-      m_newlights.setConeTwinkle();
+    if(m_colorDetect.detect){
+      if (m_colorDetect.m_detectedColor.green > m_colorDetect.m_detectedColor.blue && m_colorDetect.proximity >= 80)
+        m_newlights.setCube();
+      
+      else if (m_colorDetect.m_detectedColor.blue > m_colorDetect.m_detectedColor.green && m_colorDetect.m_detectedColor.blue - m_colorDetect.m_detectedColor.green >= 200 && m_colorDetect.proximity < 120 && m_colorDetect.proximity > 30)
+        m_newlights.setCone();
 
-    else
-      m_newlights.setDisabledColor();
+      else
+        m_newlights.setDefault();
+    }
 
   }
 

@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 public class ColorDetection extends SubsystemBase {
   private final PicoColorSensor m_colorSensor;
-
+  public boolean detect = true;
   public RawColor m_detectedColor;
   public int proximity;
 
@@ -41,9 +41,9 @@ public class ColorDetection extends SubsystemBase {
 
   private void shuffleboardInit() {
     // Displays color detected as a color box
-    m_controlPanelStatus.addBoolean("Purple", () -> m_detectedColor.green > m_detectedColor.blue && proximity >= 80)
+    m_controlPanelStatus.addBoolean("Purple1", () -> m_detectedColor.green > m_detectedColor.blue && proximity >= 80)
     .withProperties(Map.of("Color when true", "Purple", "Color when false", "Black"));
-    m_controlPanelStatus.addBoolean("Yellow", () -> m_detectedColor.blue > m_detectedColor.green && m_detectedColor.blue - m_detectedColor.green >= 200 && proximity < 120 && proximity > 30) 
+    m_controlPanelStatus.addBoolean("Yellow1", () -> m_detectedColor.blue > m_detectedColor.green && m_detectedColor.blue - m_detectedColor.green >= 200 && proximity < 120 && proximity > 30) 
     .withProperties(Map.of("Color when true", "Yellow", "Color when false", "Black"));
 
     // Shows color values (RGB)

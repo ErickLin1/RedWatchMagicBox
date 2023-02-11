@@ -7,12 +7,15 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import frc.robot.commands.AskForPiece;
 import frc.robot.commands.ChangeLEDColor;
 import frc.robot.commands.NewChangeLEDColor;
 import frc.robot.commands.NewCheckObjectColor;
+import frc.robot.commands.PartyMode;
 import frc.robot.commands.CheckObjectColor;
 import frc.robot.commands.EjectItem;
 import frc.robot.commands.IntakeItem;
+import frc.robot.commands.LightsDefault;
 import frc.robot.commands.PickUpItem;
 import frc.robot.commands.StopGripper;
 import frc.robot.commands.TurnLightsBlue;
@@ -71,13 +74,13 @@ public class RobotContainer {
     m_color = new ColorDetection();
     // m_light = new Lights(); 
     m_newlight = new NewLights();
+    // m_newlight.setDefaultCommand(new LightsDefault(m_newlight));
     m_color.setDefaultCommand(new NewCheckObjectColor(m_color, m_newlight));
 
     // Sets up the control panel
     //new ControlPanel(m_climber, m_drivetrainSparks, m_drivetrainTalons);
 
     // Sets up Color Sensor
-    new ColorDetection();
 
     // m_pot = new MeasuringPotentiometer();
     // m_light.setDefaultCommand(new potToLights(m_pot, m_light));
@@ -103,8 +106,9 @@ public class RobotContainer {
     // new JoystickButton(m_talondriver, Button.kBack.value).whenPressed(new EjectItem(m_gripper));
     // new JoystickButton(m_talondriver, Button.kLeftStick.value).whenPressed(new ChangeLEDColor(m_light, kYellowCone));
     // new JoystickButton(m_talondriver, Button.kRightStick.value).whenPressed(new ChangeLEDColor(m_light, kPurpleCube));
-    new JoystickButton(m_talondriver, Button.kX.value).onTrue(new NewChangeLEDColor(m_newlight, 101, 15, 140));
-    new JoystickButton(m_talondriver, Button.kY.value).onTrue(new NewChangeLEDColor(m_newlight, 255, 255, 0));
+    new JoystickButton(m_talondriver, Button.kX.value).onTrue(new AskForPiece(m_newlight,m_color, true));
+    new JoystickButton(m_talondriver, Button.kY.value).onTrue(new AskForPiece(m_newlight,m_color, false));
+    new JoystickButton(m_talondriver, Button.kA.value).onTrue(new PartyMode(m_newlight, m_color,true ));
   }
 
   /**

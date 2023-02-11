@@ -29,14 +29,15 @@ import com.ctre.phoenix.led.TwinkleOffAnimation.TwinkleOffPercent;
 public class NewLights extends SubsystemBase {
   /** Creates a new NewLights. */
 
-  private final CANdle m_candle;
+  public final CANdle m_candle;
   private static final double kDisabled = 0;
   private final NetworkTable m_lightTable;
   private final Timer m_timeToSpeed = new Timer();
   private final ShuffleboardTab m_ShuffleboardTab;
   private final ShuffleboardLayout m_lightValues;
-  private final int Ledcount = 24;
-
+  private final int Ledcount = 32;
+  public int count =0; 
+  public int lCount = 1;
   public enum AnimationTypes {
     Twinkle;
   }
@@ -55,41 +56,68 @@ public class NewLights extends SubsystemBase {
     LEDConfig.vBatOutputMode = VBatOutputMode.On;
     m_candle = new CANdle(kPhoenixDriverPort, "rio");
     m_candle.configAllSettings(LEDConfig, 100);
-    m_candle.animate(new FireAnimation(0.5, 0.7, Ledcount, 0.7, 0.5));
+    setDefault();
+    // m_candle.animate( new RainbowAnimation(1, 1, Ledcount));
+    // m_candle.animate(new TwinkleAnimation(30, 70, 60, 0, 0.4, Ledcount, TwinklePercent.Percent6));
+    // m_candle.animate(new LarsonAnimation(101, 15, 140, 0, 0.5, Ledcount, BounceMode.Front, 15));
+    // m_candle.animate(new LarsonAnimation(255, 255, 0, 0, 0.5, Ledcount, BounceMode.Front, 15));
+    // m_candle.animate(    new ColorFlowAnimation(255, 255, 0, 0, 0.85, Ledcount, Direction.Forward));
+    // m_candle.animate(null);
     resetLights();
 
     // m_lightValues.addNumber("Light Output", () -> getCurrentLights());
 
 
   }
-
+  public void partyMode(){
+    m_candle.animate(new RainbowAnimation(1, 1, Ledcount));
+  }
+  public void epilepsy() {
+    m_candle.animate(new StrobeAnimation(255, 255, 255, 0, 98.0 / 256.0, Ledcount));
+  }
   public void setDisabledColor() {
     m_candle.setLEDs(0,0,0);
   }
+  public void askForCube(){
+    resetLights();
+    m_candle.animate(    new ColorFlowAnimation(101, 15, 140, 0, 0.85, Ledcount, Direction.Forward));
 
+  }
+  public void askForCone(){
+    resetLights();
+    m_candle.animate(    new ColorFlowAnimation(255, 255, 0, 0, 0.85, Ledcount, Direction.Forward));
+
+  }
   public void resetLights() {
-    m_candle.setLEDs(255,255,255);
+    m_candle.setLEDs(0,0,0);
   }
 
   public void setCube() {
-    resetLights();
+    // resetLights();
+    // m_candle.animate(new LarsonAnimation(101, 15, 140, 0, 0.15, Ledcount, BounceMode.Front, 10));
+    m_candle.animate(null);
     m_candle.setLEDs(101,15,140, 0, 0, Ledcount);
   }
   public void setCubeTwinkle() {
-    resetLights();
-    m_candle.animate(new TwinkleAnimation(101, 15, 140, 0, 0.4, Ledcount, TwinklePercent.Percent42));
+    m_candle.animate(new LarsonAnimation(101, 15, 140, 0, 0.5, Ledcount, BounceMode.Front, 15));
+  }
+  public void setDefault(){
+    // resetLights();
+    // m_candle.animate(new LarsonAnimation(255, 255, 255, 0, 0.5, Ledcount, BounceMode.Front, 3));
+
+    m_candle.animate(new LarsonAnimation(225, 0, 0, 0, 0.05, Ledcount, BounceMode.Front, 15));
+
   }
 
-
   public void setCone() {
-    resetLights();
+    m_candle.animate(null);
+    // resetLights();
+    // m_candle.animate(new LarsonAnimation(255, 255, 0, 0, 0.15, Ledcount, BounceMode.Front, 10));
     m_candle.setLEDs(255,255,0, 0,0,Ledcount);
   }
   public void setConeTwinkle() {
-    resetLights();
-    m_candle.animate(new TwinkleAnimation(255, 255, 0, 0, 0.4, Ledcount, TwinklePercent.Percent42));
+    m_candle.animate(new LarsonAnimation(255, 255, 0, 0, 0.5, Ledcount, BounceMode.Front, 15));
   }
-
   public void setGiven(int RED, int GREEN, int BLUE) {
     m_candle.setLEDs(RED, GREEN, BLUE);
   }
@@ -98,17 +126,13 @@ public class NewLights extends SubsystemBase {
   public double getCurrentLights() {
     return m_candle.configGetParameter(null, kPhoenixDriverPort);
   }
-  public void changeAnimation(AnimationTypes toChange) {
-    m_currentAnimation = toChange;
-  }
 
-  public int count =0; 
-  public int lCount = 1;
+  
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     
-    if (count == 50){
+    if (count == 500){
       if (lCount >30){
         lCount=1;
       }
@@ -120,7 +144,7 @@ public class NewLights extends SubsystemBase {
     count = count+1;
   }
 
-  
-
-  
+  public void resetAnim() {
+  m_candle.animate(null);
+  }
 }
