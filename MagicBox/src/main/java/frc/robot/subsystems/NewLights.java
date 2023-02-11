@@ -55,6 +55,7 @@ public class NewLights extends SubsystemBase {
     LEDConfig.vBatOutputMode = VBatOutputMode.On;
     m_candle = new CANdle(kPhoenixDriverPort, "rio");
     m_candle.configAllSettings(LEDConfig, 100);
+    m_candle.animate(new FireAnimation(0.5, 0.7, Ledcount, 0.7, 0.5));
     resetLights();
 
     // m_lightValues.addNumber("Light Output", () -> getCurrentLights());
@@ -76,8 +77,7 @@ public class NewLights extends SubsystemBase {
   }
   public void setCubeTwinkle() {
     resetLights();
-    m_candle.setLEDs(101,15,140);
-    changeAnimation(AnimationTypes.Twinkle);
+    m_candle.animate(new TwinkleAnimation(101, 15, 140, 0, 0.4, Ledcount, TwinklePercent.Percent42));
   }
 
 
@@ -87,6 +87,7 @@ public class NewLights extends SubsystemBase {
   }
   public void setConeTwinkle() {
     resetLights();
+    m_candle.animate(new TwinkleAnimation(255, 255, 0, 0, 0.4, Ledcount, TwinklePercent.Percent42));
   }
 
   public void setGiven(int RED, int GREEN, int BLUE) {
