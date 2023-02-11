@@ -62,7 +62,7 @@ public class Lights extends SubsystemBase {
   }
 
   public void resetLights() {
-    m_ledDriver.set(kDefaultColor);
+    // m_ledDriver.set(kDefaultColor);
   }
   public void setCube() {
     resetLights();

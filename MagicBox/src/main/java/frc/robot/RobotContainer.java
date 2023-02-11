@@ -22,7 +22,7 @@ import frc.robot.subsystems.NewLights;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ColorDetection;
 import frc.robot.subsystems.Gripper;
-import frc.robot.subsystems.Lights;
+// import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.MeasuringPotentiometer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;

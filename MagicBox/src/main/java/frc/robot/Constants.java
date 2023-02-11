@@ -48,7 +48,6 @@ public final class Constants {
         public static final double kBlueBall = 0.87;
         public static final double kPurpleCube = 0.91;
         public static final double kYellowCone = 0.67;
-        public static final double kDefaultColor = 0.93; //TODO: Find what we want default to be (same as disabled?)
 
 
     }

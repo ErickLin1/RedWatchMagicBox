@@ -35,6 +35,7 @@ public class NewLights extends SubsystemBase {
   private final Timer m_timeToSpeed = new Timer();
   private final ShuffleboardTab m_ShuffleboardTab;
   private final ShuffleboardLayout m_lightValues;
+  private final int Ledcount = 24;
 
   public enum AnimationTypes {
     Twinkle;
@@ -46,8 +47,14 @@ public class NewLights extends SubsystemBase {
     m_ShuffleboardTab = Shuffleboard.getTab(Constants.kShuffleboardTab);
     m_lightValues = m_ShuffleboardTab.getLayout("Light Jawndess", BuiltInLayouts.kList);
     m_lightTable = NetworkTableInstance.getDefault().getTable("Light Statuses");
-    
-    m_candle = new CANdle(kPhoenixDriverPort);
+    CANdleConfiguration LEDConfig = new CANdleConfiguration();
+    LEDConfig.statusLedOffWhenActive = false;
+    LEDConfig.disableWhenLOS = false;
+    LEDConfig.stripType = LEDStripType.RGB;
+    LEDConfig.brightnessScalar = 0.5;
+    LEDConfig.vBatOutputMode = VBatOutputMode.On;
+    m_candle = new CANdle(kPhoenixDriverPort, "rio");
+    m_candle.configAllSettings(LEDConfig, 100);
     resetLights();
 
     // m_lightValues.addNumber("Light Output", () -> getCurrentLights());
@@ -65,7 +72,7 @@ public class NewLights extends SubsystemBase {
 
   public void setCube() {
     resetLights();
-    m_candle.setLEDs(101,15,140);
+    m_candle.setLEDs(101,15,140, 0, 0, Ledcount);
   }
   public void setCubeTwinkle() {
     resetLights();
@@ -76,12 +83,10 @@ public class NewLights extends SubsystemBase {
 
   public void setCone() {
     resetLights();
-    m_candle.setLEDs(255,255,0);
+    m_candle.setLEDs(255,255,0, 0,0,Ledcount);
   }
   public void setConeTwinkle() {
     resetLights();
-    m_candle.setLEDs(255,255,0);
-    changeAnimation(AnimationTypes.Twinkle);
   }
 
   public void setGiven(int RED, int GREEN, int BLUE) {
