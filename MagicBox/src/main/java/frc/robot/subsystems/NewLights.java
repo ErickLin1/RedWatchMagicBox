@@ -102,10 +102,25 @@ public class NewLights extends SubsystemBase {
     m_currentAnimation = toChange;
   }
 
+  public int count =0; 
+  public int lCount = 1;
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    
+    if (count == 50){
+      if (lCount >30){
+        lCount=1;
+      }
+      m_candle.setLEDs(0,0,0, 0,lCount,30);
+      m_candle.setLEDs(255,255,255, 0,0,lCount);
+
+      count = 0;
+    }
+    count = count+1;
   }
+
+  
 
   
 }
