@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import frc.robot.commands.ChangeLEDColor;
 import frc.robot.commands.NewChangeLEDColor;
+import frc.robot.commands.NewCheckObjectColor;
 import frc.robot.commands.CheckObjectColor;
 import frc.robot.commands.EjectItem;
 import frc.robot.commands.IntakeItem;
@@ -44,7 +45,7 @@ public class RobotContainer {
   private final XboxController m_talondriver = new XboxController(kTalonControllerPort);
 
   // private final Climber m_climber;
-  // private final ColorDetection m_color;
+  private final ColorDetection m_color;
 
   // private final Lights m_light;
   private final NewLights m_newlight;
@@ -67,16 +68,16 @@ public class RobotContainer {
     // Sets up pneumatics and solenoids
     // m_gripper = new Gripper();
     // m_climber = new Climber();
-    // m_color = new ColorDetection();
+    m_color = new ColorDetection();
     // m_light = new Lights(); 
     m_newlight = new NewLights();
-    // m_color.setDefaultCommand(new CheckObjectColor(m_color, m_light));
+    m_color.setDefaultCommand(new NewCheckObjectColor(m_color, m_newlight));
 
     // Sets up the control panel
-    // new ControlPanel(m_climber, m_drivetrainSparks, m_drivetrainTalons);
+    //new ControlPanel(m_climber, m_drivetrainSparks, m_drivetrainTalons);
 
     // Sets up Color Sensor
-    // new ColorDetection();
+    new ColorDetection();
 
     // m_pot = new MeasuringPotentiometer();
     // m_light.setDefaultCommand(new potToLights(m_pot, m_light));
