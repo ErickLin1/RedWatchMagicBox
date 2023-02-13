@@ -33,6 +33,7 @@ public class NewChangeLEDColor extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+      // Sets lights to given color with RGB values
       m_newlight.setGiven(m_Red, m_Green, m_Blue);
   }
 

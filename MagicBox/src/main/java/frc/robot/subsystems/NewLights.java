@@ -30,7 +30,6 @@ public class NewLights extends SubsystemBase {
   /** Creates a new NewLights. */
 
   public final CANdle m_candle;
-  private static final double kDisabled = 0;
   private final NetworkTable m_lightTable;
   private final Timer m_timeToSpeed = new Timer();
   private final ShuffleboardTab m_ShuffleboardTab;
@@ -45,6 +44,7 @@ public class NewLights extends SubsystemBase {
 
   public NewLights() {
 
+    // Creates shuffleboard layouts and sends values
     m_ShuffleboardTab = Shuffleboard.getTab(Constants.kShuffleboardTab);
     m_lightValues = m_ShuffleboardTab.getLayout("Light Jawndess", BuiltInLayouts.kList);
     m_lightTable = NetworkTableInstance.getDefault().getTable("Light Statuses");
@@ -69,83 +69,60 @@ public class NewLights extends SubsystemBase {
 
 
   }
-  public void partyMode(){
-    m_candle.animate(new RainbowAnimation(1, 1, Ledcount)); 
-    
-  }
-  public void epilepsy() {
-    m_candle.animate(new StrobeAnimation(255, 255, 255, 0, 98.0 / 256.0, Ledcount));
-  }
-  public void setDisabledColor() {
-    m_candle.setLEDs(0,0,0);
-  }
-  public void askForCube(){
-    resetLights();
-    m_candle.animate(    new ColorFlowAnimation(101, 15, 140, 0, 0.85, Ledcount, Direction.Forward));
 
+  // Sets lights to default animation
+  public void setDefault(){
+    m_candle.animate(new LarsonAnimation(225, 0, 0, 0, 0.05, Ledcount, BounceMode.Front, 15));
   }
-  public void askForCone(){
-    resetLights();
-    m_candle.animate(    new ColorFlowAnimation(255, 255, 0, 0, 0.85, Ledcount, Direction.Forward));
-
-  }
+  // Disables lights colors
   public void resetLights() {
     m_candle.setLEDs(0,0,0);
   }
 
+  // Sets lights to purple animation
+  public void askForCube(){
+    resetLights();
+    m_candle.animate(    new ColorFlowAnimation(101, 15, 140, 0, 0.85, Ledcount, Direction.Forward));
+  }
+
+  // Sets lights to yellow animation
+  public void askForCone(){
+    resetLights();
+    m_candle.animate(    new ColorFlowAnimation(255, 255, 0, 0, 0.85, Ledcount, Direction.Forward));
+  }
+
+  // Sets lights to solid purple
   public void setCube() {
-    // resetLights();
-    // m_candle.animate(new LarsonAnimation(101, 15, 140, 0, 0.15, Ledcount, BounceMode.Front, 10));
     m_candle.animate(null);
     m_candle.setLEDs(101,15,140, 0, 0, Ledcount);
   }
-  public void setCubeTwinkle() {
-    m_candle.animate(new LarsonAnimation(101, 15, 140, 0, 0.5, Ledcount, BounceMode.Front, 15));
-  }
-  public void setDefault(){
-    // resetLights();
-    // m_candle.animate(new LarsonAnimation(255, 255, 255, 0, 0.5, Ledcount, BounceMode.Front, 3));
 
-    m_candle.animate(new LarsonAnimation(225, 0, 0, 0, 0.05, Ledcount, BounceMode.Front, 15));
-
-  }
-
+  // Sets lights to solid yellow
   public void setCone() {
     m_candle.animate(null);
-    // resetLights();
-    // m_candle.animate(new LarsonAnimation(255, 255, 0, 0, 0.15, Ledcount, BounceMode.Front, 10));
     m_candle.setLEDs(255,255,0, 0,0,Ledcount);
   }
-  public void setConeTwinkle() {
-    m_candle.animate(new LarsonAnimation(255, 255, 0, 0, 0.5, Ledcount, BounceMode.Front, 15));
-  }
+  
+  // Sets lights to given RGB value
   public void setGiven(int RED, int GREEN, int BLUE) {
     m_candle.setLEDs(RED, GREEN, BLUE);
   }
 
-
-  public double getCurrentLights() {
-    return m_candle.configGetParameter(null, kPhoenixDriverPort);
+  // Animates lights to Rainbow
+  public void partyMode(){
+    m_candle.animate(new RainbowAnimation(1, 1, Ledcount)); 
   }
 
+  // Makes lights blink white very fast
+  public void epilepsy() {
+    m_candle.animate(new StrobeAnimation(255, 255, 255, 0, 98.0 / 256.0, Ledcount));
+  }
+  public void resetAnim() {
+    m_candle.animate(null);
+  }
   
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    
-    if (count == 500){
-      if (lCount >30){
-        lCount=1;
-      }
-      m_candle.setLEDs(0,0,0, 0,lCount,30);
-      m_candle.setLEDs(255,255,255, 0,0,lCount);
-
-      count = 0;
-    }
-    count = count+1;
-  }
-
-  public void resetAnim() {
-  m_candle.animate(null);
   }
 }

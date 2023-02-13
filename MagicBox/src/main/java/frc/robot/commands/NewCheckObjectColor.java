@@ -24,19 +24,24 @@ public class NewCheckObjectColor extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    // Resets lights back to default
     m_newlights.setDefault();;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // If color sensor detects
     if(m_colorDetect.detect){
+      // Sets lights to detected cube if Color sensor detects purple and the detected color is closer than 2 inches
       if (m_colorDetect.m_detectedColor.green > m_colorDetect.m_detectedColor.blue && m_colorDetect.proximity >= 80)
         m_newlights.setCube();
       
+      // Sets lights to detected cone if Color sensor detects yellow and the detected color is between 1.5 and 4.5 inches
       else if (m_colorDetect.m_detectedColor.blue > m_colorDetect.m_detectedColor.green && m_colorDetect.m_detectedColor.blue - m_colorDetect.m_detectedColor.green >= 200 && m_colorDetect.proximity < 120 && m_colorDetect.proximity > 30)
         m_newlights.setCone();
 
+      //If color sensor does not detect required values, set lights back to default
       else
         m_newlights.setDefault();
     }
