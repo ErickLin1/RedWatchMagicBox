@@ -5,12 +5,12 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.NewLights;
+import frc.robot.subsystems.Lights;
 
 public class LightsDefault extends CommandBase {
   /** Creates a new LightsDefault. */
-  public NewLights lights;
-  public LightsDefault(NewLights subsystem) {
+  public Lights lights;
+  public LightsDefault(Lights subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(lights);
   }

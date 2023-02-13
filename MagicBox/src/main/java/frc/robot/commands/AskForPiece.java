@@ -6,20 +6,20 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ColorDetection;
-import frc.robot.subsystems.NewLights;
+import frc.robot.subsystems.Lights;
 
 public class AskForPiece extends CommandBase {
   /** Creates a new AskForPiece. */
-  public NewLights m_NewLights;
+  public Lights m_lights;
   public ColorDetection m_color;
   int count = 0;
   private boolean cube;
-  public AskForPiece(NewLights lights,ColorDetection color, boolean val) {
-    m_NewLights = lights;
+  public AskForPiece(Lights lights,ColorDetection color, boolean val) {
+    m_lights = lights;
     m_color = color;
     cube = val;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_NewLights, m_color);
+    addRequirements(m_lights, m_color);
   }
 
   // Called when the command is initially scheduled.
@@ -28,10 +28,10 @@ public class AskForPiece extends CommandBase {
     count = 0;
     m_color.detect = false;
     if (cube){
-      m_NewLights.askForCube();
+      m_lights.askForCube();
     }
     else if(!cube){
-      m_NewLights.askForCone();
+      m_lights.askForCone();
     }
   }
 

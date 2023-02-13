@@ -4,34 +4,29 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
-import frc.robot.commands.AskForPiece;
-import frc.robot.commands.ChangeLEDColor;
-import frc.robot.commands.NewChangeLEDColor;
-import frc.robot.commands.NewCheckObjectColor;
-import frc.robot.commands.PartyMode;
-import frc.robot.commands.CheckObjectColor;
-import frc.robot.commands.EjectItem;
-import frc.robot.commands.IntakeItem;
-import frc.robot.commands.LightsDefault;
-import frc.robot.commands.PickUpItem;
-import frc.robot.commands.StopGripper;
-import frc.robot.commands.TurnLightsBlue;
-import frc.robot.commands.cycleLightsLeft;
-import frc.robot.commands.cycleLightsRight;
-import frc.robot.commands.potToLights;
-import frc.robot.subsystems.NewLights;
-import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.ColorDetection;
-import frc.robot.subsystems.Gripper;
-// import frc.robot.subsystems.Lights;
-import frc.robot.subsystems.MeasuringPotentiometer;
+import frc.robot.CommandGroups.AutoScore;
+import frc.robot.commands.pivotArm.armJoint;
+import frc.robot.subsystems.TelescopingArm;
+import frc.robot.subsystems.PivotArm;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.curvatureDrive;
+import frc.robot.commands.AutoBalancing.AutoBalancePID;
+import frc.robot.commands.Gripper.CheckObjectForColorChange;
+import frc.robot.commands.Lights.ChangeColor;
+import frc.robot.commands.TelescopingArmCommands.ArmControl;
+import frc.robot.subsystems.ControlPanel;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Gripper;
+import frc.robot.subsystems.Lights;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import static frc.robot.Constants.ControllerConstants.*;
 import static frc.robot.Constants.LightConstants.*;
+import frc.robot.commands.Gripper.*;
+import static frc.robot.Constants.pinkArmConstants.*;
+import static frc.robot.Constants.TelescopingConstants.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -40,50 +35,60 @@ import static frc.robot.Constants.LightConstants.*;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  // private final DrivetrainSparks m_drivetrainSparks;
-  // private final DrivetrainTalons m_drivetrainTalons;
+  // Controller
+  private final XboxController m_driver = new XboxController(Constants.DrivetrainConstants.kDriverControllerPort);
+  private final XboxController m_weapons = new XboxController(Constants.DrivetrainConstants.kWeaponsControllerPort);
 
-  // private final XboxController m_sparkdriver = new XboxController(kSparkControllerPort);
-  private final XboxController m_talondriver = new XboxController(kTalonControllerPort);
+  private SlewRateLimiter m_forwardLimiter = new SlewRateLimiter(1); // controls acceleration of forward speed
+  private SlewRateLimiter m_rotationLimiter = new SlewRateLimiter(0.5); // controls acceleration of rotational speed
 
-  // private final Climber m_climber;
-  private final ColorDetection m_color;
+  // Subsystems
+  private final Lights m_lights;
+  private final Gripper m_gripper;
+  private final Drivetrain m_drivetrain;
+  private final PivotArm m_PinkArm;
+  private final TelescopingArm m_arm;
 
-  // private final Lights m_light;
-  private final NewLights m_newlight;
-  // private final MeasuringPotentiometer m_pot;
-  // private final Gripper m_gripper;
-
-  // private final Climber m_climber;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // Drivetrain for Sparks
-    // m_drivetrainSparks = new DrivetrainSparks();
-    // m_drivetrainSparks.setDefaultCommand(
-    //   new differentialDriveSparks(() -> -m_sparkdriver.getLeftY(), () -> -m_sparkdriver.getRightY(), m_drivetrainSparks));
+    // Subsystems Instantiation
+    m_gripper = new Gripper();
+    m_lights = new Lights();
+    m_drivetrain = new Drivetrain();
+    m_PinkArm = new PivotArm();
+    m_arm = new TelescopingArm();
 
-    // // Drivetrain for Talons
-    // m_drivetrainTalons = new DrivetrainTalons();
-    // m_drivetrainTalons.setDefaultCommand(
-    //   new differentialDriveTalons(() -> -m_talondriver.getLeftY(), () -> -m_talondriver.getRightY(), m_drivetrainTalons));
+    // Setting default commands
+    m_arm.setDefaultCommand(
+      new ArmControl(() -> m_weapons.getLeftY(), m_arm));
 
-    // Sets up pneumatics and solenoids
-    // m_gripper = new Gripper();
-    // m_climber = new Climber();
-    m_color = new ColorDetection();
-    // m_light = new Lights(); 
-    m_newlight = new NewLights();
-    // m_newlight.setDefaultCommand(new LightsDefault(m_newlight));
-    m_color.setDefaultCommand(new NewCheckObjectColor(m_color, m_newlight));
+    // Control Panel
+    new ControlPanel(m_drivetrain, m_gripper, m_lights, m_PinkArm, m_arm);
 
-    // Sets up the control panel
-    //new ControlPanel(m_climber, m_drivetrainSparks, m_drivetrainTalons);
+    // Setting default commands
+    m_arm.setDefaultCommand(
+      new ArmControl(() -> m_weapons.getLeftY(), m_arm));
 
-    // Sets up Color Sensor
+    // Lights
+    m_lights.setDefaultCommand(new CheckObjectForColorChange(m_lights, m_gripper));
 
-    // m_pot = new MeasuringPotentiometer();
-    // m_light.setDefaultCommand(new potToLights(m_pot, m_light));
+    // sets the drivetrain default command to curvatureDrive, with the slewratelimiters
+    // Left Joystick: forwards/backward, Right Joystick: turn in place left/right
+    m_drivetrain.setDefaultCommand(
+    new curvatureDrive(
+      () -> Math.copySign(Constants.DrivetrainConstants.kS, m_driver.getLeftY())
+      + m_forwardLimiter.calculate(m_driver.getLeftY() / Drivetrain.speedLimiter), 
+      () -> Math.copySign(Constants.DrivetrainConstants.kS, m_driver.getRightX()) 
+      + m_rotationLimiter.calculate(m_driver.getRightX() / Drivetrain.rotationLimiter),
+      () -> true, m_drivetrain));
+    
+    // Pink Arm
+    m_PinkArm.setDefaultCommand(
+      new armJoint(() -> m_weapons.getRightY(), m_PinkArm)
+    );
+
+    // Configure the button bindings
+
     configureButtonBindings();
   }
 
@@ -93,30 +98,30 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {
-    // Add button for each controller to toggle solenoid
-    // new JoystickButton(m_sparkdriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
-    // new JoystickButton(m_talondriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
-    // new JoystickButton(m_talondriver, Button.kA.value).whenPressed(new TurnLightsBlue(m_light));
-    // new JoystickButton(m_talondriver, Button.kLeftBumper.value).whenPressed(new cycleLightsLeft(m_light));
-    // new JoystickButton(m_talondriver, Button.kRightBumper.value).whenPressed(new cycleLightsRight(m_light, m_pot));
-    // new JoystickButton(m_talondriver, Button.kX.value).whenPressed(new ChangeLEDColor(m_light, kPurpleCube));
-    // new JoystickButton(m_talondriver, Button.kY.value).whenPressed(new ChangeLEDColor(m_light, kYellowCone));
-    // new JoystickButton(m_talondriver, Button.kStart.value).whenPressed(new IntakeItem(m_gripper));
-    // new JoystickButton(m_talondriver, Button.kBack.value).whenPressed(new EjectItem(m_gripper));
-    // new JoystickButton(m_talondriver, Button.kLeftStick.value).whenPressed(new ChangeLEDColor(m_light, kYellowCone));
-    // new JoystickButton(m_talondriver, Button.kRightStick.value).whenPressed(new ChangeLEDColor(m_light, kPurpleCube));
-    new JoystickButton(m_talondriver, Button.kX.value).onTrue(new AskForPiece(m_newlight,m_color, true));
-    new JoystickButton(m_talondriver, Button.kY.value).onTrue(new AskForPiece(m_newlight,m_color, false));
-    new JoystickButton(m_talondriver, Button.kA.value).onTrue(new PartyMode(m_newlight, false));
-  }
+  private void configureButtonBindings() {    
+    new JoystickButton(m_weapons, Button.kBack.value).onTrue(new IntakeItem(m_gripper));
+    new JoystickButton(m_weapons, Button.kStart.value).onTrue(new EjectItem(m_gripper));
+    
+    new JoystickButton(m_weapons, Button.kLeftStick.value).onTrue(new ChangeColor(m_lights, kYellowCone));
+    new JoystickButton(m_weapons, Button.kRightStick.value).onTrue(new ChangeColor(m_lights, kPurpleCube));
 
+    // new JoystickButton(m_weapons, Button.kY.value).toggleOnTrue(new ExtendVal( TelescopingConstants.HighExtendCube, m_arm));
+    // new JoystickButton(m_weapons, Button.kX.value).toggleOnTrue(new ExtendVal( TelescopingConstants.MidExtendCube, m_arm));
+    // new JoystickButton(m_weapons, Button.kA.value).toggleOnTrue(new ExtendVal( TelescopingConstants.LowStop , m_arm));
+
+    new JoystickButton(m_weapons, Button.kLeftBumper.value).onTrue(new AutoScore(m_PinkArm, m_arm, m_gripper, kHighAngleCone, HighExtendCone));
+    new JoystickButton(m_weapons, (int) m_weapons.getLeftTriggerAxis()).onTrue(new AutoScore(m_PinkArm, m_arm, m_gripper, kMidAngleCone, MidExtendCone));
+
+    new JoystickButton(m_weapons, Button.kRightBumper.value).onTrue(new AutoScore(m_PinkArm, m_arm, m_gripper, kHighAngleCube, HighExtendCube));
+    new JoystickButton(m_weapons, (int) m_weapons.getRightTriggerAxis()).onTrue(new AutoScore(m_PinkArm, m_arm, m_gripper, kMidAngleCube, MidExtendCube));
+  }
   /**
-   * Use this to pass the autcycleLightsRightonomous command to the main {@link Robot} class.
+   * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return null;
+    // An ExampleCommand will run in autonomous
+    return new AutoBalancePID(m_drivetrain);
   }
 }

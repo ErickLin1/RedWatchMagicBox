@@ -6,13 +6,13 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ColorDetection;
-import frc.robot.subsystems.NewLights;
+import frc.robot.subsystems.Lights;
 
 public class ColorOverride extends CommandBase {
-  public NewLights lights;
+  public Lights lights;
   public ColorDetection colorDetect;
   /** Creates a new ColorOverride. */
-  public ColorOverride(NewLights light, ColorDetection color) {
+  public ColorOverride(Lights light, ColorDetection color) {
     lights = light;
     colorDetect = color;
     // Use addRequirements() here to declare subsystem dependencies.

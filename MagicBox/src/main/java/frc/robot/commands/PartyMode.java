@@ -5,20 +5,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ColorDetection;
-import frc.robot.subsystems.NewLights;
+import frc.robot.subsystems.Lights;
 
 public class PartyMode extends CommandBase {
   /** Creates a new AskForPiece. */
-  public NewLights m_NewLights;
+  public Lights m_lights;
   boolean strobe = false;
 
-  public PartyMode(NewLights lights, boolean val) {
+  public PartyMode(Lights lights, boolean val) {
 
     // Use addRequirements() here to declare subsystem dependencies.
-    m_NewLights = lights;
+    m_lights = lights;
     strobe = val;
-    addRequirements(m_NewLights);
+    addRequirements(m_lights);
   }
 
   // Called when the command is initially scheduled.
@@ -26,11 +25,11 @@ public class PartyMode extends CommandBase {
   public void initialize() {
     // Sets lights to epilepsy if strobe is true
     if(strobe == true){
-      m_NewLights.epilepsy();
+      m_lights.epilepsy();
     }
     // Sets lights to rainbow party mode if strobe is false
     else{
-      m_NewLights.partyMode();
+      m_lights.partyMode();
     }
   }
 

@@ -6,24 +6,21 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Lights;
-import frc.robot.subsystems.NewLights;
-
 
 public class NewChangeLEDColor extends CommandBase {
-  private final NewLights m_newlight;
-  private final int m_Red;
-  private final int m_Green;
-  private final int m_Blue;
-  
+  private final Lights m_lights;
+  private final int m_R;
+  private final int m_G;
+  private final int m_B;
 
   /** Creates a new ChangeLEDColor. */
-  public NewChangeLEDColor(NewLights light, int Red, int Green, int Blue) {
+  public NewChangeLEDColor(Lights lights, int r, int g, int b) {
     // Use addRequirements() here to declare subsystem dependencies.
-      m_newlight = light;
-      m_Red = Red;
-      m_Green = Green;
-      m_Blue = Blue;
-      addRequirements(m_newlight);
+      m_lights = lights;
+      m_R = r;
+      m_G = g;
+      m_B = b;
+      addRequirements(lights);
   }
 
   // Called when the command is initially scheduled.
@@ -34,7 +31,7 @@ public class NewChangeLEDColor extends CommandBase {
   @Override
   public void execute() {
       // Sets lights to given color with RGB values
-      m_newlight.setGiven(m_Red, m_Green, m_Blue);
+      m_lights.setGiven(m_R, m_G, m_B);
   }
 
   // Called once the command ends or is interrupted.

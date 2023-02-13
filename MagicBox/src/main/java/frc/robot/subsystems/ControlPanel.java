@@ -4,135 +4,100 @@
 
 package frc.robot.subsystems;
 
-import java.util.Map;
-
 import edu.wpi.first.networktables.GenericEntry;
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import static frc.robot.Constants.DriveSpark.*;
-import static frc.robot.Constants.ControlPanelConstants.*;
-import frc.robot.commands.differentialDriveSparks;
-import frc.robot.commands.differentialDriveTalons;
-import frc.robot.commands.toggleSolenoid;
+import frc.robot.commands.NewChangeLEDColor;
+import frc.robot.commands.Lights.*;
+import static frc.robot.Constants.ControlPanelConstants;
+import static frc.robot.Constants.LightConstants;
 
-/** Creates a control panel in Shuffleboard that displays all important information and controls. Contains all shuffleboard related code. */
+import java.util.Map;
+
 public class ControlPanel extends SubsystemBase {
+
+  private final ShuffleboardTab m_controlpanelTab;
+
+  private final ShuffleboardLayout m_drivetrainStatus;
+  private final ShuffleboardLayout m_gripperStatus;
+  private final ShuffleboardLayout m_lightsStatus;
+  private final ShuffleboardLayout m_pivotArmStatus;
+  private final ShuffleboardLayout m_telescopingArmStatus;
+
+  private final GenericEntry setLightColor_R;
+  private final GenericEntry setLightColor_G;
+  private final GenericEntry setLightColor_B;
+
+  private final Drivetrain m_drivetrain;
+  private final Gripper m_gripper;
+  private final Lights m_lights;
+  private final PivotArm m_pivotArm;
+  private final TelescopingArm m_telescopingArm;
+
   /** Creates a new ControlPanel. */
-  // private final Beambreak m_beambreak;
+  public ControlPanel(Drivetrain drivetrain, Gripper gripper, Lights lights, PivotArm pivotArm, TelescopingArm telescopingArm) {
+    m_drivetrain = drivetrain;
+    m_gripper = gripper;
+    m_lights = lights;
+    m_pivotArm = pivotArm;
+    m_telescopingArm = telescopingArm;
 
-  private final Beambreak m_beambreak;
+    m_controlpanelTab = Shuffleboard.getTab(ControlPanelConstants.kShuffleboardTab);
 
-  private final ShuffleboardTab m_ShuffleboardTab;
-  private final ShuffleboardLayout m_SparkControls;
-  private final ShuffleboardLayout m_TalonControls;
-  private final ShuffleboardLayout m_SparkStatus;
-  private final ShuffleboardLayout m_TalonStatus;
+    m_drivetrainStatus = m_controlpanelTab.getLayout("Drivetrain Status", BuiltInLayouts.kList)
+      .withProperties(Map.of("Label position", "TOP"))
+      .withPosition(0, 0)
+      .withSize(2, 4);
+      
+    m_gripperStatus = m_controlpanelTab.getLayout("Gripper Status", BuiltInLayouts.kList)
+      .withProperties(Map.of("Label position", "TOP"))
+      .withPosition(2, 0)
+      .withSize(2, 2);
 
-  private final GenericEntry LeftSparkMotor;
-  private final GenericEntry RightSparkMotor;
-  private final GenericEntry LeftSparkRPM;
-  private final GenericEntry RightSparkRPM;
-  private final GenericEntry LeftTalonMotor;
-  private final GenericEntry RightTalonMotor;
+    m_lightsStatus = m_controlpanelTab.getLayout("Light Status", BuiltInLayouts.kList)
+      .withProperties(Map.of("Label position", "TOP"))
+      .withPosition(4, 0)
+      .withSize(2, 3);
 
-  public ControlPanel(Climber m_climber, DrivetrainSparks m_drivetrainSparks, DrivetrainTalons m_drivetrainTalons) {
-    // Initialize Control Panel Shuffleboard
-    m_ShuffleboardTab = Shuffleboard.getTab(kShuffleboardTab);
-
-    // Set up layouts
-    m_SparkControls = m_ShuffleboardTab.getLayout("Spark Motor Controls", BuiltInLayouts.kList)
-    .withPosition(3, 0)
-    .withSize(2, 3);
-    m_TalonControls = m_ShuffleboardTab.getLayout("Talon Motor Controls", BuiltInLayouts.kList)
-    .withPosition(7, 0)
-    .withSize(2, 3);
-    m_SparkStatus = m_ShuffleboardTab.getLayout("Spark Status", BuiltInLayouts.kList)
-    .withSize(2,2)
-    .withPosition(5,0)
-    .withProperties(Map.of("Label position", "TOP"));
-    m_TalonStatus = m_ShuffleboardTab.getLayout("Talon Status", BuiltInLayouts.kList)
-    .withSize(2,2)
-    .withPosition(5,2)
-    .withProperties(Map.of("Label position", "TOP"));
-
-    // Set up spark motor controls
-    LeftSparkMotor = m_SparkControls.add("Left Motor Speed", 0)
-    .withWidget(BuiltInWidgets.kNumberBar)
-    .withProperties(Map.of("min", -1, "max", 1))
-    .getEntry();
-    RightSparkMotor = m_SparkControls.add("Right Motor Speed", 0)
-    .withWidget(BuiltInWidgets.kNumberBar)
-    .withProperties(Map.of("min", -1, "max", 1))
-    .getEntry();
-    // Turns on the motors and reads the shuffleboard's motor speed values
-    m_SparkControls.add("Run Motors", new differentialDriveSparks(() -> LeftSparkMotor.getDouble(0), () -> RightSparkMotor.getDouble(0), m_drivetrainSparks));
-
-    // Set up Spark RPM controls
-    LeftSparkRPM = m_ShuffleboardTab.add("Left RPM", maxSparkRPM)
-      .withPosition(0, 3)
-      .getEntry();
-    RightSparkRPM = m_ShuffleboardTab.add("Right RPM", maxSparkRPM)
-      .withPosition(1, 3)
-      .getEntry();
-    m_ShuffleboardTab.add("Run Motors RPM", new differentialDriveSparks(() -> getSpeedFromRPM(LeftSparkRPM.getDouble(0)), () -> getSpeedFromRPM(RightSparkRPM.getDouble(0)), m_drivetrainSparks)).withPosition(2, 3);
-
-    // Set up talon motor controls
-    LeftTalonMotor = m_TalonControls.add("Left Motor Speed", 0)
-    .withWidget(BuiltInWidgets.kNumberSlider)
-    .withProperties(Map.of("min", -1, "max", 1))
-    .getEntry();
-    RightTalonMotor = m_TalonControls.add("Right Motor Speed", 0)
-    .withWidget(BuiltInWidgets.kNumberSlider)
-    .withProperties(Map.of("min", -1, "max", 1))
-    .getEntry();
+    m_pivotArmStatus = m_controlpanelTab.getLayout("Pivot Arm Status", BuiltInLayouts.kList)
+      .withProperties(Map.of("Label position", "TOP"))
+      .withPosition(8, 0)
+      .withSize(1, 2);
     
-    // Turns on the motors and reads the shuffleboard's motor speed values
-    m_TalonControls.add("Run Motors", new differentialDriveTalons(() -> LeftTalonMotor.getDouble(0), () -> RightTalonMotor.getDouble(0), m_drivetrainTalons));
+    m_telescopingArmStatus = m_controlpanelTab.getLayout("Telescoping Arm Status", BuiltInLayouts.kList)
+      .withProperties(Map.of("Label position", "TOP"))
+      .withPosition(10, 0)
+      .withSize(1, 2);
 
-    // Set up Spark Status
-    m_SparkStatus.addNumber("Left Speed", () -> m_drivetrainSparks.leftSparkSpeed);
-    m_SparkStatus.addNumber("Right Speed", () -> m_drivetrainSparks.rightSparkSpeed);
-    //5500 5350
-    // Set up Talon Status
-    // m_TalonStatus.addNumber("Left Speed", () -> m_drivetrainTalons.getLeftSpeed()); // not working
-    // m_TalonStatus.addNumber("Right Speed", () -> m_drivetrainTalons.getRightSpeed()); // not working
-    // m_TalonStatus.addNumber("Left Output", () -> m_drivetrainTalons.getLeftOutput());
-    // m_TalonStatus.addNumber("Right Output", () -> m_drivetrainTalons.getRightOutput());
+    m_drivetrainStatus.addNumber("Average Speed", () -> m_drivetrain.getAverageSpeed()); // How fast the robot is
+    m_drivetrainStatus.addNumber("Left Position", () -> m_drivetrain.getLeftDistance()); // How far the robot is
+    m_drivetrainStatus.addNumber("Right Position", () -> m_drivetrain.getRightDistance());
+    m_drivetrainStatus.addNumber("Pitch", () -> m_drivetrain.getPitch()); // Pitch of robot
+    m_drivetrainStatus.addNumber("Yaw", () -> m_drivetrain.getYaw());
 
-    // Enables or disables the solenoid
-    m_ShuffleboardTab.add("Toggle Solenoid", new toggleSolenoid(m_climber))
-      .withPosition(3, 3)
-      .withSize(2, 1);
-    
-    // Set up beam break status
-    m_beambreak = new Beambreak();
-    m_ShuffleboardTab.addBoolean("Beam Status", () -> m_beambreak.get())
-    .withPosition(7, 3)
-    .withSize(2, 1);
+    m_lightsStatus.addNumber("R", () -> m_lights.R);
+    m_lightsStatus.addNumber("G", () -> m_lights.G);
+    m_lightsStatus.addNumber("B", () -> m_lights.B);
+    setLightColor_R = m_lightsStatus.add("Light Input R", LightConstants.kDefaultColor).getEntry();
+    setLightColor_G = m_lightsStatus.add("Light Input G", LightConstants.kDefaultColor).getEntry();
+    setLightColor_B = m_lightsStatus.add("Light Input B", LightConstants.kDefaultColor).getEntry();
+    m_lightsStatus.add(new NewChangeLEDColor(m_lights, (int) setLightColor_R.get().getInteger(), (int) setLightColor_B.get().getInteger(), (int) setLightColor_G.get().getInteger()));
 
-    // Automatically sets or changes Shuffleboard's current tab to Control Panel
-    Shuffleboard.selectTab(kShuffleboardTab);
-  }
+    m_gripperStatus.addString("Gripper Mode", () -> Gripper.m_gripper_direction);
+    m_gripperStatus.addNumber("R", () -> m_gripper.m_detectedColor.red);
+    m_gripperStatus.addNumber("Green", () -> m_gripper.m_detectedColor.green);
+    m_gripperStatus.addNumber("Blue", () -> m_gripper.m_detectedColor.blue);
+    m_gripperStatus.addNumber("Proximity", () -> m_gripper.m_proximity);
+    m_gripperStatus.addBoolean("Purple", () -> m_gripper.isPurple());
+    m_gripperStatus.addBoolean("Yellow", () -> m_gripper.isYellow());
+    m_gripperStatus.addNumber("Gripper Velocity", () -> m_gripper.getVelocity());
 
-  /**
-   * Converts RPM to Speed so the robot can run at that RPM.
-   * @param RPM the rotations per minute to convert
-   * @return the converted speed to get that rpm
-   */
-  private double getSpeedFromRPM(double RPM) {
-    int maxRPM = maxSparkRPM;
-    double speed = RPM / maxRPM;
+    m_pivotArmStatus.addNumber("Pivot Encoder", () -> m_pivotArm.m_pivotEncoder.getPosition());
 
-    if (speed > 1.0) {
-      return 1.0;
-    }
-
-    return speed;
+    m_telescopingArmStatus.addNumber("Telescoping Encoder", () -> m_telescopingArm.getArmDistance());
   }
 
   @Override
