@@ -70,7 +70,8 @@ public class NewLights extends SubsystemBase {
 
   }
   public void partyMode(){
-    m_candle.animate(new RainbowAnimation(1, 1, Ledcount));
+    m_candle.animate(new RainbowAnimation(1, 1, Ledcount)); 
+    
   }
   public void epilepsy() {
     m_candle.animate(new StrobeAnimation(255, 255, 255, 0, 98.0 / 256.0, Ledcount));

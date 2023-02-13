@@ -13,11 +13,13 @@ public class PartyMode extends CommandBase {
   public NewLights m_NewLights;
   public ColorDetection m_color;
   int count = 0;
+  boolean strobe = false;
   private boolean cube;
   public PartyMode(NewLights lights,ColorDetection color, boolean val) {
     m_NewLights = lights;
     m_color = color;
-    cube = val;
+    strobe = val;
+
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_NewLights, m_color);
   }
@@ -27,8 +29,12 @@ public class PartyMode extends CommandBase {
   public void initialize() {
     count = 0;
     m_color.detect = false;
-    m_NewLights.epilepsy();
-    m_NewLights.partyMode();
+    if(strobe == true){
+      m_NewLights.epilepsy();
+    }
+    else{
+      m_NewLights.partyMode();
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.

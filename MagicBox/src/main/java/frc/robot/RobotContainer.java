@@ -108,7 +108,8 @@ public class RobotContainer {
     // new JoystickButton(m_talondriver, Button.kRightStick.value).whenPressed(new ChangeLEDColor(m_light, kPurpleCube));
     new JoystickButton(m_talondriver, Button.kX.value).onTrue(new AskForPiece(m_newlight,m_color, true));
     new JoystickButton(m_talondriver, Button.kY.value).onTrue(new AskForPiece(m_newlight,m_color, false));
-    new JoystickButton(m_talondriver, Button.kA.value).onTrue(new PartyMode(m_newlight, m_color,true ));
+    new JoystickButton(m_talondriver, Button.kA.value).onTrue(new PartyMode(m_newlight, m_color,false ));
+    new JoystickButton(m_talondriver, Button.kB.value).onTrue(new PartyMode(m_newlight, m_color,true ));
   }
 
   /**
