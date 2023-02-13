@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import java.util.Map;
 
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
@@ -22,6 +23,8 @@ import frc.robot.commands.toggleSolenoid;
 /** Creates a control panel in Shuffleboard that displays all important information and controls. Contains all shuffleboard related code. */
 public class ControlPanel extends SubsystemBase {
   /** Creates a new ControlPanel. */
+  // private final Beambreak m_beambreak;
+
   private final Beambreak m_beambreak;
 
   private final ShuffleboardTab m_ShuffleboardTab;
@@ -30,12 +33,12 @@ public class ControlPanel extends SubsystemBase {
   private final ShuffleboardLayout m_SparkStatus;
   private final ShuffleboardLayout m_TalonStatus;
 
-  private final NetworkTableEntry LeftSparkMotor;
-  private final NetworkTableEntry RightSparkMotor;
-  private final NetworkTableEntry LeftSparkRPM;
-  private final NetworkTableEntry RightSparkRPM;
-  private final NetworkTableEntry LeftTalonMotor;
-  private final NetworkTableEntry RightTalonMotor;
+  private final GenericEntry LeftSparkMotor;
+  private final GenericEntry RightSparkMotor;
+  private final GenericEntry LeftSparkRPM;
+  private final GenericEntry RightSparkRPM;
+  private final GenericEntry LeftTalonMotor;
+  private final GenericEntry RightTalonMotor;
 
   public ControlPanel(Climber m_climber, DrivetrainSparks m_drivetrainSparks, DrivetrainTalons m_drivetrainTalons) {
     // Initialize Control Panel Shuffleboard
@@ -87,13 +90,14 @@ public class ControlPanel extends SubsystemBase {
     .withWidget(BuiltInWidgets.kNumberSlider)
     .withProperties(Map.of("min", -1, "max", 1))
     .getEntry();
+    
     // Turns on the motors and reads the shuffleboard's motor speed values
     m_TalonControls.add("Run Motors", new differentialDriveTalons(() -> LeftTalonMotor.getDouble(0), () -> RightTalonMotor.getDouble(0), m_drivetrainTalons));
 
     // Set up Spark Status
     m_SparkStatus.addNumber("Left Speed", () -> m_drivetrainSparks.leftSparkSpeed);
     m_SparkStatus.addNumber("Right Speed", () -> m_drivetrainSparks.rightSparkSpeed);
-
+    //5500 5350
     // Set up Talon Status
     // m_TalonStatus.addNumber("Left Speed", () -> m_drivetrainTalons.getLeftSpeed()); // not working
     // m_TalonStatus.addNumber("Right Speed", () -> m_drivetrainTalons.getRightSpeed()); // not working

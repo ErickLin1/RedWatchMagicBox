@@ -4,24 +4,25 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.ColorSensorV3;
+import frc.robot.PicoColorSensor.RawColor;
 
 import java.util.Map;
 
-import edu.wpi.first.wpilibj.util.Color;
+
 import static frc.robot.Constants.ControlPanelConstants.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.PicoColorSensor;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.I2C;
+
 
 public class ColorDetection extends SubsystemBase {
-  private final ColorSensorV3 m_colorSensor;
-
-  private Color m_detectedColor;
-  private int proximity;
+  private final PicoColorSensor m_colorSensor;
+  public boolean detect = true;
+  public RawColor m_detectedColor;
+  public int proximity;
 
   private final ShuffleboardTab m_controlPanelTab;
   private final ShuffleboardLayout m_controlPanelStatus;
@@ -29,7 +30,7 @@ public class ColorDetection extends SubsystemBase {
   /** Creates a new Color. */
   public ColorDetection() {
     // Creates new color sensor and shufffleboard
-    m_colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
+    m_colorSensor = new PicoColorSensor();
     m_controlPanelTab = Shuffleboard.getTab(kShuffleboardTab);
     m_controlPanelStatus = m_controlPanelTab.getLayout("Color Status", BuiltInLayouts.kList)
       .withSize(3, 3)
@@ -40,11 +41,10 @@ public class ColorDetection extends SubsystemBase {
 
   private void shuffleboardInit() {
     // Displays color detected as a color box
-    m_controlPanelStatus.addBoolean("Red", () -> m_detectedColor.red > m_detectedColor.blue && m_detectedColor.red >= 0.3)
-      .withProperties(Map.of("Color when true", "Red", "Color when false", "Black"));
-    m_controlPanelStatus.addBoolean("Blue", () -> m_detectedColor.blue > m_detectedColor.red && m_detectedColor.blue >= 0.3)
-      .withProperties(Map.of("Color when true", "Cyan", "Color when false", "Black"));
-    // m_controlPanelStatus.addBoolean("Green", () -> m_detectedColor.green >= 0.5);
+    m_controlPanelStatus.addBoolean("Purple1", () -> m_detectedColor.green > m_detectedColor.blue && proximity >= 80)
+    .withProperties(Map.of("Color when true", "Purple", "Color when false", "Black"));
+    m_controlPanelStatus.addBoolean("Yellow1", () -> m_detectedColor.blue > m_detectedColor.green && m_detectedColor.blue - m_detectedColor.green >= 200 && proximity < 120 && proximity > 30) 
+    .withProperties(Map.of("Color when true", "Yellow", "Color when false", "Black"));
 
     // Shows color values (RGB)
     m_controlPanelStatus.addNumber("R", () -> m_detectedColor.red);
@@ -58,7 +58,7 @@ public class ColorDetection extends SubsystemBase {
   @Override
   public void periodic() {
     // Collects color data and proximity on repeat
-    m_detectedColor = m_colorSensor.getColor();
-    proximity = m_colorSensor.getProximity();
+    m_detectedColor = m_colorSensor.getRawColor0();
+    proximity = m_colorSensor.getProximity0();
   }
 }
