@@ -30,19 +30,20 @@ public class ControlPanel extends SubsystemBase {
   private final GenericEntry setLightColor_G;
   private final GenericEntry setLightColor_B;
 
-  private final Drivetrain m_drivetrain;
+  // private final Drivetrain m_drivetrain;
   private final Gripper m_gripper;
   private final Lights m_lights;
-  private final PivotArm m_pivotArm;
-  private final TelescopingArm m_telescopingArm;
+  // private final PivotArm m_pivotArm;
+  // private final TelescopingArm m_telescopingArm;
 
   /** Creates a new ControlPanel. */
-  public ControlPanel(Drivetrain drivetrain, Gripper gripper, Lights lights, PivotArm pivotArm, TelescopingArm telescopingArm) {
-    m_drivetrain = drivetrain;
+  // public ControlPanel(Drivetrain drivetrain, Gripper gripper, Lights lights, PivotArm pivotArm, TelescopingArm telescopingArm) {
+  public ControlPanel(Gripper gripper, Lights lights) {
+    // m_drivetrain = drivetrain;
     m_gripper = gripper;
     m_lights = lights;
-    m_pivotArm = pivotArm;
-    m_telescopingArm = telescopingArm;
+    // m_pivotArm = pivotArm;
+    // m_telescopingArm = telescopingArm;
 
     m_controlpanelTab = Shuffleboard.getTab(ControlPanelConstants.kShuffleboardTab);
 
@@ -71,11 +72,11 @@ public class ControlPanel extends SubsystemBase {
       .withPosition(10, 0)
       .withSize(1, 2);
 
-    m_drivetrainStatus.addNumber("Average Speed", () -> m_drivetrain.getAverageSpeed()); // How fast the robot is
-    m_drivetrainStatus.addNumber("Left Position", () -> m_drivetrain.getLeftDistance()); // How far the robot is
-    m_drivetrainStatus.addNumber("Right Position", () -> m_drivetrain.getRightDistance());
-    m_drivetrainStatus.addNumber("Pitch", () -> m_drivetrain.getPitch()); // Pitch of robot
-    m_drivetrainStatus.addNumber("Yaw", () -> m_drivetrain.getYaw());
+    // m_drivetrainStatus.addNumber("Average Speed", () -> m_drivetrain.getAverageSpeed()); // How fast the robot is
+    // m_drivetrainStatus.addNumber("Left Position", () -> m_drivetrain.getLeftDistance()); // How far the robot is
+    // m_drivetrainStatus.addNumber("Right Position", () -> m_drivetrain.getRightDistance());
+    // m_drivetrainStatus.addNumber("Pitch", () -> m_drivetrain.getPitch()); // Pitch of robot
+    // m_drivetrainStatus.addNumber("Yaw", () -> m_drivetrain.getYaw());
 
     m_lightsStatus.addNumber("R", () -> m_lights.R);
     m_lightsStatus.addNumber("G", () -> m_lights.G);
@@ -83,10 +84,10 @@ public class ControlPanel extends SubsystemBase {
     setLightColor_R = m_lightsStatus.add("Light Input R", LightConstants.kDefaultColor).getEntry();
     setLightColor_G = m_lightsStatus.add("Light Input G", LightConstants.kDefaultColor).getEntry();
     setLightColor_B = m_lightsStatus.add("Light Input B", LightConstants.kDefaultColor).getEntry();
-    m_lightsStatus.add(new ChangeLEDColor(m_lights, (int) setLightColor_R.get().getInteger(), (int) setLightColor_B.get().getInteger(), (int) setLightColor_G.get().getInteger()));
+    // m_lightsStatus.add(new ChangeLEDColor(m_lights, (int) setLightColor_R.get().getInteger(), (int) setLightColor_B.get().getInteger(), (int) setLightColor_G.get().getInteger()));
 
     m_gripperStatus.addString("Gripper Mode", () -> Gripper.m_gripper_direction);
-    m_gripperStatus.addNumber("R", () -> m_gripper.m_detectedColor.red);
+    m_gripperStatus.addNumber("Red", () -> m_gripper.m_detectedColor.red);
     m_gripperStatus.addNumber("Green", () -> m_gripper.m_detectedColor.green);
     m_gripperStatus.addNumber("Blue", () -> m_gripper.m_detectedColor.blue);
     m_gripperStatus.addNumber("Proximity", () -> m_gripper.m_proximity);
@@ -94,9 +95,9 @@ public class ControlPanel extends SubsystemBase {
     m_gripperStatus.addBoolean("Yellow", () -> m_gripper.isYellow());
     m_gripperStatus.addNumber("Gripper Velocity", () -> m_gripper.getVelocity());
 
-    m_pivotArmStatus.addNumber("Pivot Encoder", () -> m_pivotArm.m_pivotEncoder.getPosition());
+    // m_pivotArmStatus.addNumber("Pivot Encoder", () -> m_pivotArm.m_pivotEncoder.getPosition());
 
-    m_telescopingArmStatus.addNumber("Telescoping Encoder", () -> m_telescopingArm.getArmDistance());
+    // m_telescopingArmStatus.addNumber("Telescoping Encoder", () -> m_telescopingArm.getArmDistance());
   }
 
   @Override
