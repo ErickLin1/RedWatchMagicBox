@@ -13,7 +13,6 @@
       "/FMSInfo": "FMSInfo",
       "/LiveWindow/Beambreak": "Subsystem",
       "/LiveWindow/Climber": "Subsystem",
-      "/LiveWindow/ColorDetection": "Subsystem",
       "/LiveWindow/ControlPanel": "Subsystem",
       "/LiveWindow/Drivetrain": "Subsystem",
       "/LiveWindow/DrivetrainSparks": "Subsystem",

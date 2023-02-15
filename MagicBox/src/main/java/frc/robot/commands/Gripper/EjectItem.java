@@ -2,26 +2,28 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.Gripper;
 
 import frc.robot.subsystems.Gripper;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import static frc.robot.Constants.GripperConstants.*;
 
-public class IntakeItem extends CommandBase {
+public class EjectItem extends CommandBase {
+
   private final Gripper m_gripper;
-  /** Creates a new IntakeItem. */
-  public IntakeItem(Gripper gripper) {
-    // Use addRequirements() here to declare subsystem dependencies.
+
+  /** Creates a new EjectItem. */
+  public EjectItem(Gripper gripper) {
     m_gripper = gripper;
-    addRequirements(gripper);
+
+addRequirements(gripper);
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (Gripper.m_gripper_direction != "intake")
-      m_gripper.intakeGripper();
+    if (Gripper.m_gripper_direction != "eject")
+      m_gripper.ejectGripper();
     
     else
       m_gripper.stopGripper();

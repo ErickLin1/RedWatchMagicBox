@@ -8,22 +8,21 @@ import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
-import frc.robot.CommandGroups.AutoScore;
-import frc.robot.commands.pivotArm.armJoint;
+import frc.robot.commandgroups.AutoScore;
+import frc.robot.commands.PivotArm.armJoint;
 import frc.robot.subsystems.TelescopingArm;
 import frc.robot.subsystems.PivotArm;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.commands.curvatureDrive;
+import frc.robot.commands.Drivetrain.curvatureDrive;
 import frc.robot.commands.AutoBalancing.AutoBalancePID;
-import frc.robot.commands.Gripper.CheckObjectForColorChange;
-import frc.robot.commands.Lights.ChangeColor;
-import frc.robot.commands.TelescopingArmCommands.ArmControl;
+import frc.robot.commands.Lights.CheckObjectColor;
+import frc.robot.commands.Lights.ChangeLEDColor;
+import frc.robot.commands.TelescopingArm.ArmControl;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.Lights;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import static frc.robot.Constants.LightConstants.*;
 import frc.robot.commands.Gripper.*;
 import static frc.robot.Constants.pinkArmConstants.*;
 import static frc.robot.Constants.TelescopingConstants.*;
@@ -70,7 +69,7 @@ public class RobotContainer {
       new ArmControl(() -> m_weapons.getLeftY(), m_arm));
 
     // Lights
-    m_lights.setDefaultCommand(new CheckObjectForColorChange(m_lights, m_gripper));
+    m_lights.setDefaultCommand(new CheckObjectColor(m_gripper, m_lights));
 
     // sets the drivetrain default command to curvatureDrive, with the slewratelimiters
     // Left Joystick: forwards/backward, Right Joystick: turn in place left/right
@@ -102,8 +101,8 @@ public class RobotContainer {
     new JoystickButton(m_weapons, Button.kBack.value).onTrue(new IntakeItem(m_gripper));
     new JoystickButton(m_weapons, Button.kStart.value).onTrue(new EjectItem(m_gripper));
     
-    new JoystickButton(m_weapons, Button.kLeftStick.value).onTrue(new ChangeColor(m_lights, kYellowCone));
-    new JoystickButton(m_weapons, Button.kRightStick.value).onTrue(new ChangeColor(m_lights, kPurpleCube));
+    new JoystickButton(m_weapons, Button.kLeftStick.value).onTrue(new ChangeLEDColor(m_lights, 255, 255, 0));
+    new JoystickButton(m_weapons, Button.kRightStick.value).onTrue(new ChangeLEDColor(m_lights, 101, 15, 140));
 
     // new JoystickButton(m_weapons, Button.kY.value).toggleOnTrue(new ExtendVal( TelescopingConstants.HighExtendCube, m_arm));
     // new JoystickButton(m_weapons, Button.kX.value).toggleOnTrue(new ExtendVal( TelescopingConstants.MidExtendCube, m_arm));
