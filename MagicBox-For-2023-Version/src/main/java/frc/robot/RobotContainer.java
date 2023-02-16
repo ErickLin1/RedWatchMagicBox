@@ -7,17 +7,13 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
-import frc.robot.commands.differentialDriveSparks;
-import frc.robot.commands.differentialDriveTalons;
-import frc.robot.commands.toggleSolenoid;
-import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.ColorDetection;
-import frc.robot.subsystems.ControlPanel;
-import frc.robot.subsystems.DrivetrainSparks;
-import frc.robot.subsystems.DrivetrainTalons;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import static frc.robot.Constants.ControllerConstants.*;
+import frc.robot.commands.RunMotor;
+import frc.robot.commands.StopMotor;
+import frc.robot.subsystems.OneMotor;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -27,34 +23,14 @@ import static frc.robot.Constants.ControllerConstants.*;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  // private final DrivetrainSparks m_drivetrainSparks;
-  // private final DrivetrainTalons m_drivetrainTalons;
+  private final XboxController m_driver = new XboxController(1);
+  private final OneMotor m_Motor;
 
-  // private final XboxController m_sparkdriver = new XboxController(kSparkControllerPort);
-  private final XboxController m_talondriver = new XboxController(kTalonControllerPort);
-
-  private final Climber m_climber;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // Drivetrain for Sparks
-    // m_drivetrainSparks = new DrivetrainSparks();
-    // m_drivetrainSparks.setDefaultCommand(
-    //   new differentialDriveSparks(() -> -m_sparkdriver.getLeftY(), () -> -m_sparkdriver.getRightY(), m_drivetrainSparks));
+    m_Motor = new OneMotor(8);
 
-    // // Drivetrain for Talons
-    // m_drivetrainTalons = new DrivetrainTalons();
-    // m_drivetrainTalons.setDefaultCommand(
-    //   new differentialDriveTalons(() -> -m_talondriver.getLeftY(), () -> -m_talondriver.getRightY(), m_drivetrainTalons));
-
-    // Sets up pneumatics and solenoids
-    m_climber = new Climber();
-
-    // Sets up the control panel
-    // new ControlPanel(m_climber, m_drivetrainSparks, m_drivetrainTalons);
-
-    // Sets up Color Sensor
-    // new ColorDetection();
-
+    SmartDashboard.putData(CommandScheduler.getInstance());
     configureButtonBindings();
   }
 
@@ -65,9 +41,8 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    // Add button for each controller to toggle solenoid
-    // new JoystickButton(m_sparkdriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
-    new JoystickButton(m_talondriver, Button.kY.value).whenPressed(new toggleSolenoid(m_climber));
+    new JoystickButton(m_driver, Button.kA.value).onTrue(new RunMotor(m_Motor, 0));
+    new JoystickButton(m_driver, Button.kB.value).onTrue(new StopMotor(m_Motor));
   }
 
   /**

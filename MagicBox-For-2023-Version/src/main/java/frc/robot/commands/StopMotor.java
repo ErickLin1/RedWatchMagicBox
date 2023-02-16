@@ -5,24 +5,21 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.OneMotor;
 
-public class toggleSolenoid extends CommandBase {
-  /** Creates a new toggleSolenoid. */
-
-  private final Climber m_climber;
-
-  public toggleSolenoid(Climber subsystem) {
-    m_climber = subsystem;
-
+public class StopMotor extends CommandBase {
+  /** Creates a new StopMotor. */
+  private final OneMotor m_Motor;
+  public StopMotor(OneMotor oneMotor) {
+    m_Motor = oneMotor;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_climber);
+    addRequirements(m_Motor);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_climber.toggleSolenoid();
+    m_Motor.setSpeed(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
