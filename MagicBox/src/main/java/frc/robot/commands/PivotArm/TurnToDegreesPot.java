@@ -7,13 +7,13 @@ package frc.robot.commands.PivotArm;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.PivotArm;
 
-public class turnToDegrees extends CommandBase {
+public class TurnToDegreesPot extends CommandBase {
   /** Creates a new turnToDegrees. */
   private final PivotArm m_pivotArm;
   private double m_encoderTicks;
   private double m_degrees;
 
-  public turnToDegrees(PivotArm pivotArm, double degrees) {
+  public TurnToDegreesPot(PivotArm pivotArm, double degrees) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_pivotArm = pivotArm;
     m_degrees = degrees;
@@ -38,13 +38,14 @@ public class turnToDegrees extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    m_pivotArm.m_pivot.set(0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Math.abs(m_pivotArm.getDegrees() - m_degrees) < 3);
+    if (m_pivotArm.getDegrees() == m_encoderTicks - m_degrees)
+      return true;
+    
+    return false;
   }
 }
