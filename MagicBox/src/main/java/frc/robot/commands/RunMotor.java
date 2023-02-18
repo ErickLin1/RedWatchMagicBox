@@ -4,30 +4,24 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.Gripper;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import static frc.robot.Constants.GripperConstants.*;
+import frc.robot.subsystems.OneMotor;
 
-public class EjectItem extends CommandBase {
-
-  private final Gripper m_gripper;
-
-  /** Creates a new EjectItem. */
-  public EjectItem(Gripper gripper) {
-    m_gripper = gripper;
-
-addRequirements(gripper);
+public class RunMotor extends CommandBase {
+  /** Creates a new RunMotor. */
+  private final OneMotor m_Motor;
+  double m_speed;
+  public RunMotor(OneMotor oneMotor, double speed) {
+    m_Motor = oneMotor;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(m_Motor);
+    m_speed = speed;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (Gripper.m_gripper_direction != "eject")
-      m_gripper.ejectGripper();
-    
-    else
-      m_gripper.stopGripper();
+    m_Motor.setSpeed(m_speed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -36,13 +30,11 @@ addRequirements(gripper);
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    m_gripper.stopGripper();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
