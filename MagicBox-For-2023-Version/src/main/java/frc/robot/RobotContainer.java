@@ -28,7 +28,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    m_Motor = new OneMotor(8);
+    m_Motor = new OneMotor(2);
 
     SmartDashboard.putData(CommandScheduler.getInstance());
     configureButtonBindings();
@@ -41,7 +41,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(m_driver, Button.kA.value).onTrue(new RunMotor(m_Motor, 0));
+    new JoystickButton(m_driver, Button.kA.value).onTrue(new RunMotor(m_Motor, 0.2));
     new JoystickButton(m_driver, Button.kB.value).onTrue(new StopMotor(m_Motor));
   }
 
