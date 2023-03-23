@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.Constants.LightConstants.*;
 
@@ -19,10 +20,10 @@ public class Lights extends SubsystemBase {
   public final CANdle m_candle;
   private final int Ledcount = 86;
   
-  public int R;
-  public int G;
-  public int B;
-  public String current_animation;
+  public double R;
+  public double G;
+  public double B;
+  public static String current_animation;
 
   public Lights() {
     CANdleConfiguration LEDConfig = new CANdleConfiguration();
@@ -35,15 +36,18 @@ public class Lights extends SubsystemBase {
     m_candle.configAllSettings(LEDConfig, 100);
     setDefault();
     resetLights();
+    SmartDashboard.putNumber("Red Val", R);
+    SmartDashboard.putNumber("Green Val", G);
+    SmartDashboard.putNumber("Blue Val", B);
   }
 
   // Sets lights to default animation
   public void setDefault(){
-    m_candle.animate(new LarsonAnimation(225, 0, 0, 0, 0.05, Ledcount, BounceMode.Front, 50));
+    m_candle.animate(new LarsonAnimation(225, 0, 0, 0, 0.01, Ledcount, BounceMode.Front, 50));
     R = 225;
     G = 0;
     B = 0;
-    current_animation = "Larson";
+    current_animation = "Default";
   }
 
   // Disables lights colors
@@ -97,13 +101,16 @@ public class Lights extends SubsystemBase {
   
   // Sets lights to given RGB value
   public void setGiven(double RED, double GREEN, double BLUE) {
-    m_candle.setLEDs((int) RED, (int) GREEN, (int) BLUE);
+    m_candle.animate(null);
+    m_candle.setLEDs((int) RED, (int) GREEN, (int) BLUE, 0, 0, Ledcount);
     R = (int) RED;
     G = (int) GREEN;
     B = (int) BLUE;
     current_animation = "None";
   }
-
+  public void setToValue(){
+    m_candle.setLEDs((int)R, (int)G, (int)B);
+  }
   // Animates lights to Rainbow
   public void partyMode(){
     m_candle.animate(new RainbowAnimation(1, 1, Ledcount));
@@ -130,5 +137,8 @@ public class Lights extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    R = SmartDashboard.getNumber("Red Val", R);
+    B = SmartDashboard.getNumber("Green Val", G);
+    G = SmartDashboard.getNumber("Blue Val", B);
   }
 }

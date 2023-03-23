@@ -7,7 +7,7 @@ package frc.robot.commands.Auto;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.AutoBalancing.AutoBalancePID;
-import frc.robot.commands.MultSubsystem.AutoForwardPID;
+import frc.robot.commands.MultiSubsystem.AutoForwardPID;
 import frc.robot.commands.PivotArm.PivotPID;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Gripper;

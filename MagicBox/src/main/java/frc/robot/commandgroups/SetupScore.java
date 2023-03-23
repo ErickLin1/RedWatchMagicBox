@@ -5,7 +5,7 @@
 package frc.robot.commandgroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.MultSubsystem.ArmOut;
+import frc.robot.commands.MultiSubsystem.ArmOut;
 import frc.robot.subsystems.PivotArm;
 import frc.robot.subsystems.TelescopingArm;
 

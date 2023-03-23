@@ -2,20 +2,20 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.MultSubsystem;
+package frc.robot.commands.MultiSubsystem;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Gripper;
+import frc.robot.subsystems.PivotArm;
+import frc.robot.subsystems.TelescopingArm;
 
-public class TankDrive extends CommandBase {
-  /** Creates a new TankDrive. */
-  private final Drivetrain m_drivetrain;
-  private final double m_power;
-  public TankDrive(Drivetrain drivetrain, double power) {
-    m_drivetrain = drivetrain;
-    m_power = power;
+public class Meltdown extends CommandBase {
+  /** Creates a new Meltdown. */
+
+  public Meltdown(Drivetrain drivetrain, Gripper gripper, PivotArm pivotarm, TelescopingArm telescopingarm) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_drivetrain);
+  addRequirements(drivetrain, gripper, pivotarm, telescopingarm);
   }
 
   // Called when the command is initially scheduled.
@@ -25,7 +25,8 @@ public class TankDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drivetrain.tankDrive(m_power, m_power, isFinished());
+    
+
   }
 
   // Called once the command ends or is interrupted.

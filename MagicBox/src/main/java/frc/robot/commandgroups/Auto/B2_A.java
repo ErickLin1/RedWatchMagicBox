@@ -7,8 +7,8 @@ package frc.robot.commandgroups.Auto;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commandgroups.BalanceFromDistance;
 import frc.robot.commandgroups.IntakeCone;
-import frc.robot.commands.MultSubsystem.AutoForwardPID;
-import frc.robot.commands.MultSubsystem.TurnInPlace;
+import frc.robot.commands.MultiSubsystem.AutoForwardPID;
+import frc.robot.commands.MultiSubsystem.TurnInPlace;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Gripper;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more

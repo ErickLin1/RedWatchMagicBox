@@ -6,7 +6,7 @@ package frc.robot.commandgroups.Auto;
 
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.MultSubsystem.curvatureDrive;
+import frc.robot.commands.MultiSubsystem.curvatureDrive;
 import frc.robot.subsystems.Drivetrain;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more

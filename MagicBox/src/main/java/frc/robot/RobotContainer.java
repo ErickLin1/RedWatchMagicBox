@@ -37,9 +37,9 @@ import frc.robot.commandgroups.Auto.TwoPieceAuto;
 import frc.robot.commands.Gripper.EjectItem;
 import frc.robot.commands.Gripper.StopGripper;
 import frc.robot.commands.Lights.animateCandle;
-import frc.robot.commands.MultSubsystem.ChangeGear;
-import frc.robot.commands.MultSubsystem.Meltdown;
-import frc.robot.commands.MultSubsystem.curvatureDrive;
+import frc.robot.commands.MultiSubsystem.ChangeGear;
+import frc.robot.commands.MultiSubsystem.Meltdown;
+import frc.robot.commands.MultiSubsystem.curvatureDrive;
 import frc.robot.commands.TelescopingArm.ArmControl;
 import frc.robot.commands.Vision.AprilTagMode;
 import frc.robot.commands.PivotArm.armJoint;
@@ -130,7 +130,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {    
     //Testing Button (try cmds on me! NO OTHER BUTTONS PLS!) 
-    new JoystickButton(m_driver, Button.kA.value).onTrue(new TwoPieceAuto(m_drivetrain, m_gripper, m_arm, m_PinkArm, m_Vision));
+    // new JoystickButton(m_driver, Button.kA.value).onTrue(new TwoPieceAuto(m_drivetrain, m_gripper, m_arm, m_PinkArm, m_Vision));
     // new JoystickButton(m_driver, Button.kA.value).onTrue(new BackwardTime(m_drivetrain, 0.5));
     // new JoystickButton(m_driver, Button.kA.value).onTrue(new ScoreLowTaxiBalance(m_drivetrain, m_gripper, m_PinkArm, m_arm));
       //  new JoystickButton(m_driver, Button.kA.value).whileTrue(new TurnInPlacePID(170, m_drivetrain));

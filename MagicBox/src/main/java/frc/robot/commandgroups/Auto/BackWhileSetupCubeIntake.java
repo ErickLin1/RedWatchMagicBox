@@ -6,7 +6,7 @@ package frc.robot.commandgroups.Auto;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.commandgroups.SetupScore;
-import frc.robot.commands.MultSubsystem.AutoForwardPID;
+import frc.robot.commands.MultiSubsystem.AutoForwardPID;
 import frc.robot.Constants.TelescopingConstants;
 import frc.robot.Constants.pinkArmConstants;
 import frc.robot.subsystems.Drivetrain;
