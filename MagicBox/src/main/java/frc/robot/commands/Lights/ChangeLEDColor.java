@@ -10,12 +10,12 @@ import frc.robot.subsystems.Lights;
 
 public class ChangeLEDColor extends CommandBase {
   private final Lights m_light;
-  private final int m_R;
-  private final int m_G;
-  private final int m_B;
+  private final double m_R;
+  private final double m_G;
+  private final double m_B;
 
   /** Creates a new ChangeLEDColor. */
-  public ChangeLEDColor(Lights light, int R, int G, int B) {
+  public ChangeLEDColor(Lights light, double R, double G, double B) {
     // Use addRequirements() here to declare subsystem dependencies.
       m_light = light;
       m_R = R;

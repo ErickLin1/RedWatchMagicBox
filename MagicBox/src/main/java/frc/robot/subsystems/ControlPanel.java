@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import frc.robot.commands.Lights.ChangeLEDColor;
+
 import static frc.robot.Constants.ControlPanelConstants;
 import static frc.robot.Constants.LightConstants;
 
@@ -83,7 +85,7 @@ public class ControlPanel extends SubsystemBase {
     setLightColor_R = m_lightsStatus.add("Light Input R", LightConstants.kDefaultColor).getEntry();
     setLightColor_G = m_lightsStatus.add("Light Input G", LightConstants.kDefaultColor).getEntry();
     setLightColor_B = m_lightsStatus.add("Light Input B", LightConstants.kDefaultColor).getEntry();
-    // m_lightsStatus.add(new ChangeColor(m_lights, setLightColor.get().getDouble()));
+    m_lightsStatus.add(new ChangeLEDColor(m_lights, setLightColor_R.get().getDouble(), setLightColor_G.get().getDouble(), setLightColor_B.get().getDouble()));
 
     m_gripperStatus.addString("Gripper Mode", () -> Gripper.m_gripper_direction);
     // m_gripperStatus.addNumber("R", () -> m_gripper.m_detectedColor.red);

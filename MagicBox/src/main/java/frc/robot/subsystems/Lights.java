@@ -96,11 +96,11 @@ public class Lights extends SubsystemBase {
   }
   
   // Sets lights to given RGB value
-  public void setGiven(int RED, int GREEN, int BLUE) {
-    m_candle.setLEDs(RED, GREEN, BLUE);
-    R = RED;
-    G = GREEN;
-    B = BLUE;
+  public void setGiven(double RED, double GREEN, double BLUE) {
+    m_candle.setLEDs((int) RED, (int) GREEN, (int) BLUE);
+    R = (int) RED;
+    G = (int) GREEN;
+    B = (int) BLUE;
     current_animation = "None";
   }
 
