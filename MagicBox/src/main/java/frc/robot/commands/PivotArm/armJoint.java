@@ -2,9 +2,11 @@ package frc.robot.commands.PivotArm;
 
 import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.pinkArmConstants;
 import frc.robot.subsystems.PivotArm;
 
 public class armJoint extends CommandBase{
+    private double JoystickLimiter = 0.15;
     private final PivotArm m_pinkArm;
     private final DoubleSupplier m_rightStick;
 
@@ -24,28 +26,43 @@ public class armJoint extends CommandBase{
     @Override 
     public void initialize(){
         //Stops the motor when intialized
-        m_pinkArm.m_pivot.stopMotor();
+         m_pinkArm.m_pivot.stopMotor();
+         m_pinkArm.m_pivot2.stopMotor();
         //Sets the pivot encoder position to zero when initialized
-        m_pinkArm.encoderReset(m_pinkArm.m_pivotEncoder);  
+        // m_pinkArm.encoderReset(m_pinkArm.m_pivotEncoder);  
 
     }
 
     @Override
     public void execute(){
-        if ((m_rightStick.getAsDouble() <= -0.85) &&( m_pinkArm.m_pivotEncoder.getPosition() <= 75)){
-            m_pinkArm.turnMotor(m_pinkArm.m_pivot, false);
+
+        if (Math.abs(m_rightStick.getAsDouble()) <= JoystickLimiter){
+            m_pinkArm.m_pivot.set(0);
+            m_pinkArm.m_pivot2.set(0);
+        }else{
+            m_pinkArm.turnMotor(m_rightStick.getAsDouble()*pinkArmConstants.kPivotArmSpeed);
+        }
+
+/*
+        if ((m_rightStick.getAsDouble() <= -0.85)) {// &&( m_pinkArm.m_pivotEncoder.getPosition() <= 85)){
+            m_pinkArm.turnMotor(-pinkArmConstants.kPivotArmSpeed);
 
         }
-        else if ((m_rightStick.getAsDouble() >= 0.85) &&( m_pinkArm.m_pivotEncoder.getPosition() <= 40)) {
-          m_pinkArm.turnMotor(m_pinkArm.m_pivot, false);
+        else if (m_rightStick.getAsDouble() >= 0.85) {//) &&( m_pinkArm.m_pivotEncoder.getPosition() >= 40)) {
+          m_pinkArm.turnMotor(pinkArmConstants.kPivotArmSpeed);
+
         }
         else {
-            m_pinkArm.m_pivot.set(0);
-        }
+             m_pinkArm.m_pivot.set(0);
+             m_pinkArm.m_pivot2.set(0);
+
+        }*/
     }
     @Override 
     public void end(boolean interrupted){
-        m_pinkArm.m_pivot.stopMotor();
+          m_pinkArm.m_pivot.stopMotor();
+          m_pinkArm.m_pivot2.stopMotor();
+
     }
 
      @Override

@@ -5,22 +5,20 @@
 package frc.robot.commandgroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.Gripper.*;
-import frc.robot.subsystems.Gripper;
+import frc.robot.subsystems.PivotArm;
+import frc.robot.subsystems.TelescopingArm;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Intake extends SequentialCommandGroup {
-  /** Creates a new Intake. */
-  public final Gripper m_gripper;
-  public Intake(Gripper gripper) {
-    m_gripper = gripper;
+public class IntakePos extends SequentialCommandGroup {
+  /** Creates a new IntakePos. */
+  public IntakePos(PivotArm pivotArm, TelescopingArm telescopingArm, double angle, double distance) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new RunIntake(m_gripper),
-      new IntakeItem(m_gripper)
+      (pivotArm.getAngle() > 55 ? new SetupScore(pivotArm, telescopingArm, 55, distance) : null),
+      new SetupScore(pivotArm, telescopingArm, angle, distance)
     );
   }
 }

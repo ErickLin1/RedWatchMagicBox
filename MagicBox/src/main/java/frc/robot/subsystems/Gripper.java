@@ -5,13 +5,11 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.PicoColorSensor;
+import frc.robot.Constants;
 import static frc.robot.Constants.GripperConstants.*;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-
-import frc.robot.PicoColorSensor.RawColor;
 
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -25,12 +23,12 @@ public class Gripper extends SubsystemBase {
   private final RelativeEncoder m_leftEncoder;
   private final RelativeEncoder m_rightEncoder;
 
-  // Initializes color sensor
-  private final PicoColorSensor m_colorSensor;
+  // // Initializes color sensor
+  // private final PicoColorSensor m_colorSensor;
 
-  // Variable to store the detected color and the distance from an object from color sensor
-  public RawColor m_detectedColor;
-  public int m_proximity;
+  // // Variable to store the detected color and the distance from an object from color sensor
+  // public RawColor m_detectedColor;
+  // public int m_proximity;
 
   // Direction of the gripper (intake, eject, none)
   public static String m_gripper_direction;
@@ -47,6 +45,9 @@ public class Gripper extends SubsystemBase {
 
     m_gripperLeftMotor.setIdleMode(IdleMode.kBrake);
     m_gripperRightMotor.setIdleMode(IdleMode.kBrake);
+    // set current limits
+    m_gripperRightMotor.setSmartCurrentLimit(Constants.GripperConstants.STALL_LIMIT);
+    m_gripperLeftMotor.setSmartCurrentLimit(Constants.GripperConstants.STALL_LIMIT);
 
     m_leftEncoder = m_gripperLeftMotor.getEncoder();
     m_rightEncoder = m_gripperRightMotor.getEncoder();
@@ -57,11 +58,11 @@ public class Gripper extends SubsystemBase {
     m_gripper_direction = "none";
 
     // Sets color sensor
-    m_colorSensor = new PicoColorSensor();
+    // m_colorSensor = new PicoColorSensor();
 
-    // Get color and distance of an object from the color sensor
-    m_detectedColor = m_colorSensor.getRawColor0();
-    m_proximity = m_colorSensor.getProximity0();
+    // // Get color and distance of an object from the color sensor
+    // m_detectedColor = m_colorSensor.getRawColor0();
+    // m_proximity = m_colorSensor.getProximity0();
   }
 
   private void encoderInit(RelativeEncoder encoder) {
@@ -74,22 +75,24 @@ public class Gripper extends SubsystemBase {
   
   // Get average encoder velocity
   public double getVelocity() {
-    return (Math.abs(m_gripperLeftMotor.getEncoder().getVelocity()) + Math.abs(m_gripperRightMotor.getEncoder().getVelocity())) / 2;
+    return (Math.abs((m_gripperRightMotor.getEncoder().getVelocity())));
   }
 
   // Checks if object in gripper is purple
   public boolean isPurple() {
-    return m_detectedColor.green > m_detectedColor.blue && m_proximity >= 80;
+    return true;
+    // return m_detectedColor.green > m_detectedColor.blue && m_proximity >= 80;
   }
 
   // Checks if object in gripper is yellow
   public boolean isYellow() {
-    return m_detectedColor.blue > m_detectedColor.green && m_detectedColor.blue - m_detectedColor.green >= 200 && m_proximity < 120 && m_proximity > 30;
+    return false;
+    // return m_detectedColor.blue > m_detectedColor.green && m_detectedColor.blue - m_detectedColor.green >= 200 && m_proximity < 120 && m_proximity > 30;
   }
 
   // Runs gripper motors based on speed
   public void runGripper(double speed) {
-    m_gripperLeftMotor.set(-speed);
+    m_gripperLeftMotor.set(-speed-.1);
     m_gripperRightMotor.set(speed);
   }
 
@@ -101,15 +104,22 @@ public class Gripper extends SubsystemBase {
   }
 
   // Runs gripper motors to intake an object
-  public void intakeGripper() {
+  public void intakeCone() {
     m_gripper_direction = "intake";
-    runGripper(kGripperIntakeMotorSpeed);
+    runGripper(kGripperIntakeMotorSpeedCone);
   }
 
+ // Runs gripper motors to intake an object
+ public void intakeCube() {
+  m_gripper_direction = "intake";
+  runGripper(kGripperIntakeMotorSpeedCube);
+}
+
+
   // Runs gripper motors to eject an object
-  public void ejectGripper() {
+  public void ejectGripper(double speed) {
     m_gripper_direction = "eject";
-    runGripper(kGripperEjectMotorSpeed);
+    runGripper(speed);
   }
 
   // Sets up settings for gripper motors
@@ -122,7 +132,7 @@ public class Gripper extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    m_detectedColor = m_colorSensor.getRawColor0();
-    m_proximity = m_colorSensor.getProximity0();
+    // m_detectedColor = m_colorSensor.getRawColor0();
+    // m_proximity = m_colorSensor.getProximity0();
   }
 }

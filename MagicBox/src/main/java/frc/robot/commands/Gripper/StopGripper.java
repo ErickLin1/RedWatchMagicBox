@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Gripper;
 
 public class StopGripper extends CommandBase {
-  public final Gripper m_gripper;
   /** Creates a new StopGripper. */
+  public final Gripper m_gripper;
   public StopGripper(Gripper gripper) {
-    // Use addRequirements() here to declare subsystem dependencies.
     m_gripper = gripper;
-    addRequirements(gripper);
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(m_gripper);
   }
 
   // Called when the command is initially scheduled.
@@ -24,15 +24,19 @@ public class StopGripper extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    m_gripper.stopGripper();
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_gripper.stopGripper();
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

@@ -4,9 +4,9 @@
 
 package frc.robot.commandgroups;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.TelescopingArm.ExtendVal;
-import frc.robot.commands.PivotArm.turnToDegrees;
+import frc.robot.commands.PivotArm.PivotPID;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.PivotArm;
 import frc.robot.subsystems.TelescopingArm;
@@ -14,7 +14,7 @@ import frc.robot.subsystems.TelescopingArm;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoScoreSetup extends ParallelCommandGroup {
+public class AutoScoreSetup extends SequentialCommandGroup {
 
   public final PivotArm m_pivotArm;
   public final TelescopingArm m_telescopingArm;
@@ -33,7 +33,7 @@ public class AutoScoreSetup extends ParallelCommandGroup {
     m_dist = dist;
 
     addCommands(
-      new turnToDegrees(m_pivotArm, m_angle),
+      new PivotPID(m_pivotArm, m_angle),
       new ExtendVal(m_dist, m_telescopingArm)
     );
   }

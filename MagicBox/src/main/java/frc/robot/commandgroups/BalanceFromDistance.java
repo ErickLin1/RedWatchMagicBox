@@ -11,8 +11,9 @@
 package frc.robot.commandgroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.Drivetrain.AutoForwardPID;
 import frc.robot.commands.AutoBalancing.ForwardUntilTilted;
+import frc.robot.commands.MultSubsystem.AutoForwardPID;
+import frc.robot.commands.MultSubsystem.ResetPosition;
 import frc.robot.subsystems.Drivetrain;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -21,8 +22,8 @@ import frc.robot.subsystems.Drivetrain;
 public class BalanceFromDistance extends SequentialCommandGroup {
   /** Creates a new BalanceFromDistance. */
   public final Drivetrain m_drivetrain;
-  private double drivePower = 0.6; // speed for driving a constant velocity
-  private double distance = 55; // distance to travel whie going a constant velocity
+  private double drivePower = 0.4; // speed for driving a constant velocity
+  private double distance = 32; // distance to travel whie going a constant velocity
   public BalanceFromDistance(Drivetrain drivetrain, boolean backwards) {
     m_drivetrain = drivetrain;
     if (backwards) {
@@ -33,9 +34,10 @@ public class BalanceFromDistance extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ForwardUntilTilted(m_drivetrain, drivePower),
-      new AutoForwardPID(distance, m_drivetrain),
-     // new WaitCommand(0.2),
-      new AutoBalance_x6(drivetrain)
+      new ResetPosition(m_drivetrain),
+      new AutoForwardPID(distance, m_drivetrain)
+    //  new WaitCommand(0.2),
+    //  new AutoBalance_x6(drivetrain)
     );
   }
 }

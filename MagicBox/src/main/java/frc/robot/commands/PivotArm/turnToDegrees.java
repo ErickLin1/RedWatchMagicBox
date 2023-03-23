@@ -5,12 +5,13 @@
 package frc.robot.commands.PivotArm;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.pinkArmConstants;
 import frc.robot.subsystems.PivotArm;
 
 public class turnToDegrees extends CommandBase {
   /** Creates a new turnToDegrees. */
   private final PivotArm m_pivotArm;
-  private double m_encoderTicks;
+  private double m_angle;
   private double m_degrees;
 
   public turnToDegrees(PivotArm pivotArm, double degrees) {
@@ -25,25 +26,29 @@ public class turnToDegrees extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_encoderTicks = m_pivotArm.m_pivotEncoder.getPosition();
-
-    m_pivotArm.m_pivot.set(m_encoderTicks -  m_degrees > 0 ? 0.1 : -0.1);
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    m_angle = m_pivotArm.getAngle();
 
+    m_pivotArm.m_pivot.set(m_angle > m_degrees ? pinkArmConstants.kPivotArmSpeed : -pinkArmConstants.kPivotArmSpeed);
+    m_pivotArm.m_pivot2.set(m_angle >  m_degrees ? pinkArmConstants.kPivotArmSpeed : -pinkArmConstants.kPivotArmSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_pivotArm.m_pivot.set(0);
+    m_pivotArm.m_pivot2.set(0);
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (m_pivotArm.m_pivotEncoder.getPosition() == m_encoderTicks - m_degrees)
+    if (Math.abs(m_angle - m_degrees) < 1)
       return true;
     
     return false;
