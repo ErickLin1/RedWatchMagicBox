@@ -23,7 +23,7 @@ public class ControlPanel extends SubsystemBase {
 
   private final ShuffleboardTab m_controlpanelTab;
 
-  // private final ShuffleboardLayout m_drivetrainStatus;
+  private final ShuffleboardLayout m_drivetrainStatus;
   private final ShuffleboardLayout m_gripperStatus;
   private final ShuffleboardLayout m_lightsStatus;
   private final ShuffleboardLayout m_pivotArmStatus;
@@ -33,7 +33,7 @@ public class ControlPanel extends SubsystemBase {
   private final GenericEntry setLightColor_G;
   private final GenericEntry setLightColor_B;
 
-  // private final Drivetrain m_drivetrain;
+  private final Drivetrain m_drivetrain;
   private final Gripper m_gripper;
   private final Lights m_lights;
   private final PivotArm m_pivotArm;
@@ -41,7 +41,7 @@ public class ControlPanel extends SubsystemBase {
 
   /** Creates a new ControlPanel. */
   public ControlPanel(Drivetrain drivetrain, Gripper gripper, Lights lights, PivotArm pivotArm, TelescopingArm telescopingArm) {
-    // m_drivetrain = drivetrain;
+    m_drivetrain = drivetrain;
     m_gripper = gripper;
     m_lights = lights;
     m_pivotArm = pivotArm;
@@ -49,10 +49,10 @@ public class ControlPanel extends SubsystemBase {
 
     m_controlpanelTab = Shuffleboard.getTab(ControlPanelConstants.kShuffleboardTab);
 
-    // m_drivetrainStatus = m_controlpanelTab.getLayout("Drivetrain Status", BuiltInLayouts.kList)
-    //   .withProperties(Map.of("Label position", "TOP"))
-    //   .withPosition(0, 0)
-    //   .withSize(2, 4);
+    m_drivetrainStatus = m_controlpanelTab.getLayout("Drivetrain Status", BuiltInLayouts.kList)
+      .withProperties(Map.of("Label position", "TOP"))
+      .withPosition(0, 0)
+      .withSize(2, 4);
       
     m_gripperStatus = m_controlpanelTab.getLayout("Gripper Status", BuiltInLayouts.kList)
       .withProperties(Map.of("Label position", "TOP"))
@@ -74,11 +74,11 @@ public class ControlPanel extends SubsystemBase {
       .withPosition(10, 0)
       .withSize(1, 2);
 
-    // m_drivetrainStatus.addNumber("Average Speed", () -> m_drivetrain.getAverageSpeed()); // How fast the robot is
-    // m_drivetrainStatus.addNumber("Left Position", () -> m_drivetrain.getLeftDistance()); // How far the robot is
-    // m_drivetrainStatus.addNumber("Right Position", () -> m_drivetrain.getRightDistance());
-    // m_drivetrainStatus.addNumber("Pitch", () -> m_drivetrain.getPitch()); // Pitch of robot
-    // m_drivetrainStatus.addNumber("Yaw", () -> m_drivetrain.getYaw());
+    m_drivetrainStatus.addNumber("Average Speed", () -> m_drivetrain.getAverageSpeed()); // How fast the robot is
+    m_drivetrainStatus.addNumber("Left Position", () -> m_drivetrain.getLeftDistance()); // How far the robot is
+    m_drivetrainStatus.addNumber("Right Position", () -> m_drivetrain.getRightDistance());
+    m_drivetrainStatus.addNumber("Pitch", () -> m_drivetrain.getPitch()); // Pitch of robot
+    m_drivetrainStatus.addNumber("Yaw", () -> m_drivetrain.getYaw());
 
     m_lightsStatus.addString("LED Mode", () -> Lights.current_animation);
     // m_lightsStatus.addNumber("R", () -> Lights.R);
