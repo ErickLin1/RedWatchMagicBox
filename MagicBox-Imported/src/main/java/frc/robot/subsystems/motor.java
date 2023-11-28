@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 
 public class motor extends SubsystemBase {
@@ -23,8 +24,8 @@ public class motor extends SubsystemBase {
   public final AnalogPotentiometer pot = new AnalogPotentiometer(0, 180, 30);
 
   // Constructor
-  public motor (int ID) {
-    m_motor = new com.revrobotics.CANSparkMax(ID, MotorType.kBrushless);
+  public motor () {
+    m_motor = new com.revrobotics.CANSparkMax(Constants.kMotorPort, MotorType.kBrushless);
     m_motor.restoreFactoryDefaults();
     m_motor.setIdleMode(IdleMode.kBrake);
     m_motor.setSmartCurrentLimit(45);
@@ -41,7 +42,7 @@ public class motor extends SubsystemBase {
   public void stopMotor() {
     m_motor.set(0);
   }
-
+  //hehehehaw
   public double getSpeed() {
     return m_encoder.getVelocity();
   }
