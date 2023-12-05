@@ -6,13 +6,16 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import frc.robot.commands.ArmMovement;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.PotExtend;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.motor;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -46,7 +49,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-
+    new JoystickButton(controller1, Button.kA.value).onTrue(new PotExtend(15, m_Arm));
   }
 
 
