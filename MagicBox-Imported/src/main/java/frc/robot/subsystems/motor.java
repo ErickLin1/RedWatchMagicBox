@@ -42,7 +42,7 @@ public class motor extends SubsystemBase {
   public void stopMotor() {
     m_motor.set(0);
   }
-  //hehehehaw
+  //
   public double getSpeed() {
     return m_encoder.getVelocity();
   }
