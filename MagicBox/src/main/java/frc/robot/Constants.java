@@ -101,4 +101,10 @@ public final class Constants {
         public static final double kGripperEjectMotorSpeed = -0.20;
         
     }
+
+    public static class ProximitySensor24Constants {
+        public static final double kAmpDistance = 999;
+
+    }
+
 }
