@@ -7,27 +7,14 @@ package frc.robot.subsystems;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 
-import java.util.Map;
-
 // import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import edu.wpi.first.networktables.GenericEntry;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.commands.RunMotor;
 
 public class OneMotor extends SubsystemBase {
   /** Creates a new OneMotor. */
 
-  private final GenericEntry setMotorEncoder;
-  private final ShuffleboardTab m_controlpanelTab;
-
-  private final ShuffleboardLayout m_motorStatus;
   public final com.revrobotics.CANSparkMax m_motor;
   public final RelativeEncoder m_encoder;
 
@@ -39,16 +26,7 @@ public class OneMotor extends SubsystemBase {
 
     m_encoder = m_motor.getEncoder();
     m_encoder.setPosition(0);
-    m_controlpanelTab = Shuffleboard.getTab("Control Panel");
 
-    m_motorStatus = m_controlpanelTab.getLayout("Motor Status", BuiltInLayouts.kList)
-      .withProperties(Map.of("Label position", "TOP"))
-      .withPosition(0, 0)
-      .withSize(2, 4);
-      
-    m_motorStatus.addNumber("Motor Speed", () -> getSpeed()); // Angle of shooter
-    setMotorEncoder = m_motorStatus.add("Set Motor Speed", getSpeed()).getEntry();
-    m_motorStatus.add(new RunMotor(this, setMotorEncoder.get().getDouble()));  
 
 
   }
