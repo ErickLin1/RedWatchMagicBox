@@ -36,7 +36,8 @@ public class ControlPanel extends SubsystemBase {
       
     m_motorStatus.addNumber("Motor Speed", () -> m_onemotor.getSpeed()); // Angle of shooter
     setMotorEncoder = m_motorStatus.add("Set Motor Speed", m_onemotor.getSpeed()).getEntry();
-    m_motorStatus.add(runOnce(()->{onemotor.setSpeed(setMotorEncoder.get().getDouble());}));   
+    m_motorStatus.add("Run at Speed", runOnce(()->{onemotor.setSpeed(setMotorEncoder.get().getDouble());}));   
+    m_motorStatus.add("STOP", runOnce(()->{onemotor.stopMotor();}));   
     
     
   }

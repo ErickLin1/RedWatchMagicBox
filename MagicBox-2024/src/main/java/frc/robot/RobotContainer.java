@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.RunMotor;
 import frc.robot.commands.StopMotor;
+import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.OneMotor;
 
 /**
@@ -25,10 +26,12 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final XboxController m_driver = new XboxController(1);
   private final OneMotor m_Motor;
+  private final ControlPanel m_controlpanel;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     m_Motor = new OneMotor(9);
+    m_controlpanel = new ControlPanel(m_Motor);
 
     SmartDashboard.putData(CommandScheduler.getInstance());
     configureButtonBindings();
