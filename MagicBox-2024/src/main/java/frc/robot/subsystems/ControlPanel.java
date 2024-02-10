@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 import java.util.Map;
 
@@ -21,6 +22,7 @@ public class ControlPanel extends SubsystemBase {
 
 
   private final GenericEntry setMotorEncoder;
+  private final GenericEntry setCanid;
 
   private final ShuffleboardLayout m_motorStatus;
   /** Creates a new ControlPanel. */
@@ -32,12 +34,14 @@ public class ControlPanel extends SubsystemBase {
     m_motorStatus = m_controlpanelTab.getLayout("Motor Status", BuiltInLayouts.kList)
       .withProperties(Map.of("Label position", "TOP"))
       .withPosition(0, 0)
-      .withSize(2, 4);
+      .withSize(2, 6);
       
     m_motorStatus.addNumber("Motor Speed", () -> m_onemotor.getSpeed()); // Angle of shooter
     setMotorEncoder = m_motorStatus.add("Set Motor Speed", m_onemotor.getSpeed()).getEntry();
     m_motorStatus.add("Run at Speed", runOnce(()->{onemotor.setSpeed(setMotorEncoder.get().getDouble());}));   
-    m_motorStatus.add("STOP", runOnce(()->{onemotor.stopMotor();}));   
+    m_motorStatus.add("STOP", runOnce(()->{onemotor.stopMotor();}));  
+    setCanid = m_motorStatus.add("CAN ID", Constants.canID).getEntry();
+    m_motorStatus.add("Set CANID", runOnce(()->{Constants.canID = (int) setCanid.get().getInteger();}));   
     
     
   }

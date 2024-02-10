@@ -30,7 +30,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    m_Motor = new OneMotor(9);
+    m_Motor = new OneMotor(Constants.canID);
     m_controlpanel = new ControlPanel(m_Motor);
 
     SmartDashboard.putData(CommandScheduler.getInstance());
