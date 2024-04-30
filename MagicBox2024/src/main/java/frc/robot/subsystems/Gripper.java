@@ -21,10 +21,11 @@ import static frc.robot.Constants.ControlPanelConstants.*;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkBase.IdleMode;
+
 import frc.robot.Constants.BeambreakConstants;
 import frc.robot.PicoColorSensor.RawColor;
 
-import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
