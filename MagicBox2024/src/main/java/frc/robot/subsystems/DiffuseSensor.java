@@ -33,7 +33,7 @@ public class DiffuseSensor extends SubsystemBase {
 
   private void shuffleboardInit() {
     // Proximity to ball
-    m_controlPanelStatus.addNumber("Distance", () -> getDistance());
+    m_controlPanelStatus.addBoolean("Object present:", () -> objectDetected());
 
   }
 
@@ -44,6 +44,6 @@ public class DiffuseSensor extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putBoolean("Object present:", objectPresent());
+    shuffleboardInit();
   }
 }
