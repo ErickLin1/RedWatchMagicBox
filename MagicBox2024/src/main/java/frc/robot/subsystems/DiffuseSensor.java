@@ -15,15 +15,13 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DiffuseSensor extends SubsystemBase {
-  /** Creates a new Ultrasonic2024. */
+  /** Creates a new Diffuse Sensor. */
   DigitalInput dsInput;
   private final ShuffleboardTab m_controlPanelTab;
   private final ShuffleboardLayout m_controlPanelStatus; 
-  // The ultrasonic sensor returns a value proportional to the distance
-  // Here, the ratio of is 20.32mm to 1 volt
 
   public DiffuseSensor() {
-    dsInput = new DigitalInput(0);
+    dsInput = new DigitalInput(99);
 
     m_controlPanelTab = Shuffleboard.getTab("Diffuse Sensor");
     m_controlPanelStatus = m_controlPanelTab.getLayout("Diffuse Sensor", BuiltInLayouts.kList)
@@ -39,15 +37,13 @@ public class DiffuseSensor extends SubsystemBase {
 
   }
 
-  public double getDistance() {
-   // voltage = 2 * (dsInput.getAverageVoltage());
-    //dist = scaleDtoV * voltage;
-    
-    return 0;
+  public boolean objectDetected() {
+    return !dsInput.get();
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putBoolean("Object present:", objectPresent());
   }
 }
